@@ -1,7 +1,7 @@
 <?php
 
 $host = "localhost";
-$dbname = "login";
+$dbname = "student-attendance-management";
 $user = "root";
 $password = "";
 

@@ -276,6 +276,13 @@ if (isset($_POST['logout'])) {
                 </a>
               </li>
               <li class="nav-item">
+                <a href="./enquiriefrom.php" class="nav-link
+                <?php if (strpos($_SERVER['REQUEST_URI'], 'enquiriefrom.php') !== false) {echo "active";}?>">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Enquiries From</p>
+                </a>
+              </li>
+              <li class="nav-item">
                 <a href="./studentfrom.php" class="nav-link
                 <?php if (strpos($_SERVER['REQUEST_URI'], 'studentfrom.php') !== false) {echo "active";}?>">
                   <i class="far fa-circle nav-icon"></i>

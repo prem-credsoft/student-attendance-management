@@ -141,9 +141,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     </div>
                                 </div>
                                 <!-- /.card-body -->
-                                <div class="card-footer">
+                                <div class="">
                                     <button type="submit" class="btn btn-primary">Submit</button>
                                 </div>
+                            </div>
                         </form>
                     </div>
                     <!-- /.card -->

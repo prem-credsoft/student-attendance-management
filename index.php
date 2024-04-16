@@ -1,28 +1,7 @@
 <?php
 session_start();
 include('db.php');
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $username = $_POST['username'];
-    $password = $_POST['password'];
-
-    $query = $db->prepare("SELECT * FROM users WHERE username = :username AND password = :password");
-    $query->execute(['username' => $username, 'password' => $password]);
-    $user = $query->fetch(PDO::FETCH_ASSOC);
-
-    if ($user) {
-        $_SESSION['user_id'] = $user['id'];
-        echo "success";
-        exit();
-    } else {
-        echo "error";
-        exit();
-    }
-}
 ?>
-
-
-<!-- Your existing HTML code for login form goes here -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -113,30 +92,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <!-- AdminLTE App -->
 <script src="./asset/js/adminlte.min.js"></script>
 <!-- Login -->
-<!-- Login -->
 <script>
-    $(document).ready(function() {
-        $('#loginForm').submit(function(event) {
-            event.preventDefault(); // Prevent the form from submitting normally
-            
-            // Get form data
-            var formData = $(this).serialize();
+$(document).ready(function() {
+    $('#loginForm').submit(function(event) {
+        event.preventDefault(); // Prevent the form from submitting normally
+        
+        // Get form data
+        var formData = $(this).serialize();
 
-            // Send AJAX request
-            $.ajax({
-                type: 'POST',
-                url: 'index.php', // Update the URL to point to the correct PHP file handling the login
-                data: formData,
-                success: function(response) {
-                    if (response.trim() === 'success') { // Trim the response to remove whitespace
-                        window.location.href = 'dashboard.php';
-                    } else {
-                        alert('Invalid username or password');
-                    }
+        // Send AJAX request to loginrequest.php
+        $.ajax({
+            type: 'POST',
+            url: 'loginrequest.php',
+            data: formData,
+            success: function(response) {
+                if (response.trim() === 'success') {
+                    window.location.href = 'dashboard.php';
+                } else {
+                    alert('Invalid username or password');
                 }
-            });
+            }
         });
     });
+});
 </script>
 </body>
 </html>
