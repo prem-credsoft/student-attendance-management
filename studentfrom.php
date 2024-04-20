@@ -10,38 +10,26 @@
 
 <?php include ('./header.php'); ?>
 <?php
-include ('./db.php');
+include ('function.php'); // Include the common functions
 
+// Use insertIntoTable function for form submission
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $student_name = $_POST['studentName']; // changed from 'student_name'
-    $batch = $_POST['batch'];
-    $father_name = $_POST['fatherName']; // changed from 'father_name'
-    $mother_name = $_POST['motherName']; // changed from 'mother_name'
-    $dob = $_POST['dob'];
-    $gender = $_POST['gender'];
-    $mobile_number = $_POST['mobileNumber']; // changed from 'mobile_number'
-    $fee_status = $_POST['feeStatus']; // changed from 'fee_status'
-    $admission_time = date('Y-m-d');
-
-    // Prepare SQL query
-    $query = $db->prepare("INSERT INTO studentinfo (student_name, batch, father_name, mother_name, dob, gender, mobile_number, fee_status, admission_time) 
-    VALUES (:student_name, :batch, :father_name, :mother_name, :dob, :gender, :mobile_number, :fee_status, :admission_time)");
-
-    // Bind parameters
-    $query->bindParam(':student_name', $student_name);
-    $query->bindParam(':batch', $batch);
-    $query->bindParam(':father_name', $father_name);
-    $query->bindParam(':mother_name', $mother_name);
-    $query->bindParam(':dob', $dob);
-    $query->bindParam(':gender', $gender);
-    $query->bindParam(':mobile_number', $mobile_number);
-    $query->bindParam(':fee_status', $fee_status);
-    $query->bindParam(':admission_time', $admission_time);
-
-    if ($query->execute()) {
-        echo "<script>alert('Enquiry submitted successfully.');</script>";
+    $data = [
+        'student_name' => $_POST['studentName'],
+        'batch' => $_POST['batch'],
+        'father_name' => $_POST['fatherName'],
+        'mother_name' => $_POST['motherName'],
+        'dob' => $_POST['dob'],
+        'gender' => $_POST['gender'],
+        'mobile_number' => $_POST['mobileNumber'],
+        'fee_status' => $_POST['feeStatus'],
+        'admission_time' => date('Y-m-d'),
+    ];
+    $result = insertIntoTable('studentinfo', $data);
+    if ($result) {
+        echo "<script>alert('Student information submitted successfully.');</script>";
     } else {
-        echo "<script>alert('Failed to submit enquiry.');</script>";
+        echo "<script>alert('Failed to submit student information.');</script>";
     }
 }
 ?>

@@ -33,8 +33,6 @@ if (isset($_POST['logout'])) {
   <link rel="stylesheet" href="./plugins/fontawesome-free/css/all.min.css">
   <!-- Ionicons -->
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-  <!-- Tempusdominus Bootstrap 4 -->
-  <link rel="stylesheet" href="./plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
   <!-- iCheck -->
   <link rel="stylesheet" href="./plugins/icheck-bootstrap/icheck-bootstrap.min.css">
   <!-- JQVMap -->
@@ -45,16 +43,14 @@ if (isset($_POST['logout'])) {
   <link rel="stylesheet" href="./plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
   <!-- Daterange picker -->
   <link rel="stylesheet" href="./plugins/daterangepicker/daterangepicker.css">
-  <!-- summernote -->
-  <link rel="stylesheet" href="./plugins/summernote/summernote-bs4.min.css">
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
 
   <!-- Preloader -->
-  <div class="preloader flex-column justify-content-center align-items-center">
+  <!-- <div class="preloader flex-column justify-content-center align-items-center">
     <img class="animation__shake" src="./asset/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
-  </div>
+  </div> -->
 
   <!-- Navbar -->
   <nav class="main-header navbar navbar-expand navbar-white navbar-light sticky-top">
@@ -121,7 +117,7 @@ if (isset($_POST['logout'])) {
           <a href="#" class="dropdown-item">
             <!-- Message Start -->
             <div class="media">
-              <img src="./asset/img/user8-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
+              <img src="./asset/img/user4-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
               <div class="media-body">
                 <h3 class="dropdown-item-title">
                   John Pierce
@@ -249,15 +245,6 @@ if (isset($_POST['logout'])) {
               </p>
             </a>
           </li>
-          <!-- <li class="nav-item">
-            <a href="./enquiries.php" class="nav-link 
-            <?php if (strpos($_SERVER['REQUEST_URI'], 'enquiries.php') !== false) {echo "active";}?>">
-              <i class="nav-icon fas fa-question-circle"></i>
-              <p>
-              Enquiries
-              </p>
-            </a>
-          </li> -->
           <li class="nav-item">
             <a href="./enquiries.php" class="nav-link
             <?php if (strpos($_SERVER['REQUEST_URI'], 'enquiries.php') !== false) {echo "active";}?>">
@@ -276,8 +263,8 @@ if (isset($_POST['logout'])) {
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./enquiriefrom.php" class="nav-link
-                <?php if (strpos($_SERVER['REQUEST_URI'], 'enquiriefrom.php') !== false) {echo "active";}?>">
+                <a href="./enquirieform.php" class="nav-link
+                <?php if (strpos($_SERVER['REQUEST_URI'], 'enquirieform.php') !== false) {echo "active";}?>">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Enquiries From</p>
                 </a>

@@ -1,6 +1,7 @@
 <?php
 session_start();
-include('db.php');
+include('function.php'); // Include the common functions
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
