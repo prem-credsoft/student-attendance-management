@@ -9,28 +9,33 @@
 
 
 <?php include ('./header.php'); ?>
-<?php
-include ('function.php'); // Include the common functions
+<?php include ('function.php'); ?>
 
-// Use insertIntoTable function for form submission
+<?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $data = [
-        'student_name' => $_POST['studentName'],
-        'batch' => $_POST['batch'],
-        'father_name' => $_POST['fatherName'],
-        'mother_name' => $_POST['motherName'],
-        'dob' => $_POST['dob'],
-        'gender' => $_POST['gender'],
-        'mobile_number' => $_POST['mobileNumber'],
-        'fee_status' => $_POST['feeStatus'],
+        'student_name' => $_POST['studentName'] ?? '',
+        'batch' => $_POST['batch'] ?? '',
+        'father_name' => $_POST['fatherName'] ?? '',
+        'mother_name' => $_POST['motherName'] ?? '',
+        'dob' => $_POST['dob'] ?? '',
+        'gender' => $_POST['gender'] ?? '',
+        'mobile_number' => $_POST['mobileNumber'] ?? '',
+        'fee_status' => $_POST['feeStatus'] ?? '',
         'admission_time' => date('Y-m-d'),
     ];
+
+    if (in_array('', $data)) {
+        ajaxResponse(false, [], "All fields are required.");
+    }
+
     $result = insertIntoTable('studentinfo', $data);
     if ($result) {
-        echo "<script>alert('Student information submitted successfully.');</script>";
+        ajaxResponse(true, [], "Student Details submitted successfully.");
     } else {
-        echo "<script>alert('Failed to submit student information.');</script>";
+        ajaxResponse(false, [], "Failed to submit Student Details.");
     }
+    exit; // Prevent further execution after AJAX call
 }
 ?>
 
@@ -129,11 +134,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     </div>
                                 </div>
                                 <!-- /.card-body -->
-                                <div class="">
-                                    <button type="submit" class="btn btn-primary">Submit</button>
-                                </div>
                             </div>
                         </form>
+                        <button class="btn btn-primary" id="submitEnquiry">Submit</button>
                     </div>
                     <!-- /.card -->
                 </div>
@@ -143,5 +146,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
+<script>
+    $(document).ready(function () {
+        $('button').click(function () {
+            var formData = $('form').serialize(); // Serialize the form data
+            // console.log(formData);
+            $.ajax({
+                type: 'POST',
+                url: 'studentrequest.php',
+                data: formData,
+                dataType: 'json',
+                success: function (response) {
+                    if (response.success) {
+                        // $('form')[0].reset();
+                        alert("Student Details submitted successfully.")
+                        window.location.href = 'studentsdetails.php';
+                    } else {
+                        alert("error");
+                    }
+                },
+            });
+        });
+    });
+</script>
 <?php include ('./footer.php'); ?>

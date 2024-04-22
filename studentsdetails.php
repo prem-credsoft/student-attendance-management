@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,7 +8,7 @@
 </head>
 
 
-<?php include('./header.php');?>
+<?php include ('./header.php'); ?>
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -40,51 +41,56 @@
           <div class="card">
             <div class="card-header">
               <h3 class="card-title">Students List</h3>
+              <!-- Add button here -->
+              <div class="card-tools">
+                <a href="./studentfrom.php" class="btn btn-primary">Add New Student</a>
+              </div>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-            <div class="table-responsive">
-              <table id="example1" class="table table-bordered table-striped">
-                <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>Student Name</th>
-                    <th>batch</th>
-                    <th>Father Name</th>
-                    <th>Mother Name</th>
-                    <th>Date of birth</th>
-                    <th>Gender</th>
-                    <th>Mobile Number</th>
-                    <th>Fee Status</th>
-                    <th>Admission Time</th>
-                    <th>Edit</th>
-                    <th>Delete</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <?php
-                  $query = $db->query("SELECT * FROM studentinfo");
-                  while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
-                    echo "<tr>";
-                    echo "<td>" . $row['id'] . "</td>";
-                    echo "<td>" . $row['student_name'] . "</td>";
-                    echo "<td>" . $row['batch'] . "</td>";
-                    echo "<td>" . $row['father_name'] . "</td>";
-                    echo "<td>" . $row['mother_name'] . "</td>";
-                    echo "<td>" . $row['dob'] . "</td>";
-                    echo "<td>" . $row['gender'] . "</td>";
-                    echo "<td>" . $row['mobile_number'] . "</td>";
-                    echo "<td>" . $row['fee_status'] . "</td>";
-                    echo "<td>" . $row['admission_time'] . "</td>";
-                    echo "<td><a href='#" . $row['id'] . "' class='btn btn-info'>Edit</a></td>";
-                    echo "<td><a href='#" . $row['id'] . "' class='btn btn-danger'>Delete</a></td>";
-                    echo "</tr>";
-                  }
-                  ?>
-                </tbody>
-              </table>
+              <div class="table-responsive">
+                <table id="example1" class="table table-bordered table-striped">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Student Name</th>
+                      <th>batch</th>
+                      <th>Father Name</th>
+                      <th>Mother Name</th>
+                      <th>Date of birth</th>
+                      <th>Gender</th>
+                      <th>Mobile Number</th>
+                      <th>Fee Status</th>
+                      <th>Admission Time</th>
+                      <th>Edit</th>
+                      <th>Delete</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php
+                    $query = $db->query("SELECT * FROM studentinfo");
+                    $index = 1;
+                    while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
+                      echo "<tr>";
+                      echo "<td>" . $index++ . "</td>";
+                      echo "<td>" . $row['student_name'] . "</td>";
+                      echo "<td>" . $row['batch'] . "</td>";
+                      echo "<td>" . $row['father_name'] . "</td>";
+                      echo "<td>" . $row['mother_name'] . "</td>";
+                      echo "<td>" . $row['dob'] . "</td>";
+                      echo "<td>" . $row['gender'] . "</td>";
+                      echo "<td>" . $row['mobile_number'] . "</td>";
+                      echo "<td>" . $row['fee_status'] . "</td>";
+                      echo "<td>" . $row['admission_time'] . "</td>";
+                      echo "<td><a href='#" . $row['id'] . "' class='btn btn-info'>Edit</a></td>";
+                      echo "<td><a href='#" . $row['id'] . "' class='btn btn-danger'>Delete</a></td>";
+                      echo "</tr>";
+                    }
+                    ?>
+                  </tbody>
+                </table>
+              </div>
             </div>
-          </div>
             <!-- /.card-body -->
           </div>
           <!-- /.card -->
@@ -100,11 +106,11 @@
 <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
 <script>
-  $(document).ready(function() {
+  $(document).ready(function () {
     $('#example1').DataTable({
       "paging": true,
       "lengthChange": false,
-      "searching": true,
+      "searching": false,
       "ordering": true,
       "info": true,
       "autoWidth": false,
@@ -112,4 +118,4 @@
     });
   });
 </script>
-<?php include('./footer.php');?>
+<?php include ('./footer.php'); ?>
