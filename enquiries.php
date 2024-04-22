@@ -37,7 +37,7 @@
                             <h3 class="card-title">Enquiries List</h3>
                             <!-- Add button here -->
                             <div class="card-tools">
-                                <a href="enquiriefrom.php" class="btn btn-primary">Add New Enquiry</a>
+                                <a href="./enquirieform.php" class="btn btn-primary">Add New Enquiry</a>
                             </div>
                         </div>
                         <!-- /.card-header -->
@@ -46,12 +46,12 @@
                                 <table id="example1" class="table table-bordered table-striped">
                                     <thead>
                                     <tr>
-                                        <th>#</th>
+                                        <th>ID</th>
                                         <th>Name</th>
                                         <th>Reference</th>
                                         <th>Mobile Number</th>
                                         <th>Address</th>
-                                        <th>Time of Classes</th>
+                                        <th>Preference time of classes</th>
                                         <th>Profession</th>
                                         <th>Date of Enquirie</th>
                                         <th>Add</th>
@@ -65,13 +65,14 @@
                                     if(!$query) {
                                         die("Error running query: " . $db->errorInfo()[2]);
                                     }
+                                    $index = 1;
                                     while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
                                         echo "<tr>";
-                                        echo "<td>" . $row['id'] . "</td>";
+                                        echo "<td>" . $index++ . "</td>";
                                         echo "<td>" . $row['name'] . "</td>";
                                         echo "<td>" . $row['reference'] . "</td>";
-                                        echo "<td>" . $row['address'] . "</td>";
                                         echo "<td>" . $row['mobile_number'] . "</td>";
+                                        echo "<td>" . $row['address'] . "</td>";
                                         echo "<td>" . $row['time_of_classes'] . "</td>";
                                         echo "<td>" . $row['profession'] . "</td>";
                                         echo "<td>" . $row['date'] . "</td>";

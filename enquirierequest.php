@@ -18,7 +18,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['name'])) {
         'mobile_number' => $mobile_number,
         'address' => $address,
         'time_of_classes' => $time_of_classes,
-        'profession' => $profession
+        'profession' => $profession,
+        'date' => date('Y-m-d')
     ];
 
     $inserted_id = insertIntoTable('enquirieinfo', $data);

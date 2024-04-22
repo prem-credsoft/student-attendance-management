@@ -75,17 +75,36 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     <input type="text" class="form-control" id="name" name="name"
                                         placeholder="Enter Name" value="" required>
                                 </div>
-                                <div class="form-group">
-                                    <label for="reference">Reference</label>
-                                    <select class="form-control" id="reference" name="reference">
-                                        <option value="Internet">Internet</option>
-                                        <option value="Friend">Friend</option>
-                                    </select>
-                                </div>
+                                <div class="row">
+                                <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="mobile_number">Mobile Number</label>
                                     <input type="text" class="form-control" id="mobile_number" name="mobile_number"
                                         placeholder="Enter Mobile Number" value="" maxlength="10" required>
+                                </div>
+                                </div>
+                                <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="profession">Profession</label>
+                                    <input type="text" class="form-control" id="profession" name="profession"
+                                        placeholder="Enter Profession" value="" required>
+                                    <!-- <select class="form-control" id="profession" name="profession">
+                                        <option value="Student">Student</option>
+                                        <option value="Professional">Professional</option>
+                                    </select> -->
+                                </div>
+                                </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="reference">Reference</label>
+                                    <input type="text" class="form-control" id="reference" name="reference"
+                                        placeholder="Enter Reference" value="" required>
+                                    <!-- <select class="form-control" id="reference" name="reference">
+                                        <option value="Internet">Internet</option>
+                                        <option value="Friend">Friend</option>
+                                        <option value="Advertisement">Advertisement</option>
+                                        <option value="Social Media">Social Media</option>
+                                    </select> -->
                                 </div>
                                 <div class="form-group">
                                     <label for="address">Address</label>
@@ -93,16 +112,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                         placeholder="Enter Address" value="" required>
                                 </div>
                                 <div class="form-group">
-                                    <label for="time_of_classes">Time of Classes</label>
+                                    <label for="time_of_classes">Preference Time of Classes</label>
                                     <input type="text" class="form-control" id="time_of_classes" name="time_of_classes"
-                                        placeholder="Enter Time of Classes" value="" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="profession">Profession</label>
-                                    <select class="form-control" id="profession" name="profession">
-                                        <option value="Student">Student</option>
-                                        <option value="Professional">Professional</option>
-                                    </select>
+                                        placeholder="Enter Preference Time of Classes" value="" required>
                                 </div>
                                 <!-- Change type from "submit" to "button" -->
                             </div>
@@ -132,6 +144,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 success: function (response) {
                     if (response.success) {
                         // $('form')[0].reset();
+                        alert("Enquiry submitted successfully.")
                         window.location.href = 'enquiries.php';
                     } else {
                         alert("error");
