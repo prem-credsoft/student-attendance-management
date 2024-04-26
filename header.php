@@ -237,32 +237,23 @@ if (isset($_POST['logout'])) {
             </a>
           </li>
           <li class="nav-item">
-            <a href="./studentsdetails.php" class="nav-link
-            <?php if (strpos($_SERVER['REQUEST_URI'], 'studentsdetails.php') !== false) {echo "active";}?>">
-              <i class="nav-icon fas fa-user"></i>
-              <p>
-                Students Details
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
             <a href="./enquiries.php" class="nav-link
             <?php if (strpos($_SERVER['REQUEST_URI'], 'enquiries.php') !== false) {echo "active";}?>">
               <i class="nav-icon far fa-envelope"></i>
               <p>
               Enquiries
-                <i class="fas fa-angle-left right"></i>
+                <!-- <i class="fas fa-angle-left right"></i> -->
               </p>
             </a>
-            <ul class="nav nav-treeview">
-            <li class="nav-item">
+            <!-- <ul class="nav nav-treeview"> -->
+            <!-- <li class="nav-item">
                 <a href="./enquiries.php" class="nav-link
                 <?php if (strpos($_SERVER['REQUEST_URI'], 'enquiries.php') !== false) {echo "active";}?>">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Enquiries Details</p>
                 </a>
-              </li>
-              <li class="nav-item">
+              </li> -->
+              <!-- <li class="nav-item">
                 <a href="./enquirieform.php" class="nav-link
                 <?php if (strpos($_SERVER['REQUEST_URI'], 'enquirieform.php') !== false) {echo "active";}?>">
                   <i class="far fa-circle nav-icon"></i>
@@ -275,8 +266,17 @@ if (isset($_POST['logout'])) {
                   <i class="far fa-circle nav-icon"></i>
                   <p>Student From</p>
                 </a>
-              </li>
-            </ul>
+              </li> -->
+            <!-- </ul> -->
+          <li class="nav-item">
+            <a href="./studentsdetails.php" class="nav-link
+            <?php if (strpos($_SERVER['REQUEST_URI'], 'studentsdetails.php') !== false) {echo "active";}?>">
+              <i class="nav-icon fas fa-user"></i>
+              <p>
+                Students Details
+              </p>
+            </a>
+          </li>
           <li class="nav-item">
             <a href="./attendance.php" class="nav-link
             <?php if (strpos($_SERVER['REQUEST_URI'], 'attendance.php') !== false) {echo "active";}?>">

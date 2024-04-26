@@ -12,13 +12,15 @@
 
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $profession = $_POST['profession'] ?? 'Other';
+
     $data = [
         'name' => $_POST['name'] ?? '',
         'reference' => $_POST['reference'] ?? '',
         'address' => $_POST['address'] ?? '',
         'mobile_number' => $_POST['mobile_number'] ?? '',
         'time_of_classes' => $_POST['time_of_classes'] ?? '',
-        'profession' => $_POST['profession'] ?? '',
+        'profession' => $profession,
         'date' => date('Y-m-d'),
     ];
 
@@ -68,7 +70,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
-                        <form id="enquiryForm" >
+                        <form id="enquiryForm">
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="name">Name</label>
@@ -76,35 +78,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                         placeholder="Enter Name" value="" required>
                                 </div>
                                 <div class="row">
-                                <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="mobile_number">Mobile Number</label>
-                                    <input type="text" class="form-control" id="mobile_number" name="mobile_number"
-                                        placeholder="Enter Mobile Number" value="" maxlength="10" required>
-                                </div>
-                                </div>
-                                <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="profession">Profession</label>
-                                    <input type="text" class="form-control" id="profession" name="profession"
-                                        placeholder="Enter Profession" value="" required>
-                                    <!-- <select class="form-control" id="profession" name="profession">
-                                        <option value="Student">Student</option>
-                                        <option value="Professional">Professional</option>
-                                    </select> -->
-                                </div>
-                                </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="mobile_number">Mobile Number</label>
+                                            <input type="text" class="form-control" id="mobile_number"
+                                                name="mobile_number" placeholder="Enter Mobile Number" value=""
+                                                maxlength="10" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="profession">Profession</label>
+                                            <select class="form-control" id="profession" name="profession" required>
+                                                <option value="Student">Student</option>
+                                                <option value="Housewife">Housewife</option>
+                                                <option value="Working Professional">Working Professional</option>
+                                                <option value="Kids">Kids</option>
+                                                <option value="Other">Other</option>
+                                            </select>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="reference">Reference</label>
                                     <input type="text" class="form-control" id="reference" name="reference"
                                         placeholder="Enter Reference" value="" required>
-                                    <!-- <select class="form-control" id="reference" name="reference">
-                                        <option value="Internet">Internet</option>
-                                        <option value="Friend">Friend</option>
-                                        <option value="Advertisement">Advertisement</option>
-                                        <option value="Social Media">Social Media</option>
-                                    </select> -->
                                 </div>
                                 <div class="form-group">
                                     <label for="address">Address</label>
@@ -113,10 +111,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 </div>
                                 <div class="form-group">
                                     <label for="time_of_classes">Preference Time of Classes</label>
-                                    <input type="text" class="form-control" id="time_of_classes" name="time_of_classes"
-                                        placeholder="Enter Preference Time of Classes" value="" required>
+                                    <select class="form-control" id="time_of_classes" name="time_of_classes" required>
+                                        <option value="7:30 AM To 8:30 AM">7:30 AM To 8:30 AM</option>
+                                        <option value="8:30 AM To 9:30 AM">8:30 AM To 9:30 AM</option>
+                                        <option value="3:00 PM To 4:00 PM">3:00 PM To 4:00 PM</option>
+                                        <option value="4:00 PM To 5:00 PM">4:00 PM To 5:00 PM</option>
+                                        <option value="5:00 PM To 6:00 PM">5:00 PM To 6:00 PM</option>
+                                        <option value="6:00 PM To 7:00 PM">6:00 PM To 7:00 PM</option>
+                                        <option value="7:00 PM To 8:00 PM">7:00 PM To 8:00 PM</option>
+                                        <option value="8:00 PM To 9:00 PM">8:00 PM To 9:00 PM</option>
+                                        <option value="9:00 PM To 10:00 PM">9:00 PM To 10:00 PM</option>
+                                    </select>
                                 </div>
-                                <!-- Change type from "submit" to "button" -->
                             </div>
                         </form>
                         <button class="btn btn-primary" id="submitEnquiry">Submit</button>

@@ -76,7 +76,7 @@
                                         echo "<td>" . $row['time_of_classes'] . "</td>";
                                         echo "<td>" . $row['profession'] . "</td>";
                                         echo "<td>" . $row['date'] . "</td>";
-                                        echo "<td><a href='#" . $row['id'] . "' class='btn btn-info'>Add</a></td>";
+                                        echo "<td><a href='studentfrom.php?id=" . $row['id'] . "' class='btn btn-info'>Add</a></td>";
                                         echo "<td><a href='javascript:void(0);' onclick='confirmDelete(" . $row['id'] . ")' class='btn btn-danger'>Delete</a></td>";
                                         echo "</tr>";
                                     }
@@ -105,10 +105,23 @@
     function confirmDelete(id) {
         var confirmAction = confirm("Are you sure you want to delete this enquiry?");
         if (confirmAction) {
-            window.location.href = 'delete_enquiry.php?id=' + id;
+            window.location.href = 'enquiry_function.php?id=' + id;
         } else {
             console.log('Deletion cancelled');
         }
     }
+</script>
+<script>
+  $(document).ready(function () {
+    $('#example1').DataTable({
+      "paging": true,
+      "lengthChange": true,
+      "searching": true,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "responsive": true
+    });
+  });
 </script>
 <?php include('./footer.php');?>

@@ -12,6 +12,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['studentName'])) {
     $gender = $_POST['gender'];
     $mobile_number = $_POST['mobileNumber'];
     $fee_status = $_POST['feeStatus'];
+    $profession = $_POST['profession'];
+    $address = $_POST['address'];
 
     // Insert data into the database
     $data = [
@@ -23,6 +25,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['studentName'])) {
         'gender' => $_POST['gender'],
         'mobile_number' => $_POST['mobileNumber'],
         'fee_status' => $_POST['feeStatus'],
+        'profession' => $_POST['profession'],
+        'address' => $_POST['address'],
         'admission_time' => date('Y-m-d'),
     ];
 

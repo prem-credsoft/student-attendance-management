@@ -54,14 +54,16 @@
                     <tr>
                       <th>ID</th>
                       <th>Student Name</th>
-                      <th>batch</th>
+                      <th>Batch</th>
                       <th>Father Name</th>
                       <th>Mother Name</th>
-                      <th>Date of birth</th>
+                      <th>Date of Birth</th>
                       <th>Gender</th>
                       <th>Mobile Number</th>
                       <th>Fee Status</th>
                       <th>Admission Time</th>
+                      <th>Address</th>
+                      <th>Profession</th>
                       <th>Edit</th>
                       <th>Delete</th>
                     </tr>
@@ -82,6 +84,8 @@
                       echo "<td>" . $row['mobile_number'] . "</td>";
                       echo "<td>" . $row['fee_status'] . "</td>";
                       echo "<td>" . $row['admission_time'] . "</td>";
+                      echo "<td>" . $row['address'] . "</td>";
+                      echo "<td>" . $row['profession'] . "</td>";
                       echo "<td><a href='#" . $row['id'] . "' class='btn btn-info'>Edit</a></td>";
                       echo "<td><a href='#" . $row['id'] . "' class='btn btn-danger'>Delete</a></td>";
                       echo "</tr>";
