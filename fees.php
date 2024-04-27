@@ -9,14 +9,6 @@
 
 <?php
 include ('./header.php');
-require_once ('db.php');
-
-try {
-  $stmt = $db->query("SELECT r.student_id, s.student_name, r.amount, r.message, r.payment_date FROM receipt r JOIN studentinfo s ON r.student_id = s.id");
-  $feesDetails = $stmt->fetchAll(PDO::FETCH_ASSOC);
-} catch (PDOException $e) {
-  die("Could not connect to the database :" . $e->getMessage());
-}
 ?>
 
 <!-- Content Wrapper. Contains page content -->
@@ -66,17 +58,25 @@ try {
                   </tr>
                 </thead>
                 <tbody>
-                  <?php foreach ($feesDetails as $detail): ?>
-                    <tr>
-                      <td><?php echo htmlspecialchars($detail['student_id']); ?></td>
-                      <td><?php echo htmlspecialchars($detail['student_name']); ?></td>
-                      <td><?php echo htmlspecialchars($detail['amount']); ?></td>
-                      <td><?php echo htmlspecialchars($detail['message']); ?></td>
-                      <td><?php echo htmlspecialchars($detail['payment_date']); ?></td>
-                      echo "<td><a href='#" . $row['id'] . "' class='btn btn-info'>Edit</a></td>";
-                      echo "<td><a href='#" . $row['id'] . "' class='btn btn-danger'>Delete</a></td>";
-                    </tr>
-                  <?php endforeach; ?>
+                  <?php
+                  require_once 'db.php'; // Adjust the path as necessary
+                  $query = $db->query("SELECT r.id, r.student_id, s.student_name, r.amount, r.message, r.payment_date FROM receipt r JOIN studentinfo s ON r.student_id = s.id");
+                  if (!$query) {
+                    die("Error running query: " . $db->errorInfo()[2]);
+                  }
+                  $index = 1;
+                  while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
+                    echo "<tr>";
+                    echo "<td>" . $row['student_id'] . "</td>";
+                    echo "<td>" . $row['student_name'] . "</td>";
+                    echo "<td>" . $row['amount'] . "</td>";
+                    echo "<td>" . $row['message'] . "</td>";
+                    echo "<td>" . $row['payment_date'] . "</td>";
+                    echo "<td><a href='#" . $row['id'] . "' class='btn btn-info'>Edit</a></td>";
+                    echo "<td><a href='javascript:void(0);' onclick='confirmDelete(" . $row['id'] . ")' class='btn btn-danger'>Delete</a></td>";
+                    echo "</tr>";
+                  }
+                  ?>
                 </tbody>
               </table>
             </div>
@@ -91,4 +91,14 @@ try {
 </div>
 <!-- /.content-wrapper -->
 
+<script>
+    function confirmDelete(id) {
+        var confirmAction = confirm("Are you sure you want to delete this fees Details?");
+        if (confirmAction) {
+            window.location.href = 'fees_function.php?id=' + id;
+        } else {
+            // console.log('Deletion cancelled');
+        }
+    }
+</script>
 <?php include ('./footer.php'); ?>

@@ -100,14 +100,14 @@ try {
                                         <div class="form-group">
                                             <label for="pending_fees">Pending Fees</label>
                                             <input type="text" class="form-control" id="pending_fees"
-                                                name="pending_fees" value="7200" readonly>
+                                                name="pending_fees" value="" readonly>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="total_paid">Student Total Paid</label>
                                             <input type="text" class="form-control" id="total_paid" name="total_paid"
-                                                value="2000" readonly>
+                                                value="" readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -143,6 +143,18 @@ try {
                     }
                 },
             });
+        });
+
+        var initialTotalFees = 9800;
+
+        $('#amount').on('input', function() {
+            var amountEntered = parseFloat($(this).val() || 0);
+            var totalPaid = parseFloat($('#total_paid').val() || 0);
+            var newTotalPaid = amountEntered;
+            var pendingFees = initialTotalFees - newTotalPaid;
+
+            $('#total_paid').val(newTotalPaid.toFixed(2));
+            $('#pending_fees').val(pendingFees.toFixed(2));
         });
     });
 </script>

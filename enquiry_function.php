@@ -2,6 +2,7 @@
 require_once 'db.php';
 require_once 'function.php';
 
+//delete
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
     deleteFromTable('enquirieinfo', ['id' => $id]);
