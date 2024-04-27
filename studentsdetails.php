@@ -52,7 +52,7 @@
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                     <tr>
-                      <th>ID</th>
+                      <th>GR No.</th>
                       <th>Student Name</th>
                       <th>Batch</th>
                       <th>Father Name</th>
@@ -74,7 +74,7 @@
                     $index = 1;
                     while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
                       echo "<tr>";
-                      echo "<td>" . $index++ . "</td>";
+                      echo "<td> RIE-" . $row['id'] . "</td>";
                       echo "<td>" . $row['student_name'] . "</td>";
                       echo "<td>" . $row['batch'] . "</td>";
                       echo "<td>" . $row['father_name'] . "</td>";

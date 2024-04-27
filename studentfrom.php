@@ -37,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         'address' => $_POST['address'] ?? '',
         'admission_time' => date('Y-m-d'),
     ];
-    
+
 
     if (in_array('', $data)) {
         ajaxResponse(false, [], "All fields are required.");
@@ -136,15 +136,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                             <label for="mobileNumber">Mobile Number</label>
                                             <input type="tel" class="form-control" id="mobileNumber" maxlength="10"
                                                 name="mobileNumber" placeholder="Mobile Number"
-                                                value="<?php echo $enquiryData ? htmlspecialchars($enquiryData['mobile_number']) : ''; ?>">
+                                                value="<?php echo $enquiryData ? htmlspecialchars($enquiryData['mobile_number']) : ''; ?>"
+                                                onkeypress="return onlyNumbers(event)">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="feeStatus">Fee Status</label>
                                             <select class="form-control" id="feeStatus" name="feeStatus">
-                                                <option value="Paid">Paid</option>
-                                                <option value="Unpaid">Unpaid</option>
+                                                <option value="Fully Paid">Fully Paid</option>
+                                                <option value="Partially Paid">Partially Paid</option>
                                             </select>
                                         </div>
                                     </div>
@@ -154,8 +155,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     <label for="profession">Profession</label>
                                     <select class="form-control" id="profession" name="profession" required>
                                         <option value="Student" <?php echo $enquiryData && $enquiryData['profession'] == 'Student' ? 'selected' : ''; ?>>Student</option>
-                                        <option value="Housewife" <?php echo $enquiryData && $enquiryData['profession'] == 'Housewife' ? 'selected' : ''; ?>>Housewife</option>
-                                        <option value="Working Professional" <?php echo $enquiryData && $enquiryData['profession'] == 'Working Professional' ? 'selected' : ''; ?>>Working Professional</option>
+                                        <option value="Housewife" <?php echo $enquiryData && $enquiryData['profession'] == 'Housewife' ? 'selected' : ''; ?>>Housewife
+                                        </option>
+                                        <option value="Working Professional" <?php echo $enquiryData && $enquiryData['profession'] == 'Working Professional' ? 'selected' : ''; ?>>
+                                            Working Professional</option>
                                         <option value="Kids" <?php echo $enquiryData && $enquiryData['profession'] == 'Kids' ? 'selected' : ''; ?>>Kids</option>
                                         <option value="Other" <?php echo $enquiryData && $enquiryData['profession'] == 'Other' ? 'selected' : ''; ?>>Other</option>
                                     </select>
@@ -205,4 +208,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         });
     });
 </script>
+
+<script>
+    function onlyNumbers(evt) {
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+            evt.preventDefault();
+            return false;
+        }
+        return true;
+    }
+</script>
+
 <?php include ('./footer.php'); ?>

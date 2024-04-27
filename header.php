@@ -35,14 +35,8 @@ if (isset($_POST['logout'])) {
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- iCheck -->
   <link rel="stylesheet" href="./plugins/icheck-bootstrap/icheck-bootstrap.min.css">
-  <!-- JQVMap -->
-  <link rel="stylesheet" href="./plugins/jqvmap/jqvmap.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="./asset/css/adminlte.min.css">
-  <!-- overlayScrollbars -->
-  <link rel="stylesheet" href="./plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
-  <!-- Daterange picker -->
-  <link rel="stylesheet" href="./plugins/daterangepicker/daterangepicker.css">
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -242,56 +236,14 @@ if (isset($_POST['logout'])) {
               <i class="nav-icon far fa-envelope"></i>
               <p>
               Enquiries
-                <!-- <i class="fas fa-angle-left right"></i> -->
               </p>
             </a>
-            <!-- <ul class="nav nav-treeview"> -->
-            <!-- <li class="nav-item">
-                <a href="./enquiries.php" class="nav-link
-                <?php if (strpos($_SERVER['REQUEST_URI'], 'enquiries.php') !== false) {echo "active";}?>">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Enquiries Details</p>
-                </a>
-              </li> -->
-              <!-- <li class="nav-item">
-                <a href="./enquirieform.php" class="nav-link
-                <?php if (strpos($_SERVER['REQUEST_URI'], 'enquirieform.php') !== false) {echo "active";}?>">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Enquiries From</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="./studentfrom.php" class="nav-link
-                <?php if (strpos($_SERVER['REQUEST_URI'], 'studentfrom.php') !== false) {echo "active";}?>">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Student From</p>
-                </a>
-              </li> -->
-            <!-- </ul> -->
           <li class="nav-item">
             <a href="./studentsdetails.php" class="nav-link
             <?php if (strpos($_SERVER['REQUEST_URI'], 'studentsdetails.php') !== false) {echo "active";}?>">
               <i class="nav-icon fas fa-user"></i>
               <p>
                 Students Details
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="./attendance.php" class="nav-link
-            <?php if (strpos($_SERVER['REQUEST_URI'], 'attendance.php') !== false) {echo "active";}?>">
-              <i class="nav-icon far fa-calendar-alt"></i>
-              <p>
-                Attendance
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="./leaves.php" class="nav-link
-            <?php if (strpos($_SERVER['REQUEST_URI'], 'leaves.php') !== false) {echo "active";}?>">
-              <i class="nav-icon fas fa-users"></i>
-              <p>
-                Leaves
               </p>
             </a>
           </li>
@@ -311,6 +263,24 @@ if (isset($_POST['logout'])) {
               <p>
                 Batch
                 <span class="badge badge-danger right">New</span>
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="./attendance.php" class="nav-link
+            <?php if (strpos($_SERVER['REQUEST_URI'], 'attendance.php') !== false) {echo "active";}?>">
+              <i class="nav-icon far fa-calendar-alt"></i>
+              <p>
+                Attendance
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="./leaves.php" class="nav-link
+            <?php if (strpos($_SERVER['REQUEST_URI'], 'leaves.php') !== false) {echo "active";}?>">
+              <i class="nav-icon fas fa-users"></i>
+              <p>
+                Leaves
               </p>
             </a>
           </li>

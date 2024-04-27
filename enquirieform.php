@@ -83,7 +83,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                             <label for="mobile_number">Mobile Number</label>
                                             <input type="text" class="form-control" id="mobile_number"
                                                 name="mobile_number" placeholder="Enter Mobile Number" value=""
-                                                maxlength="10" required>
+                                                maxlength="10" required onkeypress="return onlyNumbers(event)">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -160,4 +160,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         });
     });
 </script>
+
+<script>
+    function onlyNumbers(evt) {
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+            evt.preventDefault();
+            return false;
+        }
+        return true;
+    }
+</script>
+
 <?php include ('./footer.php'); ?>

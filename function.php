@@ -62,6 +62,28 @@ function deleteFromTable($tableName, $whereConditions) {
     }
 }
 
+// Function to update data from any table
+function updateTable($tableName, $data, $conditions) {
+    global $db;
+    $updates = [];
+    foreach ($data as $key => $value) {
+        $updates[] = "$key = :$key";
+    }
+    $conditionString = implode(' AND ', array_map(function ($key) {
+        return "$key = :$key";
+    }, array_keys($conditions)));
+
+    $sql = "UPDATE $tableName SET " . implode(', ', $updates) . " WHERE $conditionString";
+    $stmt = $db->prepare($sql);
+    foreach ($data as $key => &$value) {
+        $stmt->bindParam(":$key", $value);
+    }
+    foreach ($conditions as $key => &$value) {
+        $stmt->bindParam(":$key", $value);
+    }
+    return $stmt->execute();
+}
+
 // AJAX response function
 function ajaxResponse($success, $data = [], $message = '') {
     echo json_encode(['success' => $success, 'data' => $data, 'message' => $message]);
