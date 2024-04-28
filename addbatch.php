@@ -1,16 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php 
+include('db.php'); 
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Admin | Add Batch</title>
-</head>
+// Check for session message
+if (isset($_SESSION['message'])) {
+    echo "<script>alert('".$_SESSION['message']."');</script>";
+    unset($_SESSION['message']); // Clear the message after displaying it
+}
 
-<?php include('./header.php'); ?>
-<?php include('db.php'); ?>
-
-<?php
 $message = ''; // Initialize an empty message string
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $batchName = $_POST['batchName'] ?? '';
@@ -23,14 +19,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $result = $stmt->execute([$batchName, $facultyName]);
 
         if ($result) {
-            $message = "<script>alert('Batch added successfully.');</script>";
+            $_SESSION['message'] = "Batch added successfully.";
+            header('Location: addbatch.php'); // Redirect to the same page to avoid form resubmission
+            exit();
         } else {
-            $message = "<script>alert('Failed to add batch.');</script>";
+            $_SESSION['message'] = "Failed to add batch.";
+            header('Location: addbatch.php'); // Redirect to the same page to avoid form resubmission
+            exit();
         }
     }
 }
-echo $message; // This will output the message as a JavaScript alert
 ?>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Admin | Add Batch</title>
+</head>
+
+<?php include('./header.php'); ?>
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -92,3 +102,4 @@ echo $message; // This will output the message as a JavaScript alert
 <!-- /.content-wrapper -->
 
 <?php include('./footer.php'); ?>
+</html>
