@@ -63,7 +63,7 @@
                                             echo "<td>" . htmlspecialchars($row['email']) . "</td>";
                                             echo "<td>" . htmlspecialchars($row['mobile']) . "</td>";
                                             echo "<td>" . htmlspecialchars($row['created_at']) . "</td>";
-                                            echo "<td><a href='editProfile.php?username=" . htmlspecialchars($row['username']) . "'>Edit</a></td>";
+                                            echo "<td><a href='editProfile.php?username=" . htmlspecialchars($row['username']) . "' class='btn btn-primary'>Edit</a></td>";
                                             echo "</tr>";
                                         }
                                         ?>
@@ -84,12 +84,12 @@
 <script>
   $(document).ready(function () {
     $('#userTable').DataTable({
-      "paging": true,
+      "paging": false,
       "lengthChange": false,
-      "searching": true,
+      "searching": false,
       "ordering": true,
-      "info": true,
-      "autoWidth": false,
+      "info": false,
+      "autoWidth": true,
       "responsive": true
     });
   });

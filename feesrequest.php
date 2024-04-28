@@ -2,6 +2,7 @@
 include('function.php');
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $id = $_POST['id'] ?? null; // This will be null when adding new fees
     $studentId = $_POST['student_id'] ?? null;
     $amount = $_POST['amount'] ?? null;
     $message = $_POST['message'] ?? '';
@@ -20,10 +21,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         'message' => $message
     ];
 
-    $result = insertIntoTable('receipt', $data);
+    if ($id) {
+        // Update existing fee
+        $result = updateTable('receipt', $data, ['id' => $id]);
+        $action = 'updated';
+    } else {
+        // Insert new fee
+        $result = insertIntoTable('receipt', $data);
+        $action = 'added';
+    }
 
     if ($result) {
-        echo json_encode(['success' => true, 'message' => 'Payment recorded successfully.']);
+        echo json_encode(['success' => true, 'message' => "Payment $action successfully."]);
     } else {
         echo json_encode(['success' => false, 'message' => 'Failed to record payment.']);
     }

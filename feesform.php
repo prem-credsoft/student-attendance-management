@@ -12,6 +12,23 @@ include ('./header.php');
 require_once ('function.php');
 require_once ('db.php');
 
+$editMode = false;
+$studentId = '';
+$amount = '';
+$message = '';
+$paymentDate = '';
+
+if (isset($_GET['id'])) {
+    $editMode = true;
+    $feeDetails = selectFromTable('receipt', ['student_id', 'amount', 'message', 'payment_date'], ['id' => $_GET['id']]);
+    if ($feeDetails) {
+        $studentId = $feeDetails[0]['student_id'];
+        $amount = $feeDetails[0]['amount'];
+        $message = $feeDetails[0]['message'];
+        $paymentDate = $feeDetails[0]['payment_date'];
+    }
+}
+
 $students = selectFromTable('studentinfo', ['id', 'student_name'], []);
 if (!$students) {
     die("Could not retrieve data from the database.");
@@ -61,7 +78,7 @@ if (!$students) {
                                                 name="student_id" data-live-search="true">
                                                 <?php foreach ($students as $student): ?>
                                                     <option value="<?php echo htmlspecialchars($student['id']); ?>"
-                                                        data-name="<?php echo htmlspecialchars($student['student_name']); ?>">
+                                                        <?php echo $studentId == $student['id'] ? 'selected' : ''; ?>>
                                                         <?php echo htmlspecialchars($student['student_name']); ?>,
                                                         RIE - <?php echo htmlspecialchars($student['id']); ?>
                                                     </option>
@@ -82,14 +99,14 @@ if (!$students) {
                                         <div class="form-group">
                                             <label for="amount">Amount</label>
                                             <input type="text" class="form-control" id="amount" name="amount"
-                                                placeholder="Enter Amount" required>
+                                                placeholder="Enter Amount" required value="<?php echo htmlspecialchars($amount); ?>">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="message">Message</label>
                                             <input type="text" class="form-control" id="message" name="message"
-                                                placeholder="Enter Message">
+                                                placeholder="Enter Message" value="<?php echo htmlspecialchars($message); ?>">
                                         </div>
                                     </div>
                                 </div>
@@ -110,8 +127,12 @@ if (!$students) {
                                     </div>
                                 </div>
                             </div>
+                            <!-- Add a hidden input to handle the ID when updating -->
+                            <?php if ($editMode): ?>
+                            <input type="hidden" name="id" value="<?php echo $_GET['id']; ?>">
+                            <?php endif; ?>
+                            <button type="button" class="btn btn-primary" id="submitInquiry"><?php echo $editMode ? 'Update' : 'Submit'; ?></button>
                         </form>
-                        <button class="btn btn-primary" id="submitInquiry">Submit</button>
                     </div>
                     <!-- /.card -->
                 </div>
@@ -125,7 +146,7 @@ if (!$students) {
 <script>
     $(document).ready(function () {
         $('button').click(function () {
-            var formData = $('form').serialize(); // Serialize the form data
+            var formData = $('form').serialize();
             // console.log(formData);
             $.ajax({
                 type: 'POST',
@@ -134,12 +155,15 @@ if (!$students) {
                 dataType: 'json',
                 success: function (response) {
                     if (response.success) {
-                        alert("Student Details submitted successfully.")
-                        window.location.href = 'fees.php';
+                        alert("Form Submit successfully");
+                        window.location.href = './fees.php';
                     } else {
                         alert("Error submitting details.");
                     }
                 },
+                error: function() {
+                    alert("Error submitting details."); // Fallback error message
+                }
             });
         });
 
@@ -160,3 +184,5 @@ if (!$students) {
 </body>
 
 </html>
+
+
