@@ -53,7 +53,7 @@ try {
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
-                        <form id="enquiryForm" method="POST" action="feesrequest.php">
+                        <form id="inquiryForm" method="POST" action="feesrequest.php">
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-md-6">
@@ -113,7 +113,7 @@ try {
                                 </div>
                             </div>
                         </form>
-                        <button class="btn btn-primary" id="submitEnquiry">Submit</button>
+                        <button class="btn btn-primary" id="submitInquiry">Submit</button>
                     </div>
                     <!-- /.card -->
                 </div>

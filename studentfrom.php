@@ -13,12 +13,12 @@
 <?php include ('db.php'); ?>
 
 <?php
-$enquiryData = null;
+$inquiryData = null;
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
-    $stmt = $db->prepare("SELECT * FROM enquirieinfo WHERE id = ?");
+    $stmt = $db->prepare("SELECT * FROM inquiryinfo WHERE id = ?");
     $stmt->execute([$id]);
-    $enquiryData = $stmt->fetch(PDO::FETCH_ASSOC);
+    $inquiryData = $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -91,7 +91,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     <label for="studentName">Student Name</label>
                                     <input type="text" class="form-control" id="studentName" name="studentName"
                                         placeholder="Enter Student Name"
-                                        value="<?php echo $enquiryData ? htmlspecialchars($enquiryData['name']) : ''; ?>">
+                                        value="<?php echo $inquiryData ? htmlspecialchars($inquiryData['name']) : ''; ?>">
                                 </div>
                                 <div class="form-group">
                                     <label for="batch">Batch</label>
@@ -136,7 +136,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                             <label for="mobileNumber">Mobile Number</label>
                                             <input type="tel" class="form-control" id="mobileNumber" maxlength="10"
                                                 name="mobileNumber" placeholder="Mobile Number"
-                                                value="<?php echo $enquiryData ? htmlspecialchars($enquiryData['mobile_number']) : ''; ?>"
+                                                value="<?php echo $inquiryData ? htmlspecialchars($inquiryData['mobile_number']) : ''; ?>"
                                                 onkeypress="return onlyNumbers(event)">
                                         </div>
                                     </div>
@@ -154,13 +154,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 <div class="form-group">
                                     <label for="profession">Profession</label>
                                     <select class="form-control" id="profession" name="profession" required>
-                                        <option value="Student" <?php echo $enquiryData && $enquiryData['profession'] == 'Student' ? 'selected' : ''; ?>>Student</option>
-                                        <option value="Housewife" <?php echo $enquiryData && $enquiryData['profession'] == 'Housewife' ? 'selected' : ''; ?>>Housewife
+                                        <option value="Student" <?php echo $inquiryData && $inquiryData['profession'] == 'Student' ? 'selected' : ''; ?>>Student</option>
+                                        <option value="Housewife" <?php echo $inquiryData && $inquiryData['profession'] == 'Housewife' ? 'selected' : ''; ?>>Housewife
                                         </option>
-                                        <option value="Working Professional" <?php echo $enquiryData && $enquiryData['profession'] == 'Working Professional' ? 'selected' : ''; ?>>
+                                        <option value="Working Professional" <?php echo $inquiryData && $inquiryData['profession'] == 'Working Professional' ? 'selected' : ''; ?>>
                                             Working Professional</option>
-                                        <option value="Kids" <?php echo $enquiryData && $enquiryData['profession'] == 'Kids' ? 'selected' : ''; ?>>Kids</option>
-                                        <option value="Other" <?php echo $enquiryData && $enquiryData['profession'] == 'Other' ? 'selected' : ''; ?>>Other</option>
+                                        <option value="Kids" <?php echo $inquiryData && $inquiryData['profession'] == 'Kids' ? 'selected' : ''; ?>>Kids</option>
+                                        <option value="Other" <?php echo $inquiryData && $inquiryData['profession'] == 'Other' ? 'selected' : ''; ?>>Other</option>
                                     </select>
                                 </div>
                                 <!-- Add Address Field -->
@@ -168,12 +168,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     <label for="address">Address</label>
                                     <input type="text" class="form-control" id="address" name="address"
                                         placeholder="Enter Address"
-                                        value="<?php echo $enquiryData ? htmlspecialchars($enquiryData['address']) : ''; ?>">
+                                        value="<?php echo $inquiryData ? htmlspecialchars($inquiryData['address']) : ''; ?>">
                                 </div>
                                 <!-- /.card-body -->
                             </div>
                         </form>
-                        <button class="btn btn-primary" id="submitEnquiry">Submit</button>
+                        <button class="btn btn-primary" id="submitInquiryy">Submit</button>
                     </div>
                     <!-- /.card -->
                 </div>
@@ -199,7 +199,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     if (response.success) {
                         // $('form')[0].reset();
                         alert("Student Details submitted successfully.")
-                        window.location.href = 'enquiry_function.php?id=' + <?php echo json_encode($id); ?>;
+                        window.location.href = 'inquiry_function.php?id=' + <?php echo json_encode($id); ?>;
                     } else {
                         alert("Error submitting details.");
                     }

@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Admin | Enquiries</title>
+    <title>Admin | Inquiry</title>
 </head>
 
 <?php include('./header.php');?>
@@ -15,12 +15,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Enquiries</h1>
+                    <h1 class="m-0">Inquiry</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="./dashboard.php">Home</a></li>
-                        <li class="breadcrumb-item active">Enquiries</li>
+                        <li class="breadcrumb-item active">Inquiry</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -34,10 +34,10 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Enquiries List</h3>
+                            <h3 class="card-title">Inquiry List</h3>
                             <!-- Add button here -->
                             <div class="card-tools">
-                                <a href="./enquirieform.php" class="btn btn-primary">Add New Enquiry</a>
+                                <a href="./inquiryform.php" class="btn btn-primary">Add New Inquiry</a>
                             </div>
                         </div>
                         <!-- /.card-header -->
@@ -61,7 +61,7 @@
                                     <tbody>
                                     <?php
                                     require_once 'db.php'; // Adjust the path as necessary
-                                    $query = $db->query("SELECT * FROM enquirieinfo");
+                                    $query = $db->query("SELECT * FROM inquiryinfo");
                                     if(!$query) {
                                         die("Error running query: " . $db->errorInfo()[2]);
                                     }
@@ -103,9 +103,9 @@
 <script src="https://cdn.jsdelivr.net/npm/toastr/build/toastr.min.js"></script>
 <script>
     function confirmDelete(id) {
-        var confirmAction = confirm("Are you sure you want to delete this enquiry?");
+        var confirmAction = confirm("Are you sure you want to delete this Inquiry?");
         if (confirmAction) {
-            window.location.href = 'enquiry_function.php?id=' + id;
+            window.location.href = 'inquiry_function.php?id=' + id;
         } else {
             console.log('Deletion cancelled');
         }
@@ -118,7 +118,7 @@
       "lengthChange": true,
       "searching": true,
       "ordering": true,
-      "info": true,
+      "info": false,
       "autoWidth": false,
       "responsive": true
     });

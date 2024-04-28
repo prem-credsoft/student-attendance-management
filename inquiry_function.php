@@ -5,8 +5,8 @@ require_once 'function.php';
 //delete
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
-    deleteFromTable('enquirieinfo', ['id' => $id]);
-    header('Location: enquiries.php?msg=Enquiry Deleted');
+    deleteFromTable('inquiryinfo', ['id' => $id]);
+    header('Location: inquiry.php?msg=Inquiry Deleted');
 } else {
     echo "Invalid request.";
 }

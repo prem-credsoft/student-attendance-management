@@ -200,7 +200,7 @@ if (isset($_POST['logout'])) {
           <img src="./asset/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block"><?php echo $user['username']; ?></a>
+          <a href="./profile.php" class="d-block"><?php echo $user['username']; ?></a>
         </div>
       </div>
 
@@ -231,11 +231,11 @@ if (isset($_POST['logout'])) {
             </a>
           </li>
           <li class="nav-item">
-            <a href="./enquiries.php" class="nav-link
-            <?php if (strpos($_SERVER['REQUEST_URI'], 'enquiries.php') !== false) {echo "active";}?>">
+            <a href="./inquiry.php" class="nav-link
+            <?php if (strpos($_SERVER['REQUEST_URI'], 'inquiry.php') !== false) {echo "active";}?>">
               <i class="nav-icon far fa-envelope"></i>
               <p>
-              Enquiries
+              Inquiry
               </p>
             </a>
           <li class="nav-item">

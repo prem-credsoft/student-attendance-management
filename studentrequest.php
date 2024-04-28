@@ -34,10 +34,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['studentName'])) {
 
     if ($inserted_id) {
         // Send back a success response
-        ajaxResponse(true, ['inserted_id' => $inserted_id], 'Enquiry submitted successfully.');
+        ajaxResponse(true, ['inserted_id' => $inserted_id], 'Inquiry submitted successfully.');
     } else {
         // Send back an error response
-        ajaxResponse(false, [], 'Failed to submit enquiry.');
+        ajaxResponse(false, [], 'Failed to submit inquiry.');
     }
 } else {
     // If it's not an AJAX request, return an error

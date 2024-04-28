@@ -18,7 +18,6 @@
 
 
 <!-- Bootstrap 4 -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="./plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
 <script src="./asset/js/adminlte.js"></script>

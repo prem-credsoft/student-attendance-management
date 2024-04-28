@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Admin | Enquiry Form</title>
+    <title>Admin | Inquiry Form</title>
 </head>
 
 <?php include ('./header.php'); ?>
@@ -28,11 +28,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         ajaxResponse(false, [], "All fields are required.");
     }
 
-    $result = insertIntoTable('enquirieinfo', $data);
+    $result = insertIntoTable('inquiryinfo', $data);
     if ($result) {
-        ajaxResponse(true, [], "Enquiry submitted successfully.");
+        ajaxResponse(true, [], "Inquiry submitted successfully.");
     } else {
-        ajaxResponse(false, [], "Failed to submit enquiry.");
+        ajaxResponse(false, [], "Failed to submit Inquiry.");
     }
     exit; // Prevent further execution after AJAX call
 }
@@ -45,12 +45,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Enquiry Form</h1>
+                    <h1 class="m-0">Inquiry Form</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="./dashboard.php">Home</a></li>
-                        <li class="breadcrumb-item active">Enquiry Form</li>
+                        <li class="breadcrumb-item active">Inquiry Form</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -66,11 +66,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <!-- General form elements -->
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h3 class="card-title">Enquiry Details</h3>
+                            <h3 class="card-title">Inquiry Details</h3>
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
-                        <form id="enquiryForm">
+                        <form id="inquiryForm">
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="name">Name</label>
@@ -125,7 +125,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 </div>
                             </div>
                         </form>
-                        <button class="btn btn-primary" id="submitEnquiry">Submit</button>
+                        <button class="btn btn-primary" id="submitInquiry">Submit</button>
                     </div>
                     <!-- /.card -->
                 </div>
@@ -144,14 +144,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // console.log(formData);
             $.ajax({
                 type: 'POST',
-                url: 'enquirierequest.php',
+                url: 'inquiryrequest.php',
                 data: formData,
                 dataType: 'json',
                 success: function (response) {
                     if (response.success) {
                         // $('form')[0].reset();
-                        alert("Enquiry submitted successfully.")
-                        window.location.href = 'enquiries.php';
+                        alert("Inquiry submitted successfully.")
+                        window.location.href = 'inquiry.php';
                     } else {
                         alert("error");
                     }

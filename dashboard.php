@@ -31,18 +31,18 @@
             <div class="inner">
               <?php
               // Fetch the total number of students
-              $stmt = $db->query("SELECT COUNT(*) AS total_enquiries FROM enquirieinfo");
+              $stmt = $db->query("SELECT COUNT(*) AS total_inquiry FROM inquiryinfo");
               $result = $stmt->fetch(PDO::FETCH_ASSOC);
-              $total_enquiries = $result['total_enquiries'];
+              $total_inquiry = $result['total_inquiry'];
               ?>
-              <h3><?php echo $total_enquiries; ?></h3>
+              <h3><?php echo $total_inquiry; ?></h3>
 
-              <p>Enquiries</p>
+              <p>Inquiry</p>
             </div>
             <div class="icon">
               <i class="ion ion-help"></i>
             </div>
-            <a href="./enquiries.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="./inquiry.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <div class="col-lg-3 col-6">
@@ -71,7 +71,13 @@
           <!-- small box -->
           <div class="small-box bg-warning">
             <div class="inner">
-              <h3>44</h3>
+            <?php
+              // Fetch the total number of students
+              $stmt = $db->query("SELECT COUNT(*) AS total_receipt FROM	receipt");
+              $result = $stmt->fetch(PDO::FETCH_ASSOC);
+              $total_receipt = $result['total_receipt'];
+              ?>
+              <h3><?php echo $total_receipt; ?></h3>
               
               <p>Pending Fees</p>
             </div>

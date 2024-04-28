@@ -22,14 +22,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['name'])) {
         'date' => date('Y-m-d')
     ];
 
-    $inserted_id = insertIntoTable('enquirieinfo', $data);
+    $inserted_id = insertIntoTable('inquiryinfo', $data);
 
     if ($inserted_id) {
         // Send back a success response
-        ajaxResponse(true, ['inserted_id' => $inserted_id], 'Enquiry submitted successfully.');
+        ajaxResponse(true, ['inserted_id' => $inserted_id], 'Inquiry submitted successfully.');
     } else {
         // Send back an error response
-        ajaxResponse(false, [], 'Failed to submit enquiry.');
+        ajaxResponse(false, [], 'Failed to submit Inquiry.');
     }
 } else {
     // If it's not an AJAX request, return an error
