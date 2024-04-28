@@ -173,7 +173,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 <!-- /.card-body -->
                             </div>
                         </form>
-                        <button class="btn btn-primary" id="submitInquiryy">Submit</button>
+                        <button class="btn btn-primary" id="submitInquiry">Submit</button>
                     </div>
                     <!-- /.card -->
                 </div>
@@ -187,9 +187,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <script>
     $(document).ready(function () {
-        $('button').click(function () {
-            var formData = $('form').serialize(); // Serialize the form data
-            // console.log(formData);
+        $('#submitInquiry').click(function () {
+            var formData = $('form').serialize();
             $.ajax({
                 type: 'POST',
                 url: 'studentrequest.php',
@@ -197,13 +196,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 dataType: 'json',
                 success: function (response) {
                     if (response.success) {
-                        // $('form')[0].reset();
-                        alert("Student Details submitted successfully.")
-                        window.location.href = 'inquiry_function.php?id=' + <?php echo json_encode($id); ?>;
+                        alert("Student Details submitted successfully.");
+                        window.location.href = 'studentsdetails.php'; // Redirect to a generic page on success
                     } else {
-                        alert("Error submitting details.");
+                        alert("Error submitting details: " + response.message);
                     }
                 },
+                error: function () {
+                    alert("An error occurred.");
+                }
             });
         });
     });
