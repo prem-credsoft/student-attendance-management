@@ -45,39 +45,41 @@ include ('./header.php');
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-              <table class="table table-bordered">
-                <thead>
-                  <tr>
-                    <th>GR No.</th>
-                    <th>Student Name</th>
-                    <th>Amount Paid</th>
-                    <th>Message</th>
-                    <th>Payment Date</th>
-                    <th>Edit</th>
-                    <th>Delete</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <?php
-                  require_once 'function.php';
-                  $results = selectFromTable('receipt r JOIN studentinfo s ON r.student_id = s.id', ['r.id', 'r.student_id', 's.student_name', 'r.amount', 'r.message', 'r.payment_date'], []);
-                  if (!$results) {
-                    die("Error running query.");
-                  }
-                  foreach ($results as $row) {
-                    echo "<tr>";
-                    echo "<td>" . $row['student_id'] . "</td>";
-                    echo "<td>" . $row['student_name'] . "</td>";
-                    echo "<td>" . $row['amount'] . "</td>";
-                    echo "<td>" . $row['message'] . "</td>";
-                    echo "<td>" . $row['payment_date'] . "</td>";
-                    echo "<td><a href='feesform.php?id=" . $row['id'] . "' class='btn btn-info'>Edit</a></td>";
-                    echo "<td><a href='javascript:void(0);' onclick='confirmDelete(" . $row['id'] . ")' class='btn btn-danger'>Delete</a></td>";
-                    echo "</tr>";
-                  }
-                  ?>
-                </tbody>
-              </table>
+              <div class="table-responsive">
+                <table id="example1" class="table table-bordered">
+                  <thead>
+                    <tr>
+                      <th>GR No.</th>
+                      <th>Student Name</th>
+                      <th>Amount Paid</th>
+                      <th>Message</th>
+                      <th>Payment Date</th>
+                      <th>Edit</th>
+                      <th>Delete</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php
+                    require_once 'function.php';
+                    $results = selectFromTable('receipt r JOIN studentinfo s ON r.student_id = s.id', ['r.id', 'r.student_id', 's.student_name', 'r.amount', 'r.message', 'r.payment_date'], []);
+                    if (!$results) {
+                      die("Error running query.");
+                    }
+                    foreach ($results as $row) {
+                      echo "<tr>";
+                      echo "<td> RIE - " . $row['student_id'] . "</td>";
+                      echo "<td>" . $row['student_name'] . "</td>";
+                      echo "<td>" . $row['amount'] . "</td>";
+                      echo "<td>" . $row['message'] . "</td>";
+                      echo "<td>" . $row['payment_date'] . "</td>";
+                      echo "<td><a href='feesform.php?id=" . $row['id'] . "' class='btn btn-info col-md-12'>Edit</a></td>";
+                      echo "<td><a href='javascript:void(0);' onclick='confirmDelete(" . $row['id'] . ")' class='btn btn-danger col-md-12'>Delete</a></td>";
+                      echo "</tr>";
+                    }
+                    ?>
+                  </tbody>
+                </table>
+              </div>
             </div>
             <!-- /.card-body -->
           </div>
@@ -90,14 +92,31 @@ include ('./header.php');
 </div>
 <!-- /.content-wrapper -->
 
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
 <script>
-    function confirmDelete(id) {
-        var confirmAction = confirm("Are you sure you want to delete this fees Details?");
-        if (confirmAction) {
-            window.location.href = 'fees_function.php?id=' + id;
-        } else {
-            // console.log('Deletion cancelled');
-        }
+  function confirmDelete(id) {
+    var confirmAction = confirm("Are you sure you want to delete this fees Details?");
+    if (confirmAction) {
+      window.location.href = 'fees_function.php?id=' + id;
+    } else {
+      // console.log('Deletion cancelled');
     }
+  }
+</script>
+
+<script>
+  $(document).ready(function () {
+    $('#example1').DataTable({
+      "paging": true,
+      "lengthChange": true,
+      "searching": true,
+      "ordering": true,
+      "info": false,
+      "autoWidth": true,
+      "responsive": true
+    });
+  });
 </script>
 <?php include ('./footer.php'); ?>

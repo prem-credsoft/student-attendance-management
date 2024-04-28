@@ -55,15 +55,7 @@
                       <th>GR No.</th>
                       <th>Student Name</th>
                       <th>Batch</th>
-                      <th>Father Name</th>
-                      <th>Mother Name</th>
-                      <th>Date of Birth</th>
-                      <th>Gender</th>
                       <th>Mobile Number</th>
-                      <th>Fee Status</th>
-                      <th>Admission Time</th>
-                      <th>Address</th>
-                      <th>Profession</th>
                       <th>Edit</th>
                       <th>Delete</th>
                     </tr>
@@ -74,20 +66,12 @@
                     $index = 1;
                     while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
                       echo "<tr>";
-                      echo "<td> RIE-" . $row['id'] . "</td>";
+                      echo "<td> RIE - " . $row['id'] . "</td>";
                       echo "<td>" . $row['student_name'] . "</td>";
                       echo "<td>" . $row['batch'] . "</td>";
-                      echo "<td>" . $row['father_name'] . "</td>";
-                      echo "<td>" . $row['mother_name'] . "</td>";
-                      echo "<td>" . $row['dob'] . "</td>";
-                      echo "<td>" . $row['gender'] . "</td>";
                       echo "<td>" . $row['mobile_number'] . "</td>";
-                      echo "<td>" . $row['fee_status'] . "</td>";
-                      echo "<td>" . $row['admission_time'] . "</td>";
-                      echo "<td>" . $row['address'] . "</td>";
-                      echo "<td>" . $row['profession'] . "</td>";
-                      echo "<td><a href='#" . $row['id'] . "' class='btn btn-info'>Edit</a></td>";
-                      echo "<td><a href='#" . $row['id'] . "' class='btn btn-danger'>Delete</a></td>";
+                      echo "<td><a href='#" . $row['id'] . "' class='btn btn-info col-md-12'>Edit</a></td>";
+                      echo "<td><a href='#" . $row['id'] . "' class='btn btn-danger col-md-12'>Delete</a></td>";
                       echo "</tr>";
                     }
                     ?>
