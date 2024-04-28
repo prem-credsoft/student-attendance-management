@@ -10,90 +10,89 @@
 
 <body>
 
-    <?php include ('./header.php'); ?>
-    <?php include ('./db.php'); ?>
+<?php include('./header.php'); ?>
+<?php include('./db.php'); ?>
 
-    <div class="content-wrapper">
-        <div class="content-header">
-            <div class="container-fluid">
-                <div class="row mb-2">
-                    <div class="col-sm-6">
-                        <h1 class="m-0">User Profiles</h1>
-                    </div>
-                    <div class="col-sm-6">
-                        <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="./dashboard.php">Home</a></li>
-                            <li class="breadcrumb-item active">User Profiles</li>
-                        </ol>
-                    </div>
+<div class="content-wrapper">
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">User Profiles</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="./dashboard.php">Home</a></li>
+                        <li class="breadcrumb-item active">User Profiles</li>
+                    </ol>
                 </div>
             </div>
         </div>
+    </div>
 
-        <section class="content">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="card-header">
-                                <h3 class="card-title">User List</h3>
-                            </div>
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table id="userTable" class="table table-bordered table-striped">
-                                        <thead>
-                                            <tr>
-                                                <th>ID</th>
-                                                <th>Username</th>
-                                                <th>Full Name</th>
-                                                <th>Email</th>
-                                                <th>Mobile</th>
-                                                <th>Created At</th>
-                                                <th>Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php
-                                            $query = $db->query("SELECT id, username, fullname, email, mobile, created_at FROM users");
-                                            while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
-                                                echo "<tr>";
-                                                echo "<td>" . htmlspecialchars($row['id']) . "</td>";
-                                                echo "<td>" . htmlspecialchars($row['username']) . "</td>";
-                                                echo "<td>" . htmlspecialchars($row['fullname']) . "</td>";
-                                                echo "<td>" . htmlspecialchars($row['email']) . "</td>";
-                                                echo "<td>" . htmlspecialchars($row['mobile']) . "</td>";
-                                                echo "<td>" . htmlspecialchars($row['created_at']) . "</td>";
-                                                echo "<td><a href='editProfile.php?username=" . htmlspecialchars($row['username']) . "' class='btn btn-primary'>Edit</a></td>";
-                                                echo "</tr>";
-                                            }
-                                            ?>
-                                        </tbody>
-                                    </table>
-                                </div>
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">User List</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table id="userTable" class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Username</th>
+                                            <th>Full Name</th>
+                                            <th>Email</th>
+                                            <th>Mobile</th>
+                                            <th>Created At</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        $query = $db->query("SELECT id, username, fullname, email, mobile, created_at FROM users");
+                                        while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
+                                            echo "<tr>";
+                                            echo "<td>" . htmlspecialchars($row['id']) . "</td>";
+                                            echo "<td>" . htmlspecialchars($row['username']) . "</td>";
+                                            echo "<td>" . htmlspecialchars($row['fullname']) . "</td>";
+                                            echo "<td>" . htmlspecialchars($row['email']) . "</td>";
+                                            echo "<td>" . htmlspecialchars($row['mobile']) . "</td>";
+                                            echo "<td>" . htmlspecialchars($row['created_at']) . "</td>";
+                                            echo "<td><a href='editProfile.php?username=" . htmlspecialchars($row['username']) . "'>Edit</a></td>";
+                                            echo "</tr>";
+                                        }
+                                        ?>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
-    </div>
+        </div>
+    </section>
+</div>
 
-    <?php include ('./footer.php'); ?>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            $('#userTable').DataTable({
-                "paging": false,
-                "lengthChange": false,
-                "searching": false,
-                "ordering": false,
-                "info": false,
-                "autoWidth": false,
-                "responsive": true
-            });
-        });
-    </script>
+<?php include('./footer.php'); ?>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $('#userTable').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": true,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "responsive": true
+    });
+  });
+</script>
 </body>
-
 </html>
