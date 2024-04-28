@@ -59,13 +59,12 @@ include ('./header.php');
                 </thead>
                 <tbody>
                   <?php
-                  require_once 'db.php'; // Adjust the path as necessary
-                  $query = $db->query("SELECT r.id, r.student_id, s.student_name, r.amount, r.message, r.payment_date FROM receipt r JOIN studentinfo s ON r.student_id = s.id");
-                  if (!$query) {
-                    die("Error running query: " . $db->errorInfo()[2]);
+                  require_once 'function.php';
+                  $results = selectFromTable('receipt r JOIN studentinfo s ON r.student_id = s.id', ['r.id', 'r.student_id', 's.student_name', 'r.amount', 'r.message', 'r.payment_date'], []);
+                  if (!$results) {
+                    die("Error running query.");
                   }
-                  $index = 1;
-                  while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
+                  foreach ($results as $row) {
                     echo "<tr>";
                     echo "<td>" . $row['student_id'] . "</td>";
                     echo "<td>" . $row['student_name'] . "</td>";

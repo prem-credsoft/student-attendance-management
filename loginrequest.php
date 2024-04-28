@@ -1,18 +1,15 @@
-
 <?php
 session_start();
-include('db.php');
+require_once('function.php');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    $query = $db->prepare("SELECT * FROM users WHERE username = :username AND password = :password");
-    $query->execute(['username' => $username, 'password' => $password]);
-    $user = $query->fetch(PDO::FETCH_ASSOC);
+    $user = selectFromTable('users', ['id', 'username', 'password'], ['username' => $username, 'password' => $password]);
 
-    if ($user) {
-        $_SESSION['user_id'] = $user['id'];
+    if (!empty($user)) {
+        $_SESSION['user_id'] = $user[0]['id'];
         echo "success";
     } else {
         echo "error";

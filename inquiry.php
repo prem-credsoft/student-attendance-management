@@ -60,13 +60,13 @@
                                     </thead>
                                     <tbody>
                                     <?php
-                                    require_once 'db.php'; // Adjust the path as necessary
-                                    $query = $db->query("SELECT * FROM inquiryinfo");
-                                    if(!$query) {
-                                        die("Error running query: " . $db->errorInfo()[2]);
+                                    require_once 'function.php'; // Adjust the path as necessary
+                                    $rows = selectFromTable('inquiryinfo', ['id', 'name', 'reference', 'mobile_number', 'address', 'time_of_classes', 'profession', 'date'], []);
+                                    if(!$rows) {
+                                        die("Error running query.");
                                     }
                                     $index = 1;
-                                    while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
+                                    foreach ($rows as $row) {
                                         echo "<tr>";
                                         echo "<td>" . $index++ . "</td>";
                                         echo "<td>" . $row['name'] . "</td>";
@@ -107,7 +107,7 @@
         if (confirmAction) {
             window.location.href = 'inquiry_function.php?id=' + id;
         } else {
-            console.log('Deletion cancelled');
+            // console.log('Deletion cancelled');
         }
     }
 </script>

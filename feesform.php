@@ -9,14 +9,12 @@
 
 <?php
 include ('./header.php');
-include ('function.php');
+require_once ('function.php');
 require_once ('db.php');
 
-try {
-    $stmt = $db->query("SELECT id, student_name FROM studentinfo");
-    $students = $stmt->fetchAll(PDO::FETCH_ASSOC);
-} catch (PDOException $e) {
-    die("Could not connect to the database $dbname :" . $e->getMessage());
+$students = selectFromTable('studentinfo', ['id', 'student_name'], []);
+if (!$students) {
+    die("Could not retrieve data from the database.");
 }
 ?>
 

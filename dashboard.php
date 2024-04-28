@@ -30,10 +30,9 @@
           <div class="small-box bg-danger">
             <div class="inner">
               <?php
-              // Fetch the total number of students
-              $stmt = $db->query("SELECT COUNT(*) AS total_inquiry FROM inquiryinfo");
-              $result = $stmt->fetch(PDO::FETCH_ASSOC);
-              $total_inquiry = $result['total_inquiry'];
+              require_once 'function.php';
+              $result = selectFromTable('inquiryinfo', ['COUNT(*) AS total_inquiry'], []);
+              $total_inquiry = $result[0]['total_inquiry'];
               ?>
               <h3><?php echo $total_inquiry; ?></h3>
 
@@ -50,10 +49,9 @@
           <div class="small-box bg-info">
             <div class="inner">
               <?php
-              // Fetch the total number of students
-              $stmt = $db->query("SELECT COUNT(*) AS total_students FROM studentinfo");
-              $result = $stmt->fetch(PDO::FETCH_ASSOC);
-              $total_students = $result['total_students'];
+              require_once 'function.php';
+              $result = selectFromTable('studentinfo', ['COUNT(*) AS total_students'], []);
+              $total_students = $result[0]['total_students'];
               ?>
               <h3><?php echo $total_students; ?></h3>
               <p>Students</p>
@@ -72,10 +70,9 @@
           <div class="small-box bg-warning">
             <div class="inner">
             <?php
-              // Fetch the total number of students
-              $stmt = $db->query("SELECT COUNT(*) AS total_receipt FROM	receipt");
-              $result = $stmt->fetch(PDO::FETCH_ASSOC);
-              $total_receipt = $result['total_receipt'];
+              require_once 'function.php';
+              $result = selectFromTable('receipt', ['COUNT(*) AS total_receipt'], []);
+              $total_receipt = $result[0]['total_receipt'];
               ?>
               <h3><?php echo $total_receipt; ?></h3>
               

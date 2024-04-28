@@ -19,15 +19,10 @@
         $fullname = $_POST['fullname'];
         $email = $_POST['email'];
         $mobile = $_POST['mobile'];
-        $password = $_POST['password']; // Consider hashing the password before storing
+        $password = $_POST['password'];
     
-        // Prepare and execute the update statement
         $query = $db->prepare("UPDATE users SET fullname = ?, email = ?, mobile = ?, password = ? WHERE username = ?");
-        if ($query->execute([$fullname, $email, $mobile, $password, $username])) {
-            echo "<script>alert('Profile updated successfully!'); window.location.href = 'profile.php';</script>";
-        } else {
-            echo "<script>alert('Error updating profile. Please try again.');</script>";
-        }
+        $result = $query->execute([$fullname, $email, $mobile, $password, $username]);
     }
 
     if (isset($_GET['username'])) {
@@ -74,7 +69,7 @@
                                     <label for="mobile">Mobile:</label>
                                     <input type="text" class="form-control" name="mobile" maxlength="10" required
                                         onkeypress="return onlyNumbers(event)"
-                                        value="<?php echo htmlspecialchars($user['mobile']); ?>" required>
+                                    value="<?php echo htmlspecialchars($user['mobile']); ?>" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="password">Password:</label>
@@ -82,10 +77,10 @@
                                         value="<?php echo htmlspecialchars($user['password']); ?>" required>
                                 </div>
                             </div>
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-primary" id="submitProfileUpdate">Update Profile</button>
+                            </div>
                         </form>
-                        <div class="card-footer">
-                            <button type="button" class="btn btn-primary" id="submitProfileUpdate">Update Profile</button>
-                        </div>
                     </div>
                 </div>
             </section>
@@ -96,26 +91,27 @@
     <?php include ('./footer.php'); ?>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        $(document).ready(function () {
-            $('#submitProfileUpdate').on('click', function () {
-                var confirmUpdate = confirm("Are you sure you want to update this profile?");
-                if (confirmUpdate) {
-                    $.ajax({
-                        type: 'POST',
-                        url: 'editProfile.php',
-                        data: $('#updateProfileForm').serialize(),
-                        success: function (response) {
-                            // alert('Profile updated successfully!');
-                            window.location.href = 'profile.php';
-                        },
-                        error: function () {
-                            alert('Error updating profile. Please try again.');
-                        }
-                    });
-                }
-            });
+    $(document).ready(function () {
+        $('#updateProfileForm').on('submit', function (event) {
+            event.preventDefault(); // Prevent the default form submission
+            var confirmUpdate = confirm("Are you sure you want to update this profile?");
+            if (confirmUpdate) {
+                $.ajax({
+                    type: 'POST',
+                    url: 'editProfile.php',
+                    data: $(this).serialize(),
+                    success: function (response) {
+                        alert('Profile updated successfully!');
+                        window.location.href = 'profile.php';
+                    },
+                    error: function () {
+                        alert('Error updating profile. Please try again.');
+                    }
+                });
+            }
         });
-    </script>
+    });
+</script>
 
     <script>
         function onlyNumbers(evt) {
