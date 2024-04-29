@@ -61,14 +61,14 @@ include ('./header.php');
                   <tbody>
                     <?php
                     require_once 'function.php';
-                    $results = selectFromTable('receipt r JOIN studentinfo s ON r.student_id = s.id', ['r.id', 'r.student_id', 's.student_name', 'r.amount', 'r.message', 'r.payment_date'], []);
+                    $results = selectFromTable('receipt r JOIN studentinfo s ON r.student_id = s.id', ['r.id', 'r.student_id', 's.name', 'r.amount', 'r.message', 'r.payment_date'], []);
                     if (!$results) {
                       die("Error running query.");
                     }
                     foreach ($results as $row) {
                       echo "<tr>";
                       echo "<td> RIE - " . $row['student_id'] . "</td>";
-                      echo "<td>" . $row['student_name'] . "</td>";
+                      echo "<td>" . $row['name'] . "</td>";
                       echo "<td>" . $row['amount'] . "</td>";
                       echo "<td>" . $row['message'] . "</td>";
                       echo "<td>" . $row['payment_date'] . "</td>";

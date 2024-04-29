@@ -29,7 +29,7 @@ if (isset($_GET['id'])) {
     }
 }
 
-$students = selectFromTable('studentinfo', ['id', 'student_name'], []);
+$students = selectFromTable('studentinfo', ['id', 'name'], []);
 if (!$students) {
     die("Could not retrieve data from the database.");
 }
@@ -79,7 +79,7 @@ if (!$students) {
                                                 <?php foreach ($students as $student): ?>
                                                     <option value="<?php echo htmlspecialchars($student['id']); ?>"
                                                         <?php echo $studentId == $student['id'] ? 'selected' : ''; ?>>
-                                                        <?php echo htmlspecialchars($student['student_name']); ?>,
+                                                        <?php echo htmlspecialchars($student['name']); ?>,
                                                         RIE - <?php echo htmlspecialchars($student['id']); ?>
                                                     </option>
                                                 <?php endforeach; ?>

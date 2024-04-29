@@ -43,7 +43,7 @@
               <h3 class="card-title">Students List</h3>
               <!-- Add button here -->
               <div class="card-tools">
-                <a href="./studentfrom.php" class="btn btn-primary">Add New Student</a>
+                <a href="./studentform.php" class="btn btn-primary">Add New Student</a>
               </div>
             </div>
             <!-- /.card-header -->
@@ -62,15 +62,15 @@
                   </thead>
                   <tbody>
                     <?php
-                    $query = $db->query("SELECT * FROM studentinfo");
-                    $index = 1;
-                    while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
+                    require_once 'function.php';
+                    $rows = selectFromTable('studentinfo', ['id', 'name', 'batch', 'mobile_number'], []);
+                    foreach ($rows as $row) {
                       echo "<tr>";
                       echo "<td> RIE - " . $row['id'] . "</td>";
-                      echo "<td>" . $row['student_name'] . "</td>";
+                      echo "<td>" . $row['name'] . "</td>";
                       echo "<td>" . $row['batch'] . "</td>";
                       echo "<td>" . $row['mobile_number'] . "</td>";
-                      echo "<td><a href='#" . $row['id'] . "' class='btn btn-info col-md-12'>Edit</a></td>";
+                      echo "<td><a href='studentform.php?id=" . $row['id'] . "' class='btn btn-primary col-md-12'>Edit</a></td>";
                       echo "<td><a href='#" . $row['id'] . "' class='btn btn-danger col-md-12'>Delete</a></td>";
                       echo "</tr>";
                     }
