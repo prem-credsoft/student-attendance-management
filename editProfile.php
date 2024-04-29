@@ -12,20 +12,28 @@
 <?php
 include('./header.php');
 include('./db.php');
+include('function.php');
 
 // Check if the form has been submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['username']; // Username is unique and used to identify the user
     $fullname = $_POST['fullname'];
     $email = $_POST['email'];
-    $mobile = $_POST['mobile']; // Added mobile field
+    $mobile = $_POST['mobile'];
     $password = $_POST['password']; // Consider hashing the password before storing
 
-    // Prepare the update query
-    $query = $db->prepare("UPDATE users SET fullname = ?, email = ?, mobile = ?, password = ? WHERE username = ?");
-    $result = $query->execute([$fullname, $email, $mobile, $password, $username]);
+    // Prepare the data for updating
+    $data = array('fullname' => $fullname, 'email' => $email, 'mobile' => $mobile, 'password' => $password);
+    $conditions = array('username' => $username);
 
-    // No more alert here, handling will be done by AJAX
+    // Call the updateTable function to update the user profile
+    $result = updateTable('users', $data, $conditions);
+
+    if ($result) {
+        // Handle success, if needed
+    } else {
+        // Handle failure, if needed
+    }
 }
 
 // Retrieve user details if the username is set in the URL
