@@ -1,5 +1,6 @@
 <?php 
 include('db.php'); 
+include('function.php');
 
 // Check for session message
 if (isset($_SESSION['message'])) {
@@ -15,8 +16,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($batchName) || empty($facultyName)) {
         $message = "<script>alert('Both fields are required.');</script>";
     } else {
-        $stmt = $db->prepare("INSERT INTO batch_table (name, FacultyName) VALUES (?, ?)");
-        $result = $stmt->execute([$batchName, $facultyName]);
+        $data = array('name' => $batchName, 'FacultyName' => $facultyName);
+        $result = insertIntoTable('batch_table', $data);
 
         if ($result) {
             $_SESSION['message'] = "Batch added successfully.";
