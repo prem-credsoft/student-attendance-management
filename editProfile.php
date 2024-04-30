@@ -90,7 +90,7 @@ if (!empty($user)) {
                                     </div>
                                 </div>
                                 <div class="card-footer">   
-                                    <button type="submit" class="btn btn-primary">Update Profile</button>
+                                    <button type="submit" class="btn btn-primary" onclick="return confirm('Are you sure you want to update this profile?')">Update Profile</button>
                                     <div id="updateSuccessMessage" style="display:none; color: green;"></div> <!-- Success message placeholder -->
                                     <div id="updateErrorMessage" style="display:none; color: red;"></div> <!-- Error message placeholder -->
                                 </div>

@@ -87,7 +87,7 @@ include('./header.php');
                                 <input type="hidden" name="id" value="<?php echo $batch['id']; ?>">
                             </div>
                             <div class="card-footer">   
-                                <button type="submit" class="btn btn-primary">Update Batch</button>
+                                <button type="submit" class="btn btn-primary" onclick="return confirm('Are you sure you want to update this batch?')">Update Batch</button>
                             </div>
                         </form>
                     </div>
@@ -101,7 +101,7 @@ include('./header.php');
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 $(document).ready(function() {
-    $('#updateBatchForm').on('submit', function(e) {
+    $('#updateBatchForm').submit(function(e) {
         e.preventDefault(); // Prevent the default form submission
         var confirmUpdate = confirm("Are you sure you want to update this batch?"); // Confirmation dialog
         if (confirmUpdate) { // Check if the user confirmed the update

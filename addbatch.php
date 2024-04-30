@@ -21,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if ($result) {
             $_SESSION['message'] = "Batch added successfully.";
-            header('Location: addbatch.php'); // Redirect to the same page to avoid form resubmission
+            header('Location: batch.php'); // Redirect to the same page to avoid form resubmission
             exit();
         } else {
             $_SESSION['message'] = "Failed to add batch.";
@@ -75,7 +75,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
-                        <form method="POST">
+                        <form id="addBatchForm" method="POST">
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="batchName">Batch Name</label>
@@ -89,7 +89,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <!-- /.card-body -->
 
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <button type="submit" class="btn btn-primary" onclick="return confirm('Are you sure you want to add this batch?')">Submit</button>
                             </div>
                         </form>
                     </div>
@@ -104,3 +104,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <?php include('./footer.php'); ?>
 </html>
+
+<script>
+document.getElementById('addBatchForm').addEventListener('submit', function(event) {
+    if (!confirm('Are you sure you want to add this batch?')) {
+        event.preventDefault(); // Prevent form submission if cancel is clicked
+    }
+});
+</script>
