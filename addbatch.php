@@ -21,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if ($result) {
             $_SESSION['message'] = "Batch added successfully.";
-            header('Location: addbatch.php'); // Redirect to the same page to avoid form resubmission
+            header('Location: batch.php'); // Redirect to the same page to avoid form resubmission
             exit();
         } else {
             $_SESSION['message'] = "Failed to add batch.";

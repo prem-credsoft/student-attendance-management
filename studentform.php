@@ -17,6 +17,7 @@ $inquiryData = null;
 $studentData = null;
 $isUpdate = false;
 $isFromInquiry = false;
+$batches = selectFromTable('batch_table', ['name'], []);
 
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
@@ -32,7 +33,7 @@ if (isset($_GET['id'])) {
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $data = [
         'name' => $_POST['studentName'] ?? '',
-        'batch' => $_POST['batch'] ?? '',
+        'batch' => $_POST['batch'] ?? '', // Storing batch name directly
         'father_name' => $_POST['fatherName'] ?? '',
         'mother_name' => $_POST['motherName'] ?? '',
         'dob' => $_POST['dob'] ?? '',
@@ -104,11 +105,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                         placeholder="Enter Student Name"
                                         value="<?php echo htmlspecialchars($inquiryData['name'] ?? $studentData['name'] ?? ''); ?>">
                                 </div>
-                                <div class="form-group">
-                                    <label for="batch">Batch</label>
-                                    <input type="text" class="form-control" id="batch" name="batch" placeholder="Batch"
-                                        value="<?php echo htmlspecialchars($studentData['batch'] ?? ''); ?>">
-                                </div>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
@@ -166,6 +162,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     </div>
                                 </div>
                                 <!-- Add Profession Field -->
+                                <div class="row">
+                                <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="profession">Profession</label>
                                     <select class="form-control" id="profession" name="profession" required>
@@ -177,6 +175,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                         <option value="Kids" <?php echo ($inquiryData && $inquiryData['profession'] == 'Kids') || ($studentData && $studentData['profession'] == 'Kids') ? 'selected' : ''; ?>>Kids</option>
                                         <option value="Other" <?php echo ($inquiryData && $inquiryData['profession'] == 'Other') || ($studentData && $studentData['profession'] == 'Other') ? 'selected' : ''; ?>>Other</option>
                                     </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="batch">Batch</label>
+                                    <select class="form-control" id="batch" name="batch">
+                                        <?php foreach ($batches as $batch): ?>
+                                            <option value="<?php echo htmlspecialchars($batch['name']); ?>" <?php echo (isset($studentData['batch']) && $studentData['batch'] == $batch['name']) ? 'selected' : ''; ?>>
+                                                <?php echo htmlspecialchars($batch['name']); ?>
+                                            </option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                            </div>
                                 </div>
                                 <!-- Add Address Field -->
                                 <div class="form-group">

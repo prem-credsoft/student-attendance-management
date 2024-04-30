@@ -72,7 +72,7 @@ include ('./header.php');
                       echo "<td>" . $row['amount'] . "</td>";
                       echo "<td>" . $row['message'] . "</td>";
                       echo "<td>" . $row['payment_date'] . "</td>";
-                      echo "<td><a href='feesform.php?id=" . $row['id'] . "' class='btn btn-info col-md-12'>Edit</a></td>";
+                      echo "<td><a href='feesform.php?id=" . $row['id'] . "' class='btn btn-primary col-md-12'>Edit</a></td>";
                       echo "<td><a href='javascript:void(0);' onclick='confirmDelete(" . $row['id'] . ")' class='btn btn-danger col-md-12'>Delete</a></td>";
                       echo "</tr>";
                     }
