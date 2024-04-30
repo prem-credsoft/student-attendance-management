@@ -50,8 +50,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $actionResult = $result ? "Student Details updated successfully." : "Failed to update Student Details.";
     } else {
         $result = insertIntoTable('studentinfo', $data);
-        if ($result && $isFromInquiry) {
-            deleteFromTable('inquiryinfo', ['id' => $id]);  // Delete the inquiry after adding to student
+        if ($result && $isFromInquiry) {  // Delete the inquiry after adding to student
+            $deleteResult = deleteFromTable('inquiryinfo', ['id' => $inquiryData['id']]);
+            if (!$deleteResult) {
+                $actionResult = "Failed to delete inquiry after adding student.";
+            }
         }
         $actionResult = $result ? "Student Details submitted successfully." : "Failed to submit Student Details.";
     }
@@ -97,6 +100,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <!-- Include hidden field for ID if updating -->
                             <?php if ($isUpdate): ?>
                                 <input type="hidden" name="id" value="<?php echo $id; ?>">
+                            <?php endif; ?>
+                            <!-- Include hidden field for inquiryId if from inquiry -->
+                            <?php if ($isFromInquiry): ?>
+                                <input type="hidden" name="inquiryId" value="<?php echo $inquiryData['id']; ?>">
                             <?php endif; ?>
                             <div class="card-body">
                                 <div class="form-group">

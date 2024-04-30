@@ -82,7 +82,7 @@ if (!empty($user)) {
                                     </div>
                                     <div class="form-group">
                                         <label for="mobile">Mobile:</label>
-                                        <input type="text" class="form-control" name="mobile" value="<?php echo htmlspecialchars($user['mobile']); ?>" required>
+                                        <input type="text" class="form-control" name="mobile" value="<?php echo htmlspecialchars($user['mobile']); ?>" maxlength="10" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="password">Password:</label>
@@ -117,7 +117,7 @@ $(document).ready(function() {
                 url: 'editProfile.php',
                 data: $(this).serialize(),
                 success: function(response) {
-                    alert('Profile updated successfully!'); // Display success alert
+                    // alert('Profile updated successfully!'); // Display success alert
                     window.location.href = 'profile.php'; // Redirect to profile page or any other page
                 },
                 error: function() {

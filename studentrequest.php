@@ -26,6 +26,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Insert new student
         $result = insertIntoTable('studentinfo', $data);
         $actionResult = $result ? "Student Details submitted successfully." : "Failed to submit Student Details.";
+        
+        // Check if this is from an inquiry and delete the inquiry if the insert was successful
+        if ($result && !empty($_POST['inquiryId'])) {
+            $inquiryId = $_POST['inquiryId'];
+            $deleteResult = deleteFromTable('inquiryinfo', ['id' => $inquiryId]);
+            if (!$deleteResult) {
+                $actionResult = "Failed to delete inquiry after adding student.";
+            }
+        }
     }
 
     header('Content-Type: application/json');
