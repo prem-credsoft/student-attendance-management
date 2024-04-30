@@ -71,7 +71,7 @@
                       echo "<td>" . $row['batch'] . "</td>";
                       echo "<td>" . $row['mobile_number'] . "</td>";
                       echo "<td><a href='studentform.php?id=" . $row['id'] . "' class='btn btn-primary col-md-12'>Edit</a></td>";
-                      echo "<td><a href='#" . $row['id'] . "' class='btn btn-danger col-md-12'>Delete</a></td>";
+                      echo "<td><a href='javascript:void(0);' onclick='confirmDelete(" . $row['id'] . ")' class='btn btn-danger col-md-12'>Delete</a></td>";
                       echo "</tr>";
                     }
                     ?>
@@ -90,7 +90,7 @@
 </div>
 <!-- /.content-wrapper -->
 
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
 <script>
@@ -105,5 +105,15 @@
       "responsive": true
     });
   });
+</script>
+<script>
+    function confirmDelete(id) {
+        var confirmAction = confirm("Are you sure you want to delete this Inquiry?");
+        if (confirmAction) {
+            window.location.href = 'student_function.php?id=' + id;
+        } else {
+            // console.log('Deletion cancelled');
+        }
+    }
 </script>
 <?php include ('./footer.php'); ?>
