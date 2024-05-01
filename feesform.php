@@ -5,7 +5,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Admin | Fees Form</title>
-</head>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+    </head>
 
 <?php
 include ('./header.php');
@@ -74,8 +75,8 @@ if (!$students) {
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="selectPicker">Student Detail</label>
-                                            <select class="selectpicker form-control" id="selectPicker"
-                                                name="student_id" data-live-search="true">
+                                            <select class="form-control select2" id="selectPicker"
+                                                name="student_id">
                                                 <?php foreach ($students as $student): ?>
                                                     <option value="<?php echo htmlspecialchars($student['id']); ?>"
                                                         <?php echo $studentId == $student['id'] ? 'selected' : ''; ?>>
@@ -143,6 +144,15 @@ if (!$students) {
 </div>
 <!-- /.content-wrapper -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('.select2').select2({
+            placeholder: "Select a student",
+            allowClear: true
+        });
+    });
+</script>
 <script>
     $(document).ready(function () {
         $('button').click(function () {
@@ -184,5 +194,4 @@ if (!$students) {
 </body>
 
 </html>
-
 

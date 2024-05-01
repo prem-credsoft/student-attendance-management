@@ -88,7 +88,12 @@
           <!-- small box -->
           <div class="small-box bg-success">
             <div class="inner">
-              <h3>53</h3>
+            <?php
+              require_once 'function.php';
+              $result = selectFromTable('leaves', ['COUNT(*) AS total_leaves'], []);
+              $total_leaves = $result[0]['total_leaves'];
+              ?>
+              <h3><?php echo $total_leaves; ?></h3>
 
               <p>Leaves</p>
             </div>

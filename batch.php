@@ -72,6 +72,7 @@
                       // echo "<td>" . $row['timestamp'] . "</td>";
                       echo "<td><a href='editbatch.php?id=" . $row['id'] . "' class='btn btn-primary col-md-6'>Edit</a></td>";
                       echo "<td><a href='deletebatch.php?id=" . $row['id'] . "' class='btn btn-danger col-md-6' onclick='return confirm(\"Are you sure you want to delete this batch?\");'>Delete</a></td>";
+                      
                       echo "</tr>";
                     }
                     ?>

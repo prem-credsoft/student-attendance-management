@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Admin | Student From</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
 </head>
 
 
@@ -186,8 +187,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="batch">Batch</label>
-                                    <select class="form-control" id="batch" name="batch">
+                                    <label for="selectPicker">Batch</label>
+                                    <select class="form-control select2" id="batch" name="batch">
                                         <?php foreach ($batches as $batch): ?>
                                             <option value="<?php echo htmlspecialchars($batch['name']); ?>" <?php echo (isset($studentData['batch']) && $studentData['batch'] == $batch['name']) ? 'selected' : ''; ?>>
                                                 <?php echo htmlspecialchars($batch['name']); ?>
@@ -218,6 +219,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </div>
 <!-- /.content-wrapper -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('.select2').select2({
+            placeholder: "Select a Batch",
+            allowClear: true
+        });
+    });
+</script>
 
 <script>
     $(document).ready(function () {
