@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 02, 2024 at 09:22 AM
+-- Generation Time: May 02, 2024 at 03:52 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -31,8 +31,8 @@ CREATE TABLE `attendance` (
   `id` int(11) NOT NULL,
   `student_id` int(11) NOT NULL,
   `date` date NOT NULL,
-  `status` int(1) NOT NULL,
-  `created_at` datetime NOT NULL DEFAULT current_timestamp()
+  `status` tinyint(4) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -102,8 +102,7 @@ CREATE TABLE `leaves` (
 --
 
 INSERT INTO `leaves` (`id`, `student_id`, `reason`, `start_date`, `end_date`, `created_at`) VALUES
-(9, 24, 'sdgdfhdhgd r reh re gre g', '2024-05-05', '2024-05-07', '2024-05-01 18:20:06'),
-(10, 27, 'gyiugkjbkjb', '2024-05-09', '2024-05-11', '2024-05-01 18:20:25');
+(9, 24, 'sdgdfhdhgd r reh re gre g', '2024-05-05', '2024-05-07', '2024-05-01 18:20:06');
 
 -- --------------------------------------------------------
 
@@ -126,9 +125,10 @@ CREATE TABLE `receipt` (
 
 INSERT INTO `receipt` (`id`, `student_id`, `amount`, `payment_date`, `message`, `created_at`) VALUES
 (23, 24, 980.00, '2024-04-30', 'paid by vue js', '2024-04-30 12:10:00'),
-(25, 27, 1313.00, '2024-04-30', 'wrfwebrb', '2024-04-30 13:28:51'),
 (26, 24, 3000.00, '2024-04-30', 'ytiutyi', '2024-04-30 13:29:11'),
-(27, 8, 3000.00, '2024-04-30', 'ouiyoihjk', '2024-04-30 13:29:24');
+(27, 8, 3000.00, '2024-04-30', 'ouiyoihjk', '2024-04-30 13:29:24'),
+(28, 57, 5000.00, '2024-05-02', 'khvvviygiv', '2024-05-02 13:01:59'),
+(29, 9, 9800.00, '2024-05-02', 'mare to bharva j che', '2024-05-02 13:18:01');
 
 -- --------------------------------------------------------
 
@@ -150,26 +150,27 @@ CREATE TABLE `studentinfo` (
   `profession` varchar(100) DEFAULT NULL,
   `address` varchar(255) DEFAULT NULL,
   `admission_time` date DEFAULT NULL,
-  `created_at` datetime NOT NULL DEFAULT current_timestamp()
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `pending_fees` decimal(10,2) DEFAULT 0.00
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `studentinfo`
 --
 
-INSERT INTO `studentinfo` (`id`, `name`, `batch`, `batch_name`, `father_name`, `mother_name`, `dob`, `gender`, `mobile_number`, `fee_status`, `profession`, `address`, `admission_time`, `created_at`) VALUES
-(8, 'Christopher Anderson', 5, 'xyzx', 'ABC', 'dfhfgjf', '2024-04-05', 'Male', '3332221111', 'Partially Paid', 'Housewife', '999 Chestnut St', '2024-05-02', '2024-04-28 17:58:36'),
-(9, 'Bob White', 5, 'xyzx', 'asdfgt', 'dfhfgjf', '2024-04-25', 'Male', '7779998888', 'Fully Paid', 'Working Professional', '987 Pine St', '2024-05-02', '2024-04-28 17:59:27'),
-(24, 'nextjs', 11, 'React JS', 'asdfgt', 'dfhfgjf', '2024-04-04', 'Male', '1531545613', 'Fully Paid', 'Working Professional', 'sdvsbsbss, fefgse', '2024-05-02', '2024-04-30 16:40:20'),
-(26, 'QQQQQQQ', 5, 'xyzx', 'ABC', 'dfhfgjf', '2024-04-04', 'Female', '9876541238', 'Partially Paid', 'Kids', 'fsdfsfsdfsfsdfg, gwegwesg', '2024-05-02', '2024-04-30 17:41:48'),
-(27, 'ABC', 11, 'React JS', 'vvvvv', 'ddddd', '2024-04-02', 'Male', '9876541238', 'Fully Paid', 'Housewife', 'sdfgbfdbdsb', '2024-05-02', '2024-04-30 18:29:07'),
-(28, 'xxxxyyyyy', 5, 'xyzx', 'ABC', 'sdgsd', '2024-04-04', 'Female', '1231651618', 'Partially Paid', 'Working Professional', 'fsdfsfsdfsfsdfg, gwegwesg', '2024-05-02', '2024-04-30 18:34:32'),
-(52, 'rest', 5, 'xyzx', 'asdfgt', 'dfhfgjf', '2024-04-04', 'Male', '1234567898', 'Fully Paid', 'Housewife', 'dfheheheherhe,  gerregrghrgg,  sdgsgsgsa', '2024-05-02', '2024-04-30 18:41:41'),
-(55, 'XYZ', 11, 'React JS', 'ABC', 'DEF', '2024-05-03', 'Female', '4565864577', 'Partially Paid', 'Working Professional', 'fsdfsfsdfsfsdfg, gwegwesg', '2024-05-02', '2024-05-02 12:21:54'),
-(56, 'jk', 5, 'xyzx', 'asdfgt', 'sdgsd', '2024-05-05', 'Male', '4651321321', 'Fully Paid', 'Student', 'dfheheheherhe,  gerregrghrgg,  sdgsgsgsa', '2024-05-02', '2024-05-02 12:32:09'),
-(57, 'NMKL', 5, 'xyzx', 'asdfgt', 'dfhfgjf', '0000-00-00', 'Male', '7894561230', 'Fully Paid', 'Student', 'sdgsbsb', '2024-05-02', '2024-05-02 12:47:33'),
-(58, 'GJ', 11, 'React JS', 'sdvfsdsdvfs', 'sdgsd', '2024-05-05', 'Male', '5465468325', 'Fully Paid', 'Working Professional', 'sdvsbsbss, fefgse', '2024-05-02', '2024-05-02 12:49:29'),
-(59, 'WWW', 5, 'xyzx', 'sdvfsdsdvfs', 'sdgsd', '2024-05-05', 'Male', '1221547854', 'Fully Paid', 'Housewife', 'sdfgbfdbdsb', '2024-05-02', '2024-05-02 12:51:08');
+INSERT INTO `studentinfo` (`id`, `name`, `batch`, `batch_name`, `father_name`, `mother_name`, `dob`, `gender`, `mobile_number`, `fee_status`, `profession`, `address`, `admission_time`, `created_at`, `pending_fees`) VALUES
+(8, 'Christopher Anderson', 5, 'xyzx', 'ABC', 'dfhfgjf', '2024-04-05', 'Male', '3332221111', 'Partially Paid', 'Housewife', '999 Chestnut St', '2024-05-02', '2024-04-28 17:58:36', 6800.00),
+(9, 'Bob White', 5, 'xyzx', 'asdfgt', 'dfhfgjf', '2024-04-25', 'Male', '7779998888', 'Fully Paid', 'Working Professional', '987 Pine St', '2024-05-02', '2024-04-28 17:59:27', 0.00),
+(24, 'nextjs', 11, 'React JS', 'asdfgt', 'dfhfgjf', '2024-04-04', 'Male', '1531545613', 'Fully Paid', 'Working Professional', 'sdvsbsbss, fefgse', '2024-05-02', '2024-04-30 16:40:20', 5820.00),
+(26, 'QQQQQQQ', 5, 'xyzx', 'ABC', 'dfhfgjf', '2024-04-04', 'Female', '9876541238', 'Partially Paid', 'Kids', 'fsdfsfsdfsfsdfg, gwegwesg', '2024-05-02', '2024-04-30 17:41:48', 9800.00),
+(27, 'ABC', 5, 'xyzx', 'vvvvv', 'ddddd', '2024-04-02', 'Male', '9876541238', 'Fully Paid', 'Housewife', 'sdfgbfdbdsb', '2024-05-02', '2024-04-30 18:29:07', 9800.00),
+(28, 'xxxxyyyyy', 5, 'xyzx', 'ABC', 'sdgsd', '2024-04-04', 'Female', '1231651618', 'Partially Paid', 'Working Professional', 'fsdfsfsdfsfsdfg, gwegwesg', '2024-05-02', '2024-04-30 18:34:32', 9800.00),
+(52, 'rest', 5, 'xyzx', 'asdfgt', 'dfhfgjf', '2024-04-04', 'Male', '1234567898', 'Fully Paid', 'Housewife', 'dfheheheherhe,  gerregrghrgg,  sdgsgsgsa', '2024-05-02', '2024-04-30 18:41:41', 9800.00),
+(55, 'XYZ', 5, 'xyzx', 'ABC', 'DEF', '2024-05-03', 'Female', '4565864577', 'Partially Paid', 'Working Professional', 'fsdfsfsdfsfsdfg, gwegwesg', '2024-05-02', '2024-05-02 12:21:54', 9800.00),
+(56, 'jk', 5, 'xyzx', 'asdfgt', 'sdgsd', '2024-05-05', 'Male', '4651321321', 'Fully Paid', 'Student', 'dfheheheherhe,  gerregrghrgg,  sdgsgsgsa', '2024-05-02', '2024-05-02 12:32:09', 9800.00),
+(57, 'NMKL', 5, 'xyzx', 'asdfgt', 'dfhfgjf', '0000-00-00', 'Male', '7894561230', 'Fully Paid', 'Student', 'sdgsbsb', '2024-05-02', '2024-05-02 12:47:33', 4800.00),
+(58, 'GJ', 5, 'xyzx', 'sdvfsdsdvfs', 'sdgsd', '2024-05-05', 'Male', '5465468325', 'Fully Paid', 'Working Professional', 'sdvsbsbss, fefgse', '2024-05-02', '2024-05-02 12:49:29', 9800.00),
+(59, 'WWW', 5, 'xyzx', 'sdvfsdsdvfs', 'sdgsd', '2024-05-05', 'Male', '1221547854', 'Fully Paid', 'Housewife', 'sdfgbfdbdsb', '2024-05-02', '2024-05-02 12:51:08', 9800.00);
 
 -- --------------------------------------------------------
 
@@ -275,7 +276,7 @@ ALTER TABLE `leaves`
 -- AUTO_INCREMENT for table `receipt`
 --
 ALTER TABLE `receipt`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `studentinfo`
