@@ -30,7 +30,7 @@ if (isset($_GET['id'])) {
     }
 }
 
-$students = selectFromTable('studentinfo', ['id', 'name'], []);
+$students = selectFromTable('studentinfo', ['id', 'name', 'pending_fees'], []);
 if (!$students) {
     die("Could not retrieve data from the database.");
 }
@@ -76,12 +76,21 @@ if (!$students) {
                                         <div class="form-group">
                                             <label for="selectPicker">Student Detail</label>
                                             <select class="form-control select2" id="selectPicker"
-                                                name="student_id">
+                                                name="student_id" onchange="updateFeesDetails()">
                                                 <?php foreach ($students as $student): ?>
+                                                    <?php
+                                                    $isFullyPaid = ($student['pending_fees'] == 0.00);
+                                                    $totalPaid = selectFromTable('receipt', ['SUM(amount) AS total_paid'], ['student_id' => $student['id']]);
+                                                    $totalPaid = $totalPaid[0]['total_paid'] ?? 0;
+                                                    ?>
                                                     <option value="<?php echo htmlspecialchars($student['id']); ?>"
-                                                        <?php echo $studentId == $student['id'] ? 'selected' : ''; ?>>
+                                                        data-pending-fees="<?php echo htmlspecialchars($student['pending_fees']); ?>"
+                                                        data-total-paid="<?php echo htmlspecialchars($totalPaid); ?>"
+                                                        <?php echo $studentId == $student['id'] ? 'selected' : ''; ?>
+                                                        <?php echo $isFullyPaid ? 'disabled' : ''; ?>>
                                                         <?php echo htmlspecialchars($student['name']); ?>,
                                                         RIE - <?php echo htmlspecialchars($student['id']); ?>
+                                                        <?php echo $isFullyPaid ? ' (Fully Paid)' : ''; ?>
                                                     </option>
                                                 <?php endforeach; ?>
                                             </select>
@@ -177,21 +186,44 @@ if (!$students) {
             });
         });
 
-        var initialTotalFees = 9800;
-
+        // Update fees details when the amount input changes
         $('#amount').on('input', function() {
-            var amountEntered = parseFloat($(this).val() || 0);
-            var totalPaid = parseFloat($('#total_paid').val() || 0);
-            var newTotalPaid = amountEntered;
-            var pendingFees = initialTotalFees - newTotalPaid;
-
-            $('#total_paid').val(newTotalPaid.toFixed(2));
-            $('#pending_fees').val(pendingFees.toFixed(2));
+            updateFeesOnAmountChange();
         });
     });
+
+    function updateFeesDetails() {
+    var selectPicker = document.getElementById('selectPicker');
+    var selectedOption = selectPicker.options[selectPicker.selectedIndex];
+    var pendingFees = parseFloat(selectedOption.getAttribute('data-pending-fees'));
+    var totalPaid = parseFloat(selectedOption.getAttribute('data-total-paid'));
+
+    // Set initial values from selected student data
+    document.getElementById('pending_fees').value = pendingFees.toFixed(2);
+    document.getElementById('total_paid').value = totalPaid.toFixed(2);
+
+    // Update based on the current input, considering existing payments
+    updateFeesOnAmountChange();
+}
+
+function updateFeesOnAmountChange() {
+    var amountEntered = parseFloat($('#amount').val() || 0);
+    var initialTotalFees = parseFloat($('#total_fees').val());
+    var currentTotalPaid = parseFloat($('#total_paid').val()) - amountEntered; // Subtract the old amount first if editing
+    var newTotalPaid = currentTotalPaid + amountEntered; // Add the new entered amount
+    var newPendingFees = initialTotalFees - newTotalPaid;
+
+    $('#total_paid').val(newTotalPaid.toFixed(2));
+    $('#pending_fees').val(newPendingFees.toFixed(2));
+}
+
+// Ensure this runs on page load to set up initial values
+document.addEventListener('DOMContentLoaded', function() {
+    updateFeesDetails();
+    $('#amount').trigger('input'); // Trigger input to recalculate on load
+});
 </script>
 <?php include ('./footer.php'); ?>
 </body>
 
 </html>
-

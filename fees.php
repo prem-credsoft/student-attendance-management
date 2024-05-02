@@ -76,6 +76,14 @@ include ('./header.php');
                       echo "<td><a href='javascript:void(0);' onclick='confirmDelete(" . $row['id'] . ")' class='btn btn-danger col-md-12'>Delete</a></td>";
                       echo "</tr>";
                     }
+                    // Calculate pending fees and update studentinfo table
+                    $students = selectFromTable('studentinfo', ['id', 'name'], []);
+                    foreach ($students as $student) {
+                        $totalPaidResults = selectFromTable('receipt', ['SUM(amount) AS total_paid'], ['student_id' => $student['id']]);
+                        $totalPaid = $totalPaidResults[0]['total_paid'] ?? 0;
+                        $pendingFees = 9800 - $totalPaid;
+                        updateTable('studentinfo', ['pending_fees' => $pendingFees], ['id' => $student['id']]);
+                    }
                     ?>
                   </tbody>
                 </table>
@@ -112,7 +120,7 @@ include ('./header.php');
       "paging": true,
       "lengthChange": true,
       "searching": true,
-      "ordering": true,
+      "ordering": false,
       "info": false,
       "autoWidth": true,
       "responsive": true

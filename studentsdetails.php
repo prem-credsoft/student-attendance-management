@@ -55,6 +55,7 @@
                       <th>GR No.</th>
                       <th>Student Name</th>
                       <th>Batch</th>
+                      <th>Pending Fees</th>
                       <th>Mobile Number</th>
                       <th>Edit</th>
                       <th>Delete</th>
@@ -63,12 +64,13 @@
                   <tbody>
                     <?php
                     require_once 'function.php';
-                    $rows = selectFromTable('studentinfo', ['id', 'name', 'batch', 'batch_name', 'mobile_number'], []);
+                    $rows = selectFromTable('studentinfo', ['id', 'name', 'batch', 'batch_name', 'pending_fees', 'mobile_number'], []);
                     foreach ($rows as $row) {
                       echo "<tr>";
                       echo "<td> RIE - " . $row['id'] . "</td>";
                       echo "<td>" . $row['name'] . "</td>";
                       echo "<td>" . $row['batch_name'] . "</td>";
+                      echo "<td>" . $row['pending_fees'] . "</td>";
                       echo "<td>" . $row['mobile_number'] . "</td>";
                       echo "<td><a href='javascript:void(0);' onclick='confirmEdit(" . $row['id'] . ")' class='btn btn-primary col-md-12'>Edit</a></td>";
                       echo "<td><a href='javascript:void(0);' onclick='confirmDelete(" . $row['id'] . ")' class='btn btn-danger col-md-12'>Delete</a></td>";
@@ -99,7 +101,7 @@
       "paging": true,
       "lengthChange": true,
       "searching": true,
-      "ordering": true,
+      "ordering": false,
       "info": false,
       "autoWidth": true,
       "responsive": true
