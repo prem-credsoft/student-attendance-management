@@ -3,9 +3,13 @@ require_once 'function.php';
 require_once 'db.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $batchId = $_POST['batch'] ?? '';
+    $batchName = selectFromTable('batch_table', ['name'], ['id' => $batchId])[0]['name'] ?? '';
+
     $data = [
         'name' => $_POST['studentName'] ?? '',
-        'batch' => $_POST['batch'] ?? '',
+        'batch' => $batchId,
+        'batch_name' => $batchName,
         'father_name' => $_POST['fatherName'] ?? '',
         'mother_name' => $_POST['motherName'] ?? '',
         'dob' => $_POST['dob'] ?? '',

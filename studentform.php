@@ -4,21 +4,20 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Admin | Student From</title>
+    <title>Admin | Student Form</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
 </head>
-
-
-<?php include ('./header.php'); ?>
-<?php include ('function.php'); ?>
-<?php include ('db.php'); ?>
+<body>
+<?php include('./header.php'); ?>
+<?php include('function.php'); ?>
+<?php include('db.php'); ?>
 
 <?php
 $inquiryData = null;
 $studentData = null;
 $isUpdate = false;
 $isFromInquiry = false;
-$batches = selectFromTable('batch_table', ['name'], []);
+$batches = selectFromTable('batch_table', ['name', 'id'], []);
 
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
@@ -30,39 +29,6 @@ if (isset($_GET['id'])) {
         $isUpdate = true;
     }
 }
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $data = [
-        'name' => $_POST['studentName'] ?? '',
-        'batch' => $_POST['batch'] ?? '', // Storing batch name directly
-        'father_name' => $_POST['fatherName'] ?? '',
-        'mother_name' => $_POST['motherName'] ?? '',
-        'dob' => $_POST['dob'] ?? '',
-        'gender' => $_POST['gender'] ?? '',
-        'mobile_number' => $_POST['mobileNumber'] ?? '',
-        'fee_status' => $_POST['feeStatus'] ?? '',
-        'profession' => $_POST['profession'] ?? 'Other',
-        'address' => $_POST['address'] ?? '',
-        'admission_time' => date('Y-m-d'),
-    ];
-
-    if ($isUpdate) {
-        $result = updateTable('studentinfo', $data, ['id' => $id]);
-        $actionResult = $result ? "Student Details updated successfully." : "Failed to update Student Details.";
-    } else {
-        $result = insertIntoTable('studentinfo', $data);
-        if ($result && $isFromInquiry) {  // Delete the inquiry after adding to student
-            $deleteResult = deleteFromTable('inquiryinfo', ['id' => $inquiryData['id']]);
-            if (!$deleteResult) {
-                $actionResult = "Failed to delete inquiry after adding student.";
-            }
-        }
-        $actionResult = $result ? "Student Details submitted successfully." : "Failed to submit Student Details.";
-    }
-
-    ajaxResponse($result, [], $actionResult);
-    exit;
-}
 ?>
 
 <!-- Content Wrapper. Contains page content -->
@@ -72,12 +38,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Student From</h1>
-                </div><!-- /.col -->
+                    <h1 class="m-0">Student Form</h1>
+                </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="./dashboard.php">Home</a></li>
-                        <li class="breadcrumb-item active">Student From</li>
+                        <li class="breadcrumb-item active">Student Form</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -97,7 +63,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
-                        <form method="POST">
+                        <form method="POST" id="studentForm">
                             <!-- Include hidden field for ID if updating -->
                             <?php if ($isUpdate): ?>
                                 <input type="hidden" name="id" value="<?php echo $id; ?>">
@@ -144,7 +110,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                             <label for="gender">Gender</label>
                                             <select class="form-control" id="gender" name="gender" required>
                                                 <option value="Male" <?php echo ($studentData && $studentData['gender'] == 'Male') ? 'selected' : ''; ?>>Male</option>
-                                                <option value="Female" <?php echo ($studentData && $studentData['gender'] == 'Female') ? 'selected' : ''; ?>>Female</option>
+                                                <option value="Female" <?php echo ($studentData && $studentData['gender'] == 'Female') ? 'selected' : ''; ?>>Female
+                                                </option>
                                             </select>
                                         </div>
                                     </div>
@@ -163,40 +130,46 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                         <div class="form-group">
                                             <label for="feeStatus">Fee Status</label>
                                             <select class="form-control" id="feeStatus" name="feeStatus">
-                                                <option value="Fully Paid" <?php echo ($studentData && $studentData['fee_status'] == 'Fully Paid') ? 'selected' : ''; ?>>Fully Paid</option>
-                                                <option value="Partially Paid" <?php echo ($studentData && $studentData['fee_status'] == 'Partially Paid') ? 'selected' : ''; ?>>Partially Paid</option>
+                                                <option value="Fully Paid" <?php echo ($studentData && $studentData['fee_status'] == 'Fully Paid') ? 'selected' : ''; ?>>
+                                                    Fully Paid</option>
+                                                <option value="Partially Paid" <?php echo ($studentData && $studentData['fee_status'] == 'Partially Paid') ? 'selected' : ''; ?>>
+                                                    Partially Paid</option>
                                             </select>
                                         </div>
                                     </div>
                                 </div>
                                 <!-- Add Profession Field -->
                                 <div class="row">
-                                <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="profession">Profession</label>
-                                    <select class="form-control" id="profession" name="profession" required>
-                                        <option value="Student" <?php echo ($inquiryData && $inquiryData['profession'] == 'Student') || ($studentData && $studentData['profession'] == 'Student') ? 'selected' : ''; ?>>Student</option>
-                                        <option value="Housewife" <?php echo ($inquiryData && $inquiryData['profession'] == 'Housewife') || ($studentData && $studentData['profession'] == 'Housewife') ? 'selected' : ''; ?>>Housewife
-                                        </option>
-                                        <option value="Working Professional" <?php echo ($inquiryData && $inquiryData['profession'] == 'Working Professional') || ($studentData && $studentData['profession'] == 'Working Professional') ? 'selected' : ''; ?>>
-                                            Working Professional</option>
-                                        <option value="Kids" <?php echo ($inquiryData && $inquiryData['profession'] == 'Kids') || ($studentData && $studentData['profession'] == 'Kids') ? 'selected' : ''; ?>>Kids</option>
-                                        <option value="Other" <?php echo ($inquiryData && $inquiryData['profession'] == 'Other') || ($studentData && $studentData['profession'] == 'Other') ? 'selected' : ''; ?>>Other</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="selectPicker">Batch</label>
-                                    <select class="form-control select2" id="batch" name="batch">
-                                        <?php foreach ($batches as $batch): ?>
-                                            <option value="<?php echo htmlspecialchars($batch['name']); ?>" <?php echo (isset($studentData['batch']) && $studentData['batch'] == $batch['name']) ? 'selected' : ''; ?>>
-                                                <?php echo htmlspecialchars($batch['name']); ?>
-                                            </option>
-                                        <?php endforeach; ?>
-                                    </select>
-                                </div>
-                            </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="profession">Profession</label>
+                                            <select class="form-control" id="profession" name="profession" required>
+                                                <option value="Student" <?php echo ($inquiryData && $inquiryData['profession'] == 'Student') || ($studentData && $studentData['profession'] == 'Student') ? 'selected' : ''; ?>>Student
+                                                </option>
+                                                <option value="Housewife" <?php echo ($inquiryData && $inquiryData['profession'] == 'Housewife') || ($studentData && $studentData['profession'] == 'Housewife') ? 'selected' : ''; ?>>
+                                                    Housewife
+                                                </option>
+                                                <option value="Working Professional" <?php echo ($inquiryData && $inquiryData['profession'] == 'Working Professional') || ($studentData && $studentData['profession'] == 'Working Professional') ? 'selected' : ''; ?>>
+                                                    Working Professional</option>
+                                                <option value="Kids" <?php echo ($inquiryData && $inquiryData['profession'] == 'Kids') || ($studentData && $studentData['profession'] == 'Kids') ? 'selected' : ''; ?>>Kids
+                                                </option>
+                                                <option value="Other" <?php echo ($inquiryData && $inquiryData['profession'] == 'Other') || ($studentData && $studentData['profession'] == 'Other') ? 'selected' : ''; ?>>Other
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="selectPicker">Batch</label>
+                                            <select class="form-control select2" id="batch" name="batch">
+                                                <?php foreach ($batches as $batch): ?>
+                                                    <option value="<?php echo htmlspecialchars($batch['id']); ?>" <?php echo (isset($studentData['batch']) && $studentData['batch'] == $batch['id']) ? 'selected' : ''; ?>>
+                                                        <?php echo htmlspecialchars($batch['name']); ?>
+                                                    </option>
+                                                <?php endforeach; ?>
+                                            </select>
+                                        </div>
+                                    </div>
                                 </div>
                                 <!-- Add Address Field -->
                                 <div class="form-group">
@@ -208,7 +181,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 <!-- /.card-body -->
                             </div>
                         </form>
-                        <button class="btn btn-primary" id="submitInquiry">Submit</button>
+                        <button class="btn btn-primary" id="submitInquiry"><?php echo $isUpdate ? 'Update' : 'Submit'; ?></button>
                     </div>
                     <!-- /.card -->
                 </div>
@@ -221,7 +194,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         $('.select2').select2({
             placeholder: "Select a Batch",
             allowClear: true
@@ -239,8 +212,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 data: formData,
                 dataType: 'json',
                 success: function (response) {
+                    alert(response.message); // Display the message from studentrequest.php
                     if (response.success) {
-                        alert("Student Details submitted successfully.");
                         window.location.href = 'studentsdetails.php'; // Redirect to a generic page on success
                     } else {
                         alert("Error submitting details: " + response.message);

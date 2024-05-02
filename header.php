@@ -284,16 +284,6 @@ if (isset($_POST['logout'])) {
               </p>
             </a>
           </li>
-          <li class="nav-item">
-            <a href="./calendar.php" class="nav-link
-            <?php if (strpos($_SERVER['REQUEST_URI'], 'calendar.php') !== false) {echo "active";}?>">
-              <i class="nav-icon far fa-calendar-alt"></i>
-              <p>
-                Calendar
-                <span class="badge badge-info right">1</span>
-              </p>
-            </a>
-          </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

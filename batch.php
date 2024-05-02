@@ -52,10 +52,10 @@
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                     <tr>
-                      <th>ID</th>
+                      <th>Batch ID</th>
                       <th>Batch Name</th>
                       <th>Faculty Name</th>
-                      <!-- <th>Time Stamp</th> -->
+                      <th>Attendance</th>
                       <th>Edit</th>
                       <th>Delete</th>
                     </tr>
@@ -66,13 +66,12 @@
                     $index = 1;
                     while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
                       echo "<tr>";
-                      echo "<td>" . $index++ . "</td>";
+                      echo "<td>Batch - " . $row['id'] . "</td>";
                       echo "<td>" . $row['name'] . "</td>";
                       echo "<td>" . $row['FacultyName'] . "</td>";
-                      // echo "<td>" . $row['timestamp'] . "</td>";
-                      echo "<td><a href='editbatch.php?id=" . $row['id'] . "' class='btn btn-primary col-md-6'>Edit</a></td>";
-                      echo "<td><a href='deletebatch.php?id=" . $row['id'] . "' class='btn btn-danger col-md-6' onclick='return confirm(\"Are you sure you want to delete this batch?\");'>Delete</a></td>";
-                      
+                      echo "<td><a href='attendanceform.php?id=" . $row['id'] . "' class='btn btn-success col-md-12'>Attendance</a></td>";
+                      echo "<td><a href='editbatch.php?id=" . $row['id'] . "' class='btn btn-primary col-md-12'>Edit</a></td>";
+                      echo "<td><a href='deletebatch.php?id=" . $row['id'] . "' class='btn btn-danger col-md-12' onclick='return confirm(\"Are you sure you want to delete this batch?\");'>Delete</a></td>";
                       echo "</tr>";
                     }
                     ?>
