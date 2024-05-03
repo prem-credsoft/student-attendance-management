@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Admin | Fees</title>
+  <title>Admin | Fees Receipt</title>
 </head>
 
 <?php
@@ -18,12 +18,12 @@ include ('./header.php');
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1 class="m-0">Fees</h1>
+          <h1 class="m-0">Fees Receipt</h1>
         </div><!-- /.col -->
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="./dashboard.php">Home</a></li>
-            <li class="breadcrumb-item active">Fees</li>
+            <li class="breadcrumb-item active">Fees Receipt</li>
           </ol>
         </div><!-- /.col -->
       </div><!-- /.row -->
@@ -40,7 +40,7 @@ include ('./header.php');
             <div class="card-header">
               <h3 class="card-title">Fees Details</h3>
               <div class="card-tools">
-                <a href="./feesform.php" class="btn btn-primary">Add New Fees</a>
+                <a href="./feesform.php" class="btn btn-primary">Add New Fees Receipt</a>
               </div>
             </div>
             <!-- /.card-header -->
