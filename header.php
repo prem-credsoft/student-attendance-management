@@ -252,7 +252,7 @@ if (isset($_POST['logout'])) {
             <?php if (strpos($_SERVER['REQUEST_URI'], 'fees.php') !== false) {echo "active";}?>">
             <i class="nav-icon fas fa-rupee-sign"></i>
               <p>
-                Fees
+                Fees Receipt
               </p>
             </a>
           </li>
@@ -261,12 +261,12 @@ if (isset($_POST['logout'])) {
             <?php if (strpos($_SERVER['REQUEST_URI'], 'batch.php') !== false) {echo "active";}?>">
             <i class="nav-icon fas fa-th-large"></i>
               <p>
-                Batch
+                Batch Attendance
                 <span class="badge badge-danger right">New</span>
               </p>
             </a>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a href="./attendance.php" class="nav-link
             <?php if (strpos($_SERVER['REQUEST_URI'], 'attendance.php') !== false) {echo "active";}?>">
               <i class="nav-icon far fa-calendar-alt"></i>
@@ -274,7 +274,7 @@ if (isset($_POST['logout'])) {
                 Attendance
               </p>
             </a>
-          </li>
+          </li> -->
           <li class="nav-item">
             <a href="./leaves.php" class="nav-link
             <?php if (strpos($_SERVER['REQUEST_URI'], 'leaves.php') !== false) {echo "active";}?>">

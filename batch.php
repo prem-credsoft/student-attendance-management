@@ -69,9 +69,9 @@
                       echo "<td>Batch - " . $row['id'] . "</td>";
                       echo "<td>" . $row['name'] . "</td>";
                       echo "<td>" . $row['FacultyName'] . "</td>";
-                      echo "<td><a href='javascript:void(0);' onclick='confirmAttendance(" . $row['id'] . ")' class='btn btn-success col-md-12'>Attendance</a></td>";
-                      echo "<td><a href='editbatch.php?id=" . $row['id'] . "' class='btn btn-primary col-md-12'>Edit</a></td>";
-                      echo "<td><a href='deletebatch.php?id=" . $row['id'] . "' class='btn btn-danger col-md-12' onclick='return confirm(\"Are you sure you want to delete this batch?\");'>Delete</a></td>";
+                      echo "<td><a href='javascript:void(0);' onclick='confirmAttendance(" . $row['id'] . ")' class='btn btn-success col-md-6'>Attendance</a></td>";
+                      echo "<td><a href='editbatch.php?id=" . $row['id'] . "' class='btn btn-primary col-md-6'>Edit</a></td>";
+                      echo "<td><a href='deletebatch.php?id=" . $row['id'] . "' class='btn btn-danger col-md-6' onclick='return confirm(\"Are you sure you want to delete this batch?\");'>Delete</a></td>";
                       echo "</tr>";
                     }
                     ?>
