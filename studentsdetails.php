@@ -8,7 +8,12 @@
 </head>
 
 
-<?php include ('./header.php'); ?>
+<?php include ('./header.php');
+require_once 'function.php';
+
+// Check user status from session
+$isSuperAdmin = isset($_SESSION['user_status']) && $_SESSION['user_status'] === 'super_admin';
+?>
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -58,12 +63,14 @@
                       <th>Pending Fees</th>
                       <th>Mobile Number</th>
                       <th>Edit</th>
-                      <th>Delete</th>
+                      <?php if ($isSuperAdmin): ?>
+                        <th>Delete</th>
+                      <?php endif; ?>
                     </tr>
                   </thead>
                   <tbody>
                     <?php
-                    require_once 'function.php';
+                    // require_once 'function.php';
                     $rows = selectFromTable('studentinfo', ['id', 'name', 'batch', 'batch_name', 'pending_fees', 'mobile_number'], []);
                     foreach ($rows as $row) {
                       echo "<tr>";
@@ -73,7 +80,9 @@
                       echo "<td>" . $row['pending_fees'] . "</td>";
                       echo "<td>" . $row['mobile_number'] . "</td>";
                       echo "<td><a href='javascript:void(0);' onclick='confirmEdit(" . $row['id'] . ")' class='btn btn-primary col-md-12'>Edit</a></td>";
-                      echo "<td><a href='javascript:void(0);' onclick='confirmDelete(" . $row['id'] . ")' class='btn btn-danger col-md-12'>Delete</a></td>";
+                      if ($isSuperAdmin) {
+                        echo "<td><a href='javascript:void(0);' onclick='confirmDelete(" . $row['id'] . ")' class='btn btn-danger'>Delete</a></td>";
+                      }
                       echo "</tr>";
                     }
                     ?>
@@ -116,13 +125,13 @@
   }
 </script>
 <script>
-    function confirmDelete(id) {
-        var confirmAction = confirm("Are you sure you want to delete this Student Details?");
-        if (confirmAction) {
-            window.location.href = 'student_function.php?id=' + id;
-        } else {
-            // console.log('Deletion cancelled');
-        }
+  function confirmDelete(id) {
+    var confirmAction = confirm("Are you sure you want to delete this Student Details?");
+    if (confirmAction) {
+      window.location.href = 'student_function.php?id=' + id;
+    } else {
+      // console.log('Deletion cancelled');
     }
+  }
 </script>
 <?php include ('./footer.php'); ?>

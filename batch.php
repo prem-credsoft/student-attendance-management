@@ -8,12 +8,17 @@
 </head>
 
 
-<?php include ('./header.php'); ?>
+<?php include ('./header.php');
+require_once 'function.php';
+
+// Check user status from session
+$isSuperAdmin = isset($_SESSION['user_status']) && $_SESSION['user_status'] === 'super_admin';
+?>
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
-  <div class="content-header">  
+  <div class="content-header">
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
@@ -57,12 +62,14 @@
                       <th>Faculty Name</th>
                       <th>Attendance</th>
                       <th>Edit</th>
-                      <th>Delete</th>
+                      <?php if ($isSuperAdmin): ?>
+                        <th>Delete</th>
+                      <?php endif; ?>
                     </tr>
                   </thead>
                   <tbody>
                     <?php
-                    include('function.php');
+                    // include('function.php');
                     $batches = selectFromTable('batch_table', ['id', 'name', 'FacultyName'], []);
                     foreach ($batches as $row) {
                       echo "<tr>";
@@ -70,8 +77,10 @@
                       echo "<td>" . $row['name'] . "</td>";
                       echo "<td>" . $row['FacultyName'] . "</td>";
                       echo "<td><a href='javascript:void(0);' onclick='confirmAttendance(" . $row['id'] . ")' class='btn btn-success col-md-6'>Attendance</a></td>";
-                      echo "<td><a href='javascript:void(0);' onclick='confirmEdit(" . $row['id'] . ")' class='btn btn-primary col-md-6'>Edit</a></td>";
-                      echo "<td><a href='deletebatch.php?id=" . $row['id'] . "' class='btn btn-danger col-md-6' onclick='return confirm(\"Are you sure you want to delete this batch?\");'>Delete</a></td>";
+                      echo "<td><a href='javascript:void(0);' onclick='confirmEdit(" . $row['id'] . ")' class='btn btn-primary col-md-8'>Edit</a></td>";
+                      if ($isSuperAdmin) {
+                        echo "<td><a href='javascript:void(0);' onclick='confirmDelete(" . $row['id'] . ")' class='btn btn-danger col-md-6'>Delete</a></td>";
+                      }
                       echo "</tr>";
                     }
                     ?>
@@ -114,9 +123,8 @@
 
   function confirmEdit(batchId) {
     if (confirm("Are you sure you want to edit this batch?")) {
-        window.location.href = 'editbatch.php?id=' + batchId;
+      window.location.href = 'editbatch.php?id=' + batchId;
     }
   }
 </script>
 <?php include ('./footer.php'); ?>
-
