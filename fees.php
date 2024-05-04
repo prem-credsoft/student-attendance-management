@@ -77,9 +77,9 @@ $isSuperAdmin = isset($_SESSION['user_status']) && $_SESSION['user_status'] === 
                       echo "<td>" . $row['amount'] . "</td>";
                       echo "<td>" . $row['message'] . "</td>";
                       echo "<td>" . $row['payment_date'] . "</td>";
-                      echo "<td><a href='javascript:void(0);' onclick='confirmEdit(" . $row['id'] . ")' class='btn btn-primary col-md-12'>Edit</a></td>";
+                      echo "<td><a href='javascript:void(0);' onclick='confirmEdit(" . $row['id'] . ")' class='btn btn-primary'><i class='fas fa-edit'></i></a></td>";
                       if ($isSuperAdmin) {
-                        echo "<td><a href='javascript:void(0);' onclick='confirmDelete(" . $row['id'] . ")' class='btn btn-danger'>Delete</a></td>";
+                        echo "<td><a href='javascript:void(0);' onclick='confirmDelete(" . $row['id'] . ")' class='btn btn-danger'><i class='fas fa-trash'></a></td>";
                       }
                       echo "</tr>";
                     }

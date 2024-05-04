@@ -72,9 +72,9 @@ $leavesData = selectFromTable('leaves', ['id', 'student_id', 'reason', 'start_da
                           <td><?php echo htmlspecialchars($leave['reason']); ?></td>
                           <td><?php echo htmlspecialchars($leave['start_date']); ?></td>
                           <td><?php echo htmlspecialchars($leave['end_date']); ?></td>
-                          <td><a href="#" class="btn btn-primary btn-edit col-md-12" data-id="<?php echo $leave['id']; ?>">Edit</a></td>
+                          <td><a href="#" class="btn btn-primary btn-edit" data-id="<?php echo $leave['id']; ?>"><i class='fas fa-edit'></i></a></td>
                           <?php if ($isSuperAdmin): ?>
-                          <td><a href="#" class="btn btn-danger btn-delete col-md-8" data-id="<?php echo $leave['id']; ?>">Delete</a></td>
+                          <td><a href="#" class="btn btn-danger btn-delete" data-id="<?php echo $leave['id']; ?>"><i class='fas fa-trash'></a></td>
                           <?php endif; ?>
                         </tr>
                         <?php endforeach; ?>
