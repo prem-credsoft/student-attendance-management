@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 04, 2024 at 10:10 AM
+-- Generation Time: May 04, 2024 at 01:34 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -76,7 +76,7 @@ INSERT INTO `attendance` (`id`, `student_id`, `date`, `status`, `batch_id`, `cre
 (33, 8, '2024-05-03', 0, 11, '2024-05-04 12:50:25'),
 (35, 24, '2024-05-02', 2, 11, '2024-05-04 12:50:25'),
 (36, 24, '2024-05-03', 0, 11, '2024-05-04 12:50:25'),
-(37, 8, '2024-05-04', 0, 11, '2024-05-04 12:50:25'),
+(37, 8, '2024-05-04', 2, 11, '2024-05-04 12:50:25'),
 (38, 24, '2024-05-04', 1, 11, '2024-05-04 12:50:25'),
 (39, 9, '2024-05-04', 1, 5, '2024-05-04 12:50:53'),
 (40, 26, '2024-05-04', 0, 5, '2024-05-04 12:50:53'),
@@ -109,7 +109,8 @@ CREATE TABLE `batch_table` (
 
 INSERT INTO `batch_table` (`id`, `name`, `timestamp`, `FacultyName`) VALUES
 (5, 'abc', '2024-05-04 07:36:09', 'nndfnd'),
-(11, 'Rust', '2024-05-04 06:27:43', 'Javascript');
+(11, 'Rust', '2024-05-04 06:27:43', 'Javascript'),
+(17, 'demo', '2024-05-04 11:24:22', 'demo4');
 
 -- --------------------------------------------------------
 
@@ -134,7 +135,7 @@ CREATE TABLE `inquiryinfo` (
 --
 
 INSERT INTO `inquiryinfo` (`id`, `name`, `reference`, `address`, `mobile_number`, `time_of_classes`, `profession`, `date`, `created_at`) VALUES
-(23, 'gjulyuyughrjy', 'dgfhkgfdghfgfh', 'cgykuhkgfyk', '4768765435', '7:30 AM To 8:30 AM', 'Kids', '2024-04-30', '2024-04-30 18:38:39');
+(29, 'dsfhjnqkwm,edc', 'zdxfcgvhbjnk', 'rdyguhjkl', '1234567890', '7:30 AM To 8:30 AM', 'Student', '2024-05-04', '2024-05-04 16:34:40');
 
 -- --------------------------------------------------------
 
@@ -180,8 +181,9 @@ CREATE TABLE `receipt` (
 
 INSERT INTO `receipt` (`id`, `student_id`, `amount`, `payment_date`, `message`, `created_at`) VALUES
 (27, 8, 3000.00, '2024-04-30', 'ouiyoihjk', '2024-04-30 13:29:24'),
-(30, 58, 112.00, '2024-05-04', 'dfdfhd', '2024-05-04 08:01:40'),
-(31, 26, 100.00, '2024-05-04', 'vhjkv', '2024-05-04 08:03:01');
+(30, 58, 5555.00, '2024-05-04', 'dfdfhd', '2024-05-04 08:01:40'),
+(31, 26, 100.00, '2024-05-04', 'vhjkv', '2024-05-04 08:03:01'),
+(33, 26, 9700.00, '2024-05-04', 'bas ese hi', '2024-05-04 11:23:16');
 
 -- --------------------------------------------------------
 
@@ -212,19 +214,21 @@ CREATE TABLE `studentinfo` (
 --
 
 INSERT INTO `studentinfo` (`id`, `name`, `batch`, `batch_name`, `father_name`, `mother_name`, `dob`, `gender`, `mobile_number`, `fee_status`, `profession`, `address`, `admission_time`, `created_at`, `pending_fees`) VALUES
-(8, 'Christopher Anderson', 11, 'React JS', 'ABC', 'dfhfgjf', '2024-04-05', 'Male', '3332221111', 'Partially Paid', 'Housewife', '999 Chestnut St', '2024-05-03', '2024-04-28 17:58:36', 6800.00),
+(8, 'Christopher Anderson demo', 11, 'Rust', 'ABC', 'dfhfgjf', '2024-04-05', 'Male', '3332221111', 'Partially Paid', 'Housewife', '999 Chestnut St', '2024-05-04', '2024-04-28 17:58:36', 6800.00),
 (9, 'Bob White', 5, 'xyzx', 'asdfgt', 'dfhfgjf', '2024-04-25', 'Male', '7779998888', 'Fully Paid', 'Working Professional', '987 Pine St', '2024-05-02', '2024-04-28 17:59:27', 9800.00),
 (24, 'nextjs', 11, 'React JS', 'Node JS', 'React JS', '2024-04-04', 'Male', '1531545613', 'Fully Paid', 'Working Professional', 'sdvsbsbss, fefgse', '2024-05-04', '2024-04-30 16:40:20', 9800.00),
-(26, 'QQQQQQQ', 5, 'xyzx', 'ABC', 'dfhfgjf', '2024-04-04', 'Female', '9876541238', 'Partially Paid', 'Kids', 'fsdfsfsdfsfsdfg, gwegwesg', '2024-05-02', '2024-04-30 17:41:48', 9700.00),
+(26, 'QQQQQQQ', 5, 'xyzx', 'ABC', 'dfhfgjf', '2024-04-04', 'Female', '9876541238', 'Partially Paid', 'Kids', 'fsdfsfsdfsfsdfg, gwegwesg', '2024-05-02', '2024-04-30 17:41:48', 0.00),
 (27, 'ABC', 5, 'xyzx', 'vvvvv', 'ddddd', '2024-04-02', 'Male', '9876541238', 'Fully Paid', 'Housewife', 'sdfgbfdbdsb', '2024-05-02', '2024-04-30 18:29:07', 9800.00),
 (28, 'xxxxyyyyy', 5, 'xyzx', 'ABC', 'sdgsd', '2024-04-04', 'Female', '1231651618', 'Partially Paid', 'Working Professional', 'fsdfsfsdfsfsdfg, gwegwesg', '2024-05-02', '2024-04-30 18:34:32', 9800.00),
 (52, 'rest', 5, 'xyzx', 'asdfgt', 'dfhfgjf', '2024-04-04', 'Male', '1234567898', 'Fully Paid', 'Housewife', 'dfheheheherhe,  gerregrghrgg,  sdgsgsgsa', '2024-05-02', '2024-04-30 18:41:41', 9800.00),
 (55, 'XYZ', 5, 'xyzx', 'ABC', 'DEF', '2024-05-03', 'Female', '4565864577', 'Partially Paid', 'Working Professional', 'fsdfsfsdfsfsdfg, gwegwesg', '2024-05-02', '2024-05-02 12:21:54', 9800.00),
 (56, 'jk', 5, 'xyzx', 'asdfgt', 'sdgsd', '2024-05-05', 'Male', '4651321321', 'Fully Paid', 'Student', 'dfheheheherhe,  gerregrghrgg,  sdgsgsgsa', '2024-05-03', '2024-05-02 12:32:09', 9800.00),
 (57, 'NMKL', 5, 'xyzx', 'asdfgt', 'dfhfgjf', '0000-00-00', 'Male', '7894561230', 'Fully Paid', 'Student', 'sdgsbsb', '2024-05-02', '2024-05-02 12:47:33', 9800.00),
-(58, 'GJ', 5, 'xyzx', 'sdvfsdsdvfs', 'sdgsd', '2024-05-05', 'Male', '5465468325', 'Fully Paid', 'Working Professional', 'sdvsbsbss, fefgse', '2024-05-02', '2024-05-02 12:49:29', 9688.00),
+(58, 'GJ', 5, 'xyzx', 'sdvfsdsdvfs', 'sdgsd', '2024-05-05', 'Male', '5465468325', 'Fully Paid', 'Working Professional', 'sdvsbsbss, fefgse', '2024-05-02', '2024-05-02 12:49:29', 4245.00),
 (59, 'WWW', 5, 'xyzx', 'sdvfsdsdvfs', 'sdgsd', '2024-05-05', 'Male', '1221547854', 'Fully Paid', 'Housewife', 'sdfgbfdbdsb', '2024-05-02', '2024-05-02 12:51:08', 9800.00),
-(61, 'dart', 11, 'Rust', 'html', 'css', '2024-05-03', 'Male', '4565165131', 'Partially Paid', 'Working Professional', 'fsdfsfsdfsfsdfg, gwegwesg', '2024-05-04', '2024-05-04 13:38:42', 9800.00);
+(61, 'dart', 11, 'Rust', 'html', 'css', '2024-05-03', 'Male', '4565165131', 'Partially Paid', 'Working Professional', 'fsdfsfsdfsfsdfg, gwegwesg', '2024-05-04', '2024-05-04 13:38:42', 9800.00),
+(62, 'gjulyuyughrjy', 5, 'abc', 'fgchvjbkn', 'fgghjk', '2024-05-02', 'Male', '4768765435', 'Fully Paid', 'Kids', 'cgykuhkgfyk', '2024-05-04', '2024-05-04 16:51:25', 9800.00),
+(63, 'demo', 5, 'abc', 'senior demo', 'mrs senior demo', '2024-05-01', 'Male', '2345678908', 'Fully Paid', 'Student', 'ncujgwker,gmw,oerpgwejnw uweihrk', '2024-05-04', '2024-05-04 16:52:31', 9800.00);
 
 -- --------------------------------------------------------
 
@@ -239,15 +243,17 @@ CREATE TABLE `users` (
   `email` varchar(255) NOT NULL,
   `mobile` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `created_at` datetime NOT NULL DEFAULT current_timestamp()
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `status` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `fullname`, `email`, `mobile`, `password`, `created_at`) VALUES
-(1, 'prem', 'prem acharya 123', 'prem@admin.info', '7777777777', 'prem', '2024-04-28 14:02:31');
+INSERT INTO `users` (`id`, `username`, `fullname`, `email`, `mobile`, `password`, `created_at`, `status`) VALUES
+(1, 'prem', 'prem acharya', 'prem@admin.info', '7777777777', 'prem', '2024-04-28 14:02:31', 1),
+(2, 'admin', 'admin', 'admin@admin.com', '7777777777', 'admin', '2024-05-04 15:57:12', 0);
 
 --
 -- Indexes for dumped tables
@@ -313,13 +319,13 @@ ALTER TABLE `attendance`
 -- AUTO_INCREMENT for table `batch_table`
 --
 ALTER TABLE `batch_table`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `inquiryinfo`
 --
 ALTER TABLE `inquiryinfo`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `leaves`
@@ -331,13 +337,13 @@ ALTER TABLE `leaves`
 -- AUTO_INCREMENT for table `receipt`
 --
 ALTER TABLE `receipt`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `studentinfo`
 --
 ALTER TABLE `studentinfo`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
 
 --
 -- Constraints for dumped tables

@@ -6,7 +6,12 @@
     <title>Admin | Inquiry</title>
 </head>
 
-<?php include('./header.php');?>
+<?php include('./header.php');
+require_once 'function.php';
+
+// Check user status from session
+$isSuperAdmin = isset($_SESSION['user_status']) && $_SESSION['user_status'] === 'super_admin';
+?>
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -55,12 +60,14 @@
                                         <th>Profession</th>
                                         <th>Date of Inquiry</th>
                                         <th>Add</th>
+                                        <?php if ($isSuperAdmin): ?>
                                         <th>Delete</th>
+                                        <?php endif; ?>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <?php
-                                    require_once 'function.php'; // Adjust the path as necessary
+                                    // require_once 'function.php'; // Adjust the path as necessary
                                     $rows = selectFromTable('inquiryinfo', ['id', 'name', 'reference', 'mobile_number', 'address', 'time_of_classes', 'profession', 'date'], []);
                                     if(!$rows) {
                                         die("Error running query.");
@@ -77,7 +84,9 @@
                                         echo "<td>" . $row['profession'] . "</td>";
                                         echo "<td>" . $row['date'] . "</td>";
                                         echo "<td><a href='javascript:void(0);' onclick='confirmAdd(" . $row['id'] . ")' class='btn btn-info'>Add</a></td>";
-                                        echo "<td><a href='javascript:void(0);' onclick='confirmDelete(" . $row['id'] . ")' class='btn btn-danger'>Delete</a></td>";
+                                        if ($isSuperAdmin) {
+                                            echo "<td><a href='javascript:void(0);' onclick='confirmDelete(" . $row['id'] . ")' class='btn btn-danger'>Delete</a></td>";
+                                        }
                                         echo "</tr>";
                                     }
                                     ?>

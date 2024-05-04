@@ -47,7 +47,7 @@
     }
 
     .table1 tr, .table2 tr{
-      height: 9z0px;
+      height: 90px;
     }
 
   </style>

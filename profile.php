@@ -48,6 +48,7 @@
                                             <th>Full Name</th>
                                             <th>Email</th>
                                             <th>Mobile</th>
+                                            <th>Status</th>
                                             <th>Created At</th>
                                             <th>Action</th>
                                         </tr>
@@ -55,7 +56,7 @@
                                     <tbody>
                                         <?php
                                         require_once('function.php');
-                                        $userData = selectFromTable('users', ['id', 'username', 'fullname', 'email', 'mobile', 'created_at'], []);
+                                        $userData = selectFromTable('users', ['id', 'username', 'fullname', 'email', 'mobile', 'status', 'created_at'], []);
                                         foreach ($userData as $row) {
                                             echo "<tr>";
                                             echo "<td>" . htmlspecialchars($row['id']) . "</td>";
@@ -63,6 +64,7 @@
                                             echo "<td>" . htmlspecialchars($row['fullname']) . "</td>";
                                             echo "<td>" . htmlspecialchars($row['email']) . "</td>";
                                             echo "<td>" . htmlspecialchars($row['mobile']) . "</td>";
+                                            echo "<td>" . ($row['status'] == 0 ? 'Super Admin' : 'Admin') . "</td>";
                                             echo "<td>" . htmlspecialchars($row['created_at']) . "</td>";
                                             echo "<td><a href='editProfile.php?username=" . htmlspecialchars($row['username']) . "' class='btn btn-primary' onclick='return confirmEdit();'>Edit</a></td>";
                                             echo "</tr>";

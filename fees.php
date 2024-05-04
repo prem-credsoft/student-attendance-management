@@ -7,8 +7,11 @@
   <title>Admin | Fees Receipt</title>
 </head>
 
-<?php
-include ('./header.php');
+<?php include ('./header.php');
+require_once 'function.php';
+
+// Check user status from session
+$isSuperAdmin = isset($_SESSION['user_status']) && $_SESSION['user_status'] === 'super_admin';
 ?>
 
 <!-- Content Wrapper. Contains page content -->
@@ -55,12 +58,14 @@ include ('./header.php');
                       <th>Message</th>
                       <th>Payment Date</th>
                       <th>Edit</th>
-                      <th>Delete</th>
+                      <?php if ($isSuperAdmin): ?>
+                        <th>Delete</th>
+                      <?php endif; ?>
                     </tr>
                   </thead>
                   <tbody>
                     <?php
-                    require_once 'function.php';
+                    // require_once 'function.php';
                     $results = selectFromTable('receipt r JOIN studentinfo s ON r.student_id = s.id', ['r.id', 'r.student_id', 's.name', 'r.amount', 'r.message', 'r.payment_date'], []);
                     if (!$results) {
                       die("Error running query.");
@@ -73,16 +78,18 @@ include ('./header.php');
                       echo "<td>" . $row['message'] . "</td>";
                       echo "<td>" . $row['payment_date'] . "</td>";
                       echo "<td><a href='javascript:void(0);' onclick='confirmEdit(" . $row['id'] . ")' class='btn btn-primary col-md-12'>Edit</a></td>";
-                      echo "<td><a href='javascript:void(0);' onclick='confirmDelete(" . $row['id'] . ")' class='btn btn-danger col-md-12'>Delete</a></td>";
+                      if ($isSuperAdmin) {
+                        echo "<td><a href='javascript:void(0);' onclick='confirmDelete(" . $row['id'] . ")' class='btn btn-danger'>Delete</a></td>";
+                      }
                       echo "</tr>";
                     }
                     // Calculate pending fees and update studentinfo table
                     $students = selectFromTable('studentinfo', ['id', 'name'], []);
                     foreach ($students as $student) {
-                        $totalPaidResults = selectFromTable('receipt', ['SUM(amount) AS total_paid'], ['student_id' => $student['id']]);
-                        $totalPaid = $totalPaidResults[0]['total_paid'] ?? 0;
-                        $pendingFees = 9800 - $totalPaid;
-                        updateTable('studentinfo', ['pending_fees' => $pendingFees], ['id' => $student['id']]);
+                      $totalPaidResults = selectFromTable('receipt', ['SUM(amount) AS total_paid'], ['student_id' => $student['id']]);
+                      $totalPaid = $totalPaidResults[0]['total_paid'] ?? 0;
+                      $pendingFees = 9800 - $totalPaid;
+                      updateTable('studentinfo', ['pending_fees' => $pendingFees], ['id' => $student['id']]);
                     }
                     ?>
                   </tbody>
