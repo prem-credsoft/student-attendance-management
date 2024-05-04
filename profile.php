@@ -66,7 +66,7 @@
                                             echo "<td>" . htmlspecialchars($row['mobile']) . "</td>";
                                             echo "<td>" . ($row['status'] == 0 ? 'Super Admin' : 'Admin') . "</td>";
                                             echo "<td>" . htmlspecialchars($row['created_at']) . "</td>";
-                                            echo "<td><a href='editProfile.php?username=" . htmlspecialchars($row['username']) . "' class='btn btn-primary' onclick='return confirmEdit();'>Edit</a></td>";
+                                            echo "<td><a href='editProfile.php?username=" . htmlspecialchars($row['username']) . "' class='btn btn-primary' onclick='return confirmEdit();'><i class='fas fa-edit'></i></a></td>";
                                             echo "</tr>";
                                         }
                                         ?>

@@ -16,11 +16,11 @@ include('function.php');
 
 // Check if the form has been submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $username = $_POST['username']; // Username is unique and used to identify the user
+    $username = $_POST['username'];
     $fullname = $_POST['fullname'];
     $email = $_POST['email'];
     $mobile = $_POST['mobile'];
-    $password = $_POST['password']; // Consider hashing the password before storing
+    $password = $_POST['password'];
 
     // Prepare the data for updating
     $data = array('fullname' => $fullname, 'email' => $email, 'mobile' => $mobile, 'password' => $password);
@@ -30,9 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $result = updateTable('users', $data, $conditions);
 
     if ($result) {
-        // Handle success, if needed
     } else {
-        // Handle failure, if needed
     }
 }
 
