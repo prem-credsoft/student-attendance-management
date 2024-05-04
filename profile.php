@@ -54,8 +54,9 @@
                                     </thead>
                                     <tbody>
                                         <?php
-                                        $query = $db->query("SELECT id, username, fullname, email, mobile, created_at FROM users");
-                                        while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
+                                        require_once('function.php');
+                                        $userData = selectFromTable('users', ['id', 'username', 'fullname', 'email', 'mobile', 'created_at'], []);
+                                        foreach ($userData as $row) {
                                             echo "<tr>";
                                             echo "<td>" . htmlspecialchars($row['id']) . "</td>";
                                             echo "<td>" . htmlspecialchars($row['username']) . "</td>";
@@ -63,7 +64,7 @@
                                             echo "<td>" . htmlspecialchars($row['email']) . "</td>";
                                             echo "<td>" . htmlspecialchars($row['mobile']) . "</td>";
                                             echo "<td>" . htmlspecialchars($row['created_at']) . "</td>";
-                                            echo "<td><a href='editProfile.php?username=" . htmlspecialchars($row['username']) . "' class='btn btn-primary'>Edit</a></td>";
+                                            echo "<td><a href='editProfile.php?username=" . htmlspecialchars($row['username']) . "' class='btn btn-primary' onclick='return confirmEdit();'>Edit</a></td>";
                                             echo "</tr>";
                                         }
                                         ?>
@@ -78,7 +79,6 @@
     </section>
 </div>
 
-<?php include('./footer.php'); ?>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 <script>
@@ -93,6 +93,9 @@
       "responsive": true
     });
   });
+
+  function confirmEdit() {
+    return confirm('Are you sure you want to edit this profile?');
+  }
 </script>
-</body>
-</html>
+<?php include('./footer.php'); ?>

@@ -8,35 +8,6 @@
 </head>
 
 <?php include ('./header.php'); ?>
-<?php include ('function.php'); ?>
-
-<?php
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $profession = $_POST['profession'] ?? 'Other';
-
-    $data = [
-        'name' => $_POST['name'] ?? '',
-        'reference' => $_POST['reference'] ?? '',
-        'address' => $_POST['address'] ?? '',
-        'mobile_number' => $_POST['mobile_number'] ?? '',
-        'time_of_classes' => $_POST['time_of_classes'] ?? '',
-        'profession' => $profession,
-        'date' => date('Y-m-d'),
-    ];
-
-    if (in_array('', $data)) {
-        ajaxResponse(false, [], "All fields are required.");
-    }
-
-    $result = insertIntoTable('inquiryinfo', $data);
-    if ($result) {
-        ajaxResponse(true, [], "Inquiry submitted successfully.");
-    } else {
-        ajaxResponse(false, [], "Failed to submit Inquiry.");
-    }
-    exit; // Prevent further execution after AJAX call
-}
-?>
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -140,7 +111,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <script>
     $(document).ready(function () {
         $('button').click(function () {
-            var formData = $('form').serialize(); // Serialize the form data
+            var formData = $('form').serialize();
             // console.log(formData);
             $.ajax({
                 type: 'POST',

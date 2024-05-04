@@ -10,6 +10,9 @@ if (isset($_GET['id'])) {
     $db->beginTransaction();
     
     try {
+        // Delete associated fee leaves first
+        deleteFromTable('leaves', ['student_id' => $id]);
+
         // Delete associated fee records first
         deleteFromTable('receipt', ['student_id' => $id]);
         

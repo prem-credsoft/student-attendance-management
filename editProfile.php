@@ -39,9 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 // Retrieve user details if the username is set in the URL
 if (isset($_GET['username'])) {
     $username = $_GET['username'];
-    $query = $db->prepare("SELECT * FROM users WHERE username = ?");
-    $query->execute([$username]);
-    $user = $query->fetch(PDO::FETCH_ASSOC);
+    $user = selectFromTable('users', ['*'], ['username' => $username])[0] ?? null;
 }
 
 if (!empty($user)) {

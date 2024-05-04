@@ -1,29 +1,27 @@
 <?php
-// Include database connection
+// Include database connection and functions
 include('db.php');
+require_once('function.php');
 
-// Check if the 'id' GET variable is set
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
 
-    // Fetch the batch data from the database
-    $query = $db->prepare("SELECT * FROM batch_table WHERE id = ?");
-    $query->execute([$id]);
-    $batch = $query->fetch(PDO::FETCH_ASSOC);
+    // Fetch the batch data from the database using function
+    $batch = selectFromTable('batch_table', ['*'], ['id' => $id]);
 
     if (!$batch) {
         die('Batch not found!');
+    } else {
+        $batch = $batch[0];
     }
 
-    // Check if the form data is posted
     if (isset($_POST['id'], $_POST['name'], $_POST['facultyName'])) {
         $id = $_POST['id'];
         $name = $_POST['name'];
         $facultyName = $_POST['facultyName'];
 
-        // Prepare and execute the update statement
-        $updateQuery = $db->prepare("UPDATE batch_table SET name = ?, FacultyName = ? WHERE id = ?");
-        $result = $updateQuery->execute([$name, $facultyName, $id]);
+        // Prepare and execute the update statement using function
+        $result = updateTable('batch_table', ['name' => $name, 'FacultyName' => $facultyName], ['id' => $id]);
 
         if ($result) {
             echo "Batch updated successfully.";
@@ -31,7 +29,6 @@ if (isset($_GET['id'])) {
             echo "Error updating batch.";
         }
 
-        // Redirect back to the batch list or another appropriate page
         header('Location: batch.php');
         exit();
     }

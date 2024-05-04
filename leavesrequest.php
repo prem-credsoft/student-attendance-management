@@ -1,34 +1,15 @@
 <?php
-require_once('function.php');
+require_once ('function.php');
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $studentId = $_POST['student_id'];
-    $reason = $_POST['reason'];
-    $startDate = $_POST['start_date'];
-    $endDate = $_POST['end_date'];
-
-    // Prepare data for insertion or update
     $data = [
-        'student_id' => $studentId,
-        'reason' => $reason,
-        'start_date' => $startDate,
-        'end_date' => $endDate
+        'student_id' => $_POST['student_id'],
+        'reason' => $_POST['reason'],
+        'start_date' => $_POST['start_date'],
+        'end_date' => $_POST['end_date']
     ];
 
-    if (isset($_POST['id']) && $_POST['id']) { // Check if it's an update
-        $updateId = updateTable('leaves', $data, ['id' => $_POST['id']]);
-        if ($updateId) {
-            ajaxResponse(true, [], "Leave updated successfully.");
-        } else {
-            ajaxResponse(false, [], "Failed to update leave request.");
-        }
-    } else { // Insert new leave request
-        $insertId = insertIntoTable('leaves', $data);
-        if ($insertId) {
-            ajaxResponse(true, ['insertId' => $insertId], "Leave submit successfully.");
-        } else {
-            ajaxResponse(false, [], "Failed to submit leave request.");
-        }
-    }
+    $response = isset($_POST['id']) ? updateTable('leaves', $data, ['id' => $_POST['id']]) : insertIntoTable('leaves', $data);
+    ajaxResponse($response, ['id' => $response], $response ? "Leave processed successfully." : "Failed to process leave request.");
 }
 ?>

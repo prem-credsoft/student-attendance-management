@@ -72,7 +72,7 @@ include ('./header.php');
                       echo "<td>" . $row['amount'] . "</td>";
                       echo "<td>" . $row['message'] . "</td>";
                       echo "<td>" . $row['payment_date'] . "</td>";
-                      echo "<td><a href='feesform.php?id=" . $row['id'] . "' class='btn btn-primary col-md-12'>Edit</a></td>";
+                      echo "<td><a href='javascript:void(0);' onclick='confirmEdit(" . $row['id'] . ")' class='btn btn-primary col-md-12'>Edit</a></td>";
                       echo "<td><a href='javascript:void(0);' onclick='confirmDelete(" . $row['id'] . ")' class='btn btn-danger col-md-12'>Delete</a></td>";
                       echo "</tr>";
                     }
@@ -110,6 +110,17 @@ include ('./header.php');
       window.location.href = 'fees_function.php?id=' + id;
     } else {
       // console.log('Deletion cancelled');
+    }
+  }
+</script>
+
+<script>
+  function confirmEdit(id) {
+    var confirmAction = confirm("Are you sure you want to edit this fees receipt?");
+    if (confirmAction) {
+      window.location.href = 'feesform.php?id=' + id;
+    } else {
+      // console.log('Edit cancelled');
     }
   }
 </script>

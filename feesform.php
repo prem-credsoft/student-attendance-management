@@ -206,7 +206,7 @@ if (!$students) {
     updateFeesOnAmountChange();
 }
 
-function updateFeesOnAmountChange() {
+    function updateFeesOnAmountChange() {
     var amountEntered = parseFloat($('#amount').val() || 0);
     var initialTotalFees = parseFloat($('#total_fees').val());
     var currentTotalPaid = parseFloat($('#total_paid').val()) - amountEntered; // Subtract the old amount first if editing

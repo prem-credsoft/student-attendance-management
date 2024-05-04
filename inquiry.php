@@ -76,7 +76,7 @@
                                         echo "<td>" . $row['time_of_classes'] . "</td>";
                                         echo "<td>" . $row['profession'] . "</td>";
                                         echo "<td>" . $row['date'] . "</td>";
-                                        echo "<td><a href='studentform.php?id=" . $row['id'] . "' class='btn btn-info'>Add</a></td>";
+                                        echo "<td><a href='javascript:void(0);' onclick='confirmAdd(" . $row['id'] . ")' class='btn btn-info'>Add</a></td>";
                                         echo "<td><a href='javascript:void(0);' onclick='confirmDelete(" . $row['id'] . ")' class='btn btn-danger'>Delete</a></td>";
                                         echo "</tr>";
                                     }
@@ -108,6 +108,14 @@
             window.location.href = 'inquiry_function.php?id=' + id;
         } else {
             // console.log('Deletion cancelled');
+        }
+    }
+    function confirmAdd(id) {
+        var confirmAction = confirm("Are you sure you want to add this Inquiry?");
+        if (confirmAction) {
+            window.location.href = 'studentform.php?id=' + id;
+        } else {
+            // console.log('Addition cancelled');
         }
     }
 </script>
