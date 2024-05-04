@@ -204,7 +204,7 @@ if (isset($_POST['logout'])) {
           <img src="./asset/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
         </div> -->
         <div class="info">
-          <a href="./profile.php" class="d-block"><?php echo $user['fullname']; ?>  <i class="fas fa-user-cog"></i></a>
+          <a href="./profile.php" class="d-block"><?php echo $user['fullname']; ?>  <i class="fas fa-cog"></i></a>
         </div>
       </div>
 
@@ -288,6 +288,25 @@ if (isset($_POST['logout'])) {
               </p>
             </a>
           </li>
+          <li class="nav-item">
+            <a href="./inquirysms.php" class="nav-link
+            <?php if (strpos($_SERVER['REQUEST_URI'], 'inquirysms.php') !== false) {echo "active";}?>">
+              <i class="nav-icon fas fa-users"></i>
+              <p>
+                Inquiry Sms
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="./studentsms.php" class="nav-link
+            <?php if (strpos($_SERVER['REQUEST_URI'], 'studentsms.php') !== false) {echo "active";}?>">
+              <i class="nav-icon fas fa-users"></i>
+              <p>
+                Student Sms
+              </p>
+            </a>
+          </li>
+
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
