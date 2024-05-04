@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,8 +8,8 @@
 </head>
 <body>
 
-<script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-messaging.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-messaging-compat.js"></script>
 
 <script>
 // Initialize Firebase
@@ -37,6 +38,7 @@ function sendSMS() {
       phoneNumber
     }
   };
+
 
   messaging.send(message)
     .then(() => {
