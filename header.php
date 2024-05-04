@@ -170,16 +170,20 @@ if (isset($_POST['logout'])) {
           <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
         </div>
       </li> -->
-      <li class="nav-item">
-        <form method="POST">
-        <button class="nav-link" type="submit" name="logout" style="
-        text-decoration: none;
-        border: none;
-        background-color: transparent;">
-        <i class="fas fa-sign-out-alt" style="color: red;"></i>
-        </button>
-        </from>
-      </li>
+            <ul class="navbar-nav ml-auto">
+        <li class="nav-item d-flex align-items-center">
+          <span class="mr-2"><?php echo $user['fullname']; ?></span>
+          <form method="POST" style="margin-bottom: 0;">
+            <button class="nav-link" type="submit" name="logout" style="
+            text-decoration: none;
+            border: none;
+            background-color: transparent;
+            padding: 0;">
+              <i class="fas fa-sign-out-alt" style="color: red;"></i>
+            </button>
+          </form>
+        </li>
+      </ul>
     </ul>
   </nav>
   <!-- /.navbar -->
@@ -196,11 +200,11 @@ if (isset($_POST['logout'])) {
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <div class="image">
+        <!-- <div class="image">
           <img src="./asset/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
-        </div>
+        </div> -->
         <div class="info">
-          <a href="./profile.php" class="d-block"><?php echo $user['username']; ?></a>
+          <a href="./profile.php" class="d-block"><?php echo $user['fullname']; ?>  <i class="fas fa-user-cog"></i></a>
         </div>
       </div>
 
