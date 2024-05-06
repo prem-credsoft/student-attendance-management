@@ -37,6 +37,22 @@ if (isset($_POST['logout'])) {
   <link rel="stylesheet" href="./plugins/icheck-bootstrap/icheck-bootstrap.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="./asset/css/adminlte.min.css">
+  <style>
+    .card-list-custom{
+      height: 50vh;
+      overflow-y: scroll;
+      padding: 0;
+      margin: 1.25rem;
+    }
+    table thead tr{
+      border: 2px solid #dee2e6
+    }
+    table thead{
+      position: sticky;
+      top: 0;
+      background-color: white;
+    }
+    </style>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">

@@ -69,7 +69,7 @@
                 <div class="card-header">
                   <h3>Students List</h3>
                 </div>
-                <div class="card-body">
+                <div class="card-body card-list-custom">
                   <table class="table table-bordered" id="inquiryTable">
                     <thead>
                       <tr>

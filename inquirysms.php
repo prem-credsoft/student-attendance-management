@@ -74,7 +74,7 @@
                     <option value="week">Past Week</option>
                   </select>
                 </div>
-                <div class="card-body">
+                <div class="card-body card-list-custom">
                   <table class="table table-bordered" id="inquiryTable">
                     <thead>
                       <tr>
