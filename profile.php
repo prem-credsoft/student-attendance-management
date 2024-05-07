@@ -12,6 +12,16 @@
 
 <?php include('./header.php'); ?>
 <?php include('./db.php'); ?>
+<?php
+require_once('function.php');
+$userData = selectFromTable('users', ['id', 'username', 'fullname', 'email', 'mobile', 'status', 'created_at'], []);
+$admins = array_filter($userData, function($user) {
+    return in_array($user['status'], [0, 1]); // 0 for Super Admin, 1 for Admin
+});
+$faculty = array_filter($userData, function($user) {
+    return $user['status'] == 2; // 2 for Faculty
+});
+?>
 
 <div class="content-wrapper">
     <div class="content-header">
@@ -34,13 +44,17 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
+                    <!-- Admins and Super Admins Table -->
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">User List</h3>
+                            <h3 class="card-title">Super Admins & Admins</h3>
+                            <div class="card-tools">
+                                <a href="./profileform.php" class="btn btn-primary">Add New Users</a>
+                            </div>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table id="userTable" class="table table-bordered table-striped">
+                                <table id="adminTable" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
                                             <th>ID</th>
@@ -54,22 +68,56 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php
-                                        require_once('function.php');
-                                        $userData = selectFromTable('users', ['id', 'username', 'fullname', 'email', 'mobile', 'status', 'created_at'], []);
-                                        foreach ($userData as $row) {
-                                            echo "<tr>";
-                                            echo "<td>" . htmlspecialchars($row['id']) . "</td>";
-                                            echo "<td>" . htmlspecialchars($row['username']) . "</td>";
-                                            echo "<td>" . htmlspecialchars($row['fullname']) . "</td>";
-                                            echo "<td>" . htmlspecialchars($row['email']) . "</td>";
-                                            echo "<td>" . htmlspecialchars($row['mobile']) . "</td>";
-                                            echo "<td>" . ($row['status'] == 0 ? 'Super Admin' : 'Admin') . "</td>";
-                                            echo "<td>" . htmlspecialchars($row['created_at']) . "</td>";
-                                            echo "<td><a href='editProfile.php?username=" . htmlspecialchars($row['username']) . "' class='btn btn-primary' onclick='return confirmEdit();'><i class='fas fa-edit'></i></a></td>";
-                                            echo "</tr>";
-                                        }
-                                        ?>
+                                        <?php foreach ($admins as $row): ?>
+                                        <tr>
+                                            <td><?= htmlspecialchars($row['id']) ?></td>
+                                            <td><?= htmlspecialchars($row['username']) ?></td>
+                                            <td><?= htmlspecialchars($row['fullname']) ?></td>
+                                            <td><?= htmlspecialchars($row['email']) ?></td>
+                                            <td><?= htmlspecialchars($row['mobile']) ?></td>
+                                            <td><?= $row['status'] == 0 ? 'Super Admin' : 'Admin' ?></td>
+                                            <td><?= htmlspecialchars($row['created_at']) ?></td>
+                                            <td><a href='profileform.php?id=<?= htmlspecialchars($row['id']) ?>' class='btn btn-primary' onclick='return confirmEdit();'><i class='fas fa-edit'></i></a></td>
+                                        </tr>
+                                        <?php endforeach; ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Faculty Table -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Faculty List</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table id="facultyTable" class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Username</th>
+                                            <th>Full Name</th>
+                                            <th>Email</th>
+                                            <th>Mobile</th>
+                                            <th>Status</th>
+                                            <th>Created At</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php foreach ($faculty as $row): ?>
+                                        <tr>
+                                            <td><?= htmlspecialchars($row['id']) ?></td>
+                                            <td><?= htmlspecialchars($row['username']) ?></td>
+                                            <td><?= htmlspecialchars($row['fullname']) ?></td>
+                                            <td><?= htmlspecialchars($row['email']) ?></td>
+                                            <td><?= htmlspecialchars($row['mobile']) ?></td>
+                                            <td>Faculty</td>
+                                            <td><?= htmlspecialchars($row['created_at']) ?></td>
+                                            <td><a href='profileform.php?id=<?= htmlspecialchars($row['id']) ?>' class='btn btn-primary' onclick='return confirmEdit();'><i class='fas fa-edit'></i></a></td>
+                                        </tr>
+                                        <?php endforeach; ?>
                                     </tbody>
                                 </table>
                             </div>
@@ -85,11 +133,20 @@
 <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 <script>
   $(document).ready(function () {
-    $('#userTable').DataTable({
+    $('#adminTable').DataTable({
       "paging": false,
       "lengthChange": false,
       "searching": false,
       "ordering": true,
+      "info": false,
+      "autoWidth": true,
+      "responsive": true
+    });
+    $('#facultyTable').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": true,
+      "ordering": false,
       "info": false,
       "autoWidth": true,
       "responsive": true
