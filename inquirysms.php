@@ -112,69 +112,90 @@
     <?php include ('./footer.php'); ?>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-
-        // Master checkbox functionality
-        $('#selectAll').click(function () {
-          var checkedStatus = this.checked;
-          $('#inquiryTable tbody tr').find('td:first :checkbox').each(function () {
-            $(this).prop('checked', checkedStatus);
-          });
+$(document).ready(function () {
+    // Function to log selected inquiries
+    function logSelectedInquiries() {
+        var selectedInquiries = [];
+        $('#inquiryTable tbody tr').find('td:first :checkbox:checked').each(function () {
+            var row = $(this).closest('tr');
+            var id = $(this).val();
+            var name = row.find('td:nth-child(2)').text(); // Assuming name is in the second column
+            var mobileNumber = row.find('td:nth-child(3)').text(); // Assuming mobile number is in the third column
+            selectedInquiries.push({ id: id, name: name, mobileNumber: mobileNumber });
         });
+        console.log(selectedInquiries);
+    }
 
-        //Character Count of a Textarea
-        $('textarea').keyup(function () {
+    // Capture and log the message text when the form is submitted
+    $('form').submit(function (event) {
+        event.preventDefault(); // Prevent the form from submitting normally
+        var messageText = $('#messageText').val();
+        console.log("Message to send:", messageText);
+        logSelectedInquiries(); // Log selected inquiries on send
+        // Here you can also add AJAX to send the data to the server if needed
+    });
 
-          var characterCount = $(this).val().length,
+    // Master checkbox functionality
+    $('#selectAll').click(function () {
+        var checkedStatus = this.checked;
+        $('#inquiryTable tbody tr').find('td:first :checkbox').each(function () {
+            $(this).prop('checked', checkedStatus);
+        });
+        logSelectedInquiries(); // Log all selected inquiries when select all is clicked
+    });
+
+    // Log individual checkbox selections
+    $('#inquiryTable').on('change', 'input[type="checkbox"][name="selectedInquiries[]"]', function () {
+        logSelectedInquiries();
+    });
+
+    //Character Count of a Textarea
+    $('textarea').keyup(function () {
+        var characterCount = $(this).val().length,
             current = $('#current'),
             maximum = $('#maximum'),
             theCount = $('#the-count');
 
-          current.text(characterCount);
+        current.text(characterCount);
 
-          /*This isn't entirely necessary, just playin around*/
-          if (characterCount < 70) {
+        if (characterCount < 70) {
             current.css('color', '#666');
-          }
-          if (characterCount > 70 && characterCount < 90) {
+        } else if (characterCount < 90) {
             current.css('color', '#6d5555');
-          }
-          if (characterCount > 90 && characterCount < 100) {
+        } else if (characterCount < 100) {
             current.css('color', '#793535');
-          }
-          if (characterCount > 100 && characterCount < 120) {
+        } else if (characterCount < 120) {
             current.css('color', '#841c1c');
-          }
-          if (characterCount > 120 && characterCount < 139) {
+        } else if (characterCount < 139) {
             current.css('color', '#8f0001');
-          }
-
-          if (characterCount >= 160) {
+        } else {
             maximum.css('color', '#ff0000');
             current.css('color', '#ff0000');
             theCount.css('font-weight', 'bold');
-          } else {
-            maximum.css('color', '#666');
-            theCount.css('font-weight', 'normal');
-          }
-        });
+        }
+    });
 
-        function updateInquiryList() {
-          var dateFilter = $('#dateFilter').val();
-          console.log("Filter changed to: ", dateFilter); // Check if this logs correctly when you change the dropdown
-          $.ajax({
+    // Existing AJAX call to update inquiry list
+    function updateInquiryList() {
+        var dateFilter = $('#dateFilter').val();
+        $.ajax({
             url: 'inquiries_fetch.php',
             type: 'GET',
             data: {dateFilter: dateFilter},
             success: function(data) {
-              $('#inquiryTable tbody').html(data);
+                $('#inquiryTable tbody').html(data);
+                // Reattach event listeners to new checkboxes
+                $('#inquiryTable').on('change', 'input[type="checkbox"][name="selectedInquiries[]"]', function () {
+                    logSelectedInquiries();
+                });
             },
             error: function() {
-              alert('Error fetching data.');
+                alert('Error fetching data.');
             }
-          });
-        }
-    </script>
-  </div>
-</body>
+        });
+    }
 
-</html>
+    // Attach the updateInquiryList to the select element
+    $('#dateFilter').change(updateInquiryList);
+});
+    </script>
