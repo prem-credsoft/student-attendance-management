@@ -9,9 +9,9 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 // Fetch user details
-$query = $db->prepare("SELECT * FROM users WHERE id = :id");
-$query->execute(['id' => $_SESSION['user_id']]);
-$user = $query->fetch(PDO::FETCH_ASSOC);
+require_once('function.php');
+$user = selectFromTable('users', ['*'], ['id' => $_SESSION['user_id']]);
+$user = $user[0];
 
 // Logout functionality
 if (isset($_POST['logout'])) {
@@ -19,6 +19,9 @@ if (isset($_POST['logout'])) {
     header("Location: index.php");
     exit();
 }
+
+// Check user status
+$isFaculty = isset($_SESSION['user_status']) && $_SESSION['user_status'] === 'faculty';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -304,12 +307,13 @@ if (isset($_POST['logout'])) {
               </p>
             </a>
           </li>
+          <?php if (!$isFaculty): ?>
           <li class="nav-item">
             <a href="./inquirysms.php" class="nav-link
             <?php if (strpos($_SERVER['REQUEST_URI'], 'inquirysms.php') !== false) {echo "active";}?>">
               <i class="nav-icon fas fa-users"></i>
               <p>
-                Inquiry Sms
+                Inquiry SMS
               </p>
             </a>
           </li>
@@ -318,10 +322,11 @@ if (isset($_POST['logout'])) {
             <?php if (strpos($_SERVER['REQUEST_URI'], 'studentsms.php') !== false) {echo "active";}?>">
               <i class="nav-icon fas fa-users"></i>
               <p>
-                Student Sms
+                Student SMS
               </p>
             </a>
           </li>
+          <?php endif; ?>
 
         </ul>
       </nav>

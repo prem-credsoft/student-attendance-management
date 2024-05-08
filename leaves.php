@@ -6,12 +6,20 @@
   <title>Admin | Leaves</title>
 </head>
 <body>
-<?php include('./header.php');
+<?php 
+include('./header.php');
 require_once('function.php');
 require_once('db.php');
 
+// Check if session is not already started
+if (session_status() == PHP_SESSION_NONE) {
+    session_start(); // Start session only if not already started
+}
+
 // Check user status from session
 $isSuperAdmin = isset($_SESSION['user_status']) && $_SESSION['user_status'] === 'super_admin';
+$isAdmin = isset($_SESSION['user_status']) && $_SESSION['user_status'] === 'admin';
+$isFaculty = isset($_SESSION['user_status']) && $_SESSION['user_status'] === 'faculty';
 
 // Fetch leaves data
 $leavesData = selectFromTable('leaves', ['id', 'student_id', 'reason', 'start_date', 'end_date', 'created_at'], []);
@@ -55,7 +63,9 @@ $leavesData = selectFromTable('leaves', ['id', 'student_id', 'reason', 'start_da
                           <th>Reason</th>
                           <th>Start Date</th>
                           <th>End Date</th>
+                          <?php if ($isSuperAdmin || $isAdmin): ?>
                           <th>Edit</th>
+                          <?php endif; ?>
                           <?php if ($isSuperAdmin): ?>
                           <th>Delete</th>
                           <?php endif; ?>
@@ -65,16 +75,18 @@ $leavesData = selectFromTable('leaves', ['id', 'student_id', 'reason', 'start_da
                         <?php foreach ($leavesData as $leave): ?>
                         <tr>
                           <td>RIE - <?php echo htmlspecialchars($leave['student_id']); ?></td>
-                          <td><?php // Fetch student name using student_id
+                          <td><?php 
                               $student = selectFromTable('studentinfo', ['name'], ['id' => $leave['student_id']]);
                               echo htmlspecialchars($student[0]['name']);
                           ?></td>
                           <td><?php echo htmlspecialchars($leave['reason']); ?></td>
                           <td><?php echo htmlspecialchars($leave['start_date']); ?></td>
                           <td><?php echo htmlspecialchars($leave['end_date']); ?></td>
+                          <?php if ($isSuperAdmin || $isAdmin): ?>
                           <td><a href="#" class="btn btn-primary btn-edit" data-id="<?php echo $leave['id']; ?>"><i class='fas fa-edit'></i></a></td>
+                          <?php endif; ?>
                           <?php if ($isSuperAdmin): ?>
-                          <td><a href="#" class="btn btn-danger btn-delete" data-id="<?php echo $leave['id']; ?>"><i class='fas fa-trash'></a></td>
+                          <td><a href="#" class="btn btn-danger btn-delete" data-id="<?php echo $leave['id']; ?>"><i class='fas fa-trash'></i></a></td>
                           <?php endif; ?>
                         </tr>
                         <?php endforeach; ?>

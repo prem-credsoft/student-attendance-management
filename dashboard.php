@@ -57,7 +57,7 @@
               <p>Students</p>
             </div>
             <div class="icon">
-              <i class="ion ion-android-contact"></i>
+              <i class="ion ion-android-contacts"></i>
             </div>
             <a href="./studentsdetails.php" class="small-box-footer">More info <i
                 class="fas fa-arrow-circle-right"></i></a>
@@ -101,6 +101,25 @@
               <i class="ion ion-calendar"></i>
             </div>
             <a href="./leaves.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+          </div>
+        </div>
+        <div class="col-lg-3 col-6">
+          <!-- small box -->
+          <div class="small-box bg-primary">
+            <div class="inner">
+            <?php
+              require_once 'function.php';
+              $result = selectFromTable('users', ['COUNT(*) AS total_status_two'], ['status' => 2]);
+              $total_status_two = $result[0]['total_status_two'];
+              ?>
+              <h3><?php echo $total_status_two; ?></h3>
+
+              <p>Faculty</p>
+            </div>
+            <div class="icon">
+              <i class="ion ion-android-contacts"></i>
+            </div>
+            <a href="./profile.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->

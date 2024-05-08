@@ -6,21 +6,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    // Query to select user with matching username and password
     $user = selectFromTable('users', ['id', 'username', 'password', 'status'], ['username' => $username, 'password' => $password]);
 
-    if (!empty($user) && $user[0]['status'] == 0) { // Check if user is super admin
-        $_SESSION['user_id'] = $user[0]['id'];
-        $_SESSION['user_status'] = 'super_admin';
-        echo "success";
-    } elseif (!empty($user) && $user[0]['status'] == 1) { // Check if user is admin
-        $_SESSION['user_id'] = $user[0]['id'];
-        $_SESSION['user_status'] = 'admin';
-        echo "success";
+    if (!empty($user)) {
+        $userId = $user[0]['id'];
+        $userStatus = $user[0]['status'];
+
+        // Map numeric status to string representation
+        $statusMap = [0 => 'super_admin', 1 => 'admin', 2 => 'faculty'];
+
+        if (array_key_exists($userStatus, $statusMap)) {
+            $_SESSION['user_id'] = $userId;
+            $_SESSION['user_status'] = $statusMap[$userStatus];
+            echo "success";
+        } else {
+            echo "error"; // Status not recognized
+        }
     } else {
-        echo "error";
+        echo "error"; // User not found or password does not match
     }
 } else {
-    // Handle incorrect access method
     echo "invalid_request";
 }

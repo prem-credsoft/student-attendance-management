@@ -7,12 +7,14 @@
   <title>Admin | Students Details</title>
 </head>
 
-
-<?php include ('./header.php');
+<?php 
+include('./header.php');
 require_once 'function.php';
 
 // Check user status from session
 $isSuperAdmin = isset($_SESSION['user_status']) && $_SESSION['user_status'] === 'super_admin';
+$isAdmin = isset($_SESSION['user_status']) && $_SESSION['user_status'] === 'admin';
+$isFaculty = isset($_SESSION['user_status']) && $_SESSION['user_status'] === 'faculty';
 ?>
 
 <!-- Content Wrapper. Contains page content -->
@@ -61,7 +63,9 @@ $isSuperAdmin = isset($_SESSION['user_status']) && $_SESSION['user_status'] === 
                       <th>Batch Name</th>
                       <th>Faculty Name</th>
                       <th>Attendance</th>
-                      <th>Edit</th>
+                      <?php if ($isSuperAdmin || $isAdmin): ?>
+                        <th>Edit</th>
+                      <?php endif; ?>
                       <?php if ($isSuperAdmin): ?>
                         <th>Delete</th>
                       <?php endif; ?>
@@ -69,7 +73,6 @@ $isSuperAdmin = isset($_SESSION['user_status']) && $_SESSION['user_status'] === 
                   </thead>
                   <tbody>
                     <?php
-                    // include('function.php');
                     $batches = selectFromTable('batch_table', ['id', 'name', 'FacultyName'], []);
                     foreach ($batches as $row) {
                       echo "<tr>";
@@ -77,9 +80,11 @@ $isSuperAdmin = isset($_SESSION['user_status']) && $_SESSION['user_status'] === 
                       echo "<td>" . $row['name'] . "</td>";
                       echo "<td>" . $row['FacultyName'] . "</td>";
                       echo "<td><a href='javascript:void(0);' onclick='confirmAttendance(" . $row['id'] . ")' class='btn btn-success col-md-6'>Attendance</a></td>";
-                      echo "<td><a href='javascript:void(0);' onclick='confirmEdit(" . $row['id'] . ")' class='btn btn-primary'><i class='fas fa-edit'></i></a></td>";
+                      if ($isSuperAdmin || $isAdmin) {
+                        echo "<td><a href='javascript:void(0);' onclick='confirmEdit(" . $row['id'] . ")' class='btn btn-primary'><i class='fas fa-edit'></i></a></td>";
+                      }
                       if ($isSuperAdmin) {
-                        echo "<td><a href='javascript:void(0);' onclick='confirmDelete(" . $row['id'] . ")' class='btn btn-danger'><i class='fas fa-trash'></a></td>";
+                        echo "<td><a href='javascript:void(0);' onclick='confirmDelete(" . $row['id'] . ")' class='btn btn-danger'><i class='fas fa-trash'></i></a></td>";
                       }
                       echo "</tr>";
                     }
@@ -124,6 +129,15 @@ $isSuperAdmin = isset($_SESSION['user_status']) && $_SESSION['user_status'] === 
   function confirmEdit(batchId) {
     if (confirm("Are you sure you want to edit this batch?")) {
       window.location.href = 'editbatch.php?id=' + batchId;
+    }
+  }
+
+  function confirmDelete(id) {
+    var confirmAction = confirm("Are you sure you want to delete this Student Details?");
+    if (confirmAction) {
+      window.location.href = 'deletebatch.php?id=' + id;
+    } else {
+      // console.log('Deletion cancelled');
     }
   }
 </script>
