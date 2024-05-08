@@ -16,6 +16,8 @@ This is a student attendance management website, an online platform designed to 
   
 - **Accessibility:** Accessible from any device with an internet connection, ensuring convenience for both educators and students.
 
+- **Bulk SMS Notifications:** This feature enables educators or administrators to send bulk SMS notifications to students regarding important announcements directly from the platform.
+
 ## Technologies Used
 
 - **PHP:** Used for server-side scripting to handle backend logic and database interactions.
