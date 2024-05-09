@@ -40,6 +40,7 @@ $isFaculty = isset($_SESSION['user_status']) && $_SESSION['user_status'] === 'fa
   <link rel="stylesheet" href="./plugins/icheck-bootstrap/icheck-bootstrap.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="./asset/css/adminlte.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <style>
     .card-list-custom{
       height: 50vh;
@@ -210,20 +211,18 @@ $isFaculty = isset($_SESSION['user_status']) && $_SESSION['user_status'] === 'fa
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="./dashboard.php" class="brand-link">
+    <a href="./dashboard.php" class="brand-link" style="text-align:center;background:#efefef;">
       <img src="./asset/img/logo.svg" alt="RIE logo Logo" style="height:50px;">
-      <span class="brand-text font-weight-light">Admin</span>
+      <!-- <span class="brand-text font-weight-light">Admin</span> -->
     </a>
 
     <!-- Sidebar -->
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <!-- <div class="image">
-          <img src="./asset/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
-        </div> -->
         <div class="info">
-          <a href="./profile.php" class="d-block"><?php echo $user['fullname']; ?>  <i class="fas fa-cog"></i></a>
+          <a href="./profile.php" class="d-block"><?php echo $user['fullname']; ?>
+          <i class="fas fa-cog"></i></a>
         </div>
       </div>
 
