@@ -85,7 +85,7 @@ $isSuperAdmin = isset($_SESSION['user_status']) && $_SESSION['user_status'] === 
                                         echo "<td>" . $row['date'] . "</td>";
                                         echo "<td><a href='javascript:void(0);' onclick='confirmAdd(" . $row['id'] . ")' class='btn btn-info'>Add</a></td>";
                                         if ($isSuperAdmin) {
-                                            echo "<td><a href='javascript:void(0);' onclick='confirmDelete(" . $row['id'] . ")' class='btn btn-danger'><i class='fas fa-trash'></a></td>";
+                                            echo "<td><a href='javascript:void(0);' onclick='confirmDelete(" . $row['id'] . ")' class='btn btn-danger'><i class='fas fa-trash'></i></a></td>";
                                         }
                                         echo "</tr>";
                                     }
@@ -105,10 +105,13 @@ $isSuperAdmin = isset($_SESSION['user_status']) && $_SESSION['user_status'] === 
 </div>
 <!-- /.content-wrapper -->
 
-<link href="https://cdn.jsdelivr.net/npm/toastr/build/toastr.min.css" rel="stylesheet"/>
+<!-- <link href="https://cdn.jsdelivr.net/npm/toastr/build/toastr.min.css" rel="stylesheet"/> -->
 <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/toastr/build/toastr.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.1/js/dataTables.buttons.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.html5.min.js"></script>
 <script>
     function confirmDelete(id) {
         var confirmAction = confirm("Are you sure you want to delete this Inquiry?");
@@ -136,7 +139,24 @@ $isSuperAdmin = isset($_SESSION['user_status']) && $_SESSION['user_status'] === 
       "ordering": true,
       "info": false,
       "autoWidth": false,
-      "responsive": true
+      "responsive": true,
+      "dom": 'Bfrtip',
+      "buttons": [
+        {
+          extend: 'excelHtml5',
+          title: 'Inquiry Data',
+          exportOptions: {
+            columns: ':not(:last-child)'
+          }
+        },
+        {
+          extend: 'pdfHtml5',
+          title: 'Inquiry Data',
+          exportOptions: {
+            columns: ':not(:last-child)'
+          }
+        }
+      ]
     });
   });
 </script>

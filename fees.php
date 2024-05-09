@@ -12,6 +12,15 @@ require_once 'function.php';
 
 // Check user status from session
 $isSuperAdmin = isset($_SESSION['user_status']) && $_SESSION['user_status'] === 'super_admin';
+
+// Fetch student details and total paid amounts
+$query = "
+    SELECT si.id, si.name, si.mobile_number, si.pending_fees, COALESCE(SUM(r.amount), 0) AS total_paid
+    FROM studentinfo si
+    LEFT JOIN receipt r ON si.id = r.student_id
+    GROUP BY si.id
+";
+$students = $db->query($query)->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <!-- Content Wrapper. Contains page content -->
@@ -52,46 +61,33 @@ $isSuperAdmin = isset($_SESSION['user_status']) && $_SESSION['user_status'] === 
                 <table id="example1" class="table table-bordered">
                   <thead>
                     <tr>
-                      <th>GR No.</th>
+                      <th>Student ID</th>
                       <th>Student Name</th>
-                      <th>Amount Paid</th>
-                      <th>Message</th>
-                      <th>Payment Date</th>
-                      <th>Edit</th>
+                      <th>Mobile Number</th>
+                      <th>Pending Fees</th>
+                      <th>Total Paid</th>
+                      <th>All Receipt</th>
+                      <!-- <th>Edit</th> -->
                       <?php if ($isSuperAdmin): ?>
-                        <th>Delete</th>
+                        <!-- <th>Delete</th> -->
                       <?php endif; ?>
                     </tr>
                   </thead>
                   <tbody>
-                    <?php
-                    // require_once 'function.php';
-                    $results = selectFromTable('receipt r JOIN studentinfo s ON r.student_id = s.id', ['r.id', 'r.student_id', 's.name', 'r.amount', 'r.message', 'r.payment_date'], []);
-                    if (!$results) {
-                      die("Error running query.");
-                    }
-                    foreach ($results as $row) {
-                      echo "<tr>";
-                      echo "<td> RIE - " . $row['student_id'] . "</td>";
-                      echo "<td>" . $row['name'] . "</td>";
-                      echo "<td>" . $row['amount'] . "</td>";
-                      echo "<td>" . $row['message'] . "</td>";
-                      echo "<td>" . $row['payment_date'] . "</td>";
-                      echo "<td><a href='javascript:void(0);' onclick='confirmEdit(" . $row['id'] . ")' class='btn btn-primary'><i class='fas fa-edit'></i></a></td>";
-                      if ($isSuperAdmin) {
-                        echo "<td><a href='javascript:void(0);' onclick='confirmDelete(" . $row['id'] . ")' class='btn btn-danger'><i class='fas fa-trash'></a></td>";
-                      }
-                      echo "</tr>";
-                    }
-                    // Calculate pending fees and update studentinfo table
-                    $students = selectFromTable('studentinfo', ['id', 'name'], []);
-                    foreach ($students as $student) {
-                      $totalPaidResults = selectFromTable('receipt', ['SUM(amount) AS total_paid'], ['student_id' => $student['id']]);
-                      $totalPaid = $totalPaidResults[0]['total_paid'] ?? 0;
-                      $pendingFees = 9800 - $totalPaid;
-                      updateTable('studentinfo', ['pending_fees' => $pendingFees], ['id' => $student['id']]);
-                    }
-                    ?>
+                    <?php foreach ($students as $student): ?>
+                    <tr>
+                      <td><?php echo $student['id']; ?></td>
+                      <td><?php echo $student['name']; ?></td>
+                      <td><?php echo $student['mobile_number']; ?></td>
+                      <td><?php echo $student['pending_fees']; ?></td>
+                      <td><?php echo $student['total_paid']; ?></td>
+                      <td><a href='javascript:void(0);' onclick='confirmAllReceipts("<?php echo $student['id']; ?>")' class='btn btn-info'>All Receipts</a></td>
+                      <!-- <td><a href='javascript:void(0);' onclick='confirmEdit("<?php echo $student['id']; ?>")' class='btn btn-primary'><i class='fas fa-edit'></i></a></td> -->
+                      <?php if ($isSuperAdmin): ?>
+                        <!-- <td><a href='javascript:void(0);' onclick='confirmDelete("<?php echo $student['id']; ?>")' class='btn btn-danger'><i class='fas fa-trash'></i></a></td> -->
+                      <?php endif; ?>
+                    </tr>
+                    <?php endforeach; ?>
                   </tbody>
                 </table>
               </div>
@@ -107,7 +103,6 @@ $isSuperAdmin = isset($_SESSION['user_status']) && $_SESSION['user_status'] === 
 </div>
 <!-- /.content-wrapper -->
 
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
 <script>
@@ -122,12 +117,21 @@ $isSuperAdmin = isset($_SESSION['user_status']) && $_SESSION['user_status'] === 
 </script>
 
 <script>
-  function confirmEdit(id) {
-    var confirmAction = confirm("Are you sure you want to edit this fees receipt?");
+  // function confirmEdit(id) {
+  //   var confirmAction = confirm("Are you sure you want to edit this fees receipt?");
+  //   if (confirmAction) {
+  //     window.location.href = 'feesform.php?id=' + id;
+  //   } else {
+  //     console.log('Edit cancelled');
+  //   }
+  // }
+
+  function confirmAllReceipts(studentId) {
+    var confirmAction = confirm("Are you sure you want to see all fees receipts for this student?");
     if (confirmAction) {
-      window.location.href = 'feesform.php?id=' + id;
+      window.location.href = 'fees_receipt.php?student_id=' + studentId;
     } else {
-      // console.log('Edit cancelled');
+      console.log('Action cancelled');
     }
   }
 </script>
