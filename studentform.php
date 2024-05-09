@@ -9,7 +9,7 @@
 </head>
 <body>
 <?php include('./header.php'); ?>
-<?php include('function.php'); ?>
+<?php require_once('function.php'); ?>
 <?php include('db.php'); ?>
 
 <?php
