@@ -63,6 +63,7 @@ $isFaculty = isset($_SESSION['user_status']) && $_SESSION['user_status'] === 'fa
                       <th>Batch Name</th>
                       <th>Faculty Name</th>
                       <th>Attendance</th>
+                      <th>Batch Students</th>
                       <?php if ($isSuperAdmin || $isAdmin): ?>
                         <th>Edit</th>
                       <?php endif; ?>
@@ -79,7 +80,8 @@ $isFaculty = isset($_SESSION['user_status']) && $_SESSION['user_status'] === 'fa
                       echo "<td>Batch - " . $row['id'] . "</td>";
                       echo "<td>" . $row['name'] . "</td>";
                       echo "<td>" . $row['FacultyName'] . "</td>";
-                      echo "<td><a href='javascript:void(0);' onclick='confirmAttendance(" . $row['id'] . ")' class='btn btn-success col-md-6'>Attendance</a></td>";
+                      echo "<td><a href='javascript:void(0);' onclick='confirmAttendance(" . $row['id'] . ")' class='btn btn-success col-md-12'>Attendance</a></td>";
+                      echo "<td><a href='javascript:void(0);' onclick='confirmBatchStudents(" . $row['id'] . ")' class='btn btn-info col-md-12'>Batch Students</a></td>";
                       if ($isSuperAdmin || $isAdmin) {
                         echo "<td><a href='javascript:void(0);' onclick='confirmEdit(" . $row['id'] . ")' class='btn btn-primary'><i class='fas fa-edit'></i></a></td>";
                       }
@@ -123,6 +125,12 @@ $isFaculty = isset($_SESSION['user_status']) && $_SESSION['user_status'] === 'fa
   function confirmAttendance(batchId) {
     if (confirm("Are you sure you want to manage attendance for this batch?")) {
       window.location.href = 'attendanceform.php?id=' + batchId;
+    }
+  }
+
+  function confirmBatchStudents(batchId) {
+    if (confirm("Are you sure you want to see batch students for this batch?")) {
+      window.location.href = 'batch_students.php?id=' + batchId;
     }
   }
 
