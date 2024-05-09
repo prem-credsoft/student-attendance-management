@@ -54,9 +54,9 @@
 </head>
 
 <body>
-  <?php include ('./header.php'); ?>
-  <?php include ('db.php'); ?>
-  <?php include ('function.php'); ?>
+  <?php include_once ('./header.php'); ?>
+  <?php include_once ('db.php'); ?>
+  <?php include_once ('function.php'); ?>
 
   <div class="content-wrapper">
     <div class="content-header">
@@ -251,4 +251,5 @@
   <?php include ('./footer.php'); ?>
 </body>
 
+</html>
 </html>
