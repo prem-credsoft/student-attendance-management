@@ -138,7 +138,7 @@ $isSuperAdmin = isset($_SESSION['user_status']) && $_SESSION['user_status'] === 
       "paging": true,
       "lengthChange": true,
       "searching": true,
-      "ordering": false,
+      "ordering": true,
       "info": false,
       "autoWidth": true,
       "responsive": true

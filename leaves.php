@@ -101,7 +101,6 @@ $leavesData = selectFromTable('leaves', ['id', 'student_id', 'reason', 'start_da
     </section>
 </div>
 
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
 <script>
@@ -111,7 +110,7 @@ $leavesData = selectFromTable('leaves', ['id', 'student_id', 'reason', 'start_da
       "lengthChange": true,
       "searching": true,
       "ordering": true,
-      "info": false,
+      "info": true,
       "autoWidth": true,
       "responsive": true
     });

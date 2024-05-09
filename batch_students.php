@@ -84,7 +84,6 @@
             <!-- /.content -->
         </div>
         <!-- /.content-wrapper -->
-        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
         <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
         <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
         <script>
@@ -93,7 +92,7 @@
                     "paging": true,
                     "lengthChange": true,
                     "searching": true,
-                    "ordering": false,
+                    "ordering": true,
                     "info": false,
                     "autoWidth": true,
                     "responsive": true
