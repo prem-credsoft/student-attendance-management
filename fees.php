@@ -61,7 +61,7 @@ $students = $db->query($query)->fetchAll(PDO::FETCH_ASSOC);
                 <table id="example1" class="table table-bordered">
                   <thead>
                     <tr>
-                      <th>Student ID</th>
+                      <th>GR No.</th>
                       <th>Student Name</th>
                       <th>Mobile Number</th>
                       <th>Pending Fees</th>
@@ -76,7 +76,7 @@ $students = $db->query($query)->fetchAll(PDO::FETCH_ASSOC);
                   <tbody>
                     <?php foreach ($students as $student): ?>
                     <tr>
-                      <td><?php echo $student['id']; ?></td>
+                      <td>RIE - <?php echo $student['id']; ?></td>
                       <td><?php echo $student['name']; ?></td>
                       <td><?php echo $student['mobile_number']; ?></td>
                       <td><?php echo $student['pending_fees']; ?></td>

@@ -79,9 +79,9 @@ if (!$students) {
                                                 name="student_id" onchange="updateFeesDetails()">
                                                 <?php foreach ($students as $student): ?>
                                                     <?php
-                                                    $isFullyPaid = ($student['pending_fees'] == 0.00);
                                                     $totalPaid = selectFromTable('receipt', ['SUM(amount) AS total_paid'], ['student_id' => $student['id']]);
                                                     $totalPaid = $totalPaid[0]['total_paid'] ?? 0;
+                                                    $isFullyPaid = ($totalPaid == 9800);
                                                     ?>
                                                     <option value="<?php echo htmlspecialchars($student['id']); ?>"
                                                         data-pending-fees="<?php echo htmlspecialchars($student['pending_fees']); ?>"

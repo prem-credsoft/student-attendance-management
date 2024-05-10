@@ -32,6 +32,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     if ($result) {
+        // Recalculate pending fees
+        $totalPaid = selectFromTable('receipt', ['SUM(amount) AS total_paid'], ['student_id' => $studentId]);
+        $totalPaid = $totalPaid[0]['total_paid'] ?? 0;
+        $newPendingFees = 9800 - $totalPaid; // Assuming 9800 is the total fees required
+
+        // Update the student info with new pending fees
+        updateTable('studentinfo', ['pending_fees' => $newPendingFees], ['id' => $studentId]);
+
         echo json_encode(['success' => true, 'message' => "Payment $action successfully."]);
     } else {
         echo json_encode(['success' => false, 'message' => 'Failed to record payment.']);

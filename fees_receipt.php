@@ -50,7 +50,7 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Fees Details</h3>
+                <h3 class="card-title">All Fees Receipt of <?php echo htmlspecialchars($studentName); ?></h3>
                 <div class="card-tools">
                   <a href="./feesform.php" class="btn btn-primary">Add New Fees Receipt</a>
                 </div>
@@ -114,16 +114,11 @@
           {
             extend: 'excelHtml5',
             title: 'Inquiry Data',
-            exportOptions: {
-              columns: ':not(:last-child)'
-            }
           },
           {
             extend: 'pdfHtml5',
             title: 'Inquiry Data',
-            exportOptions: {
-              columns: ':not(:last-child)'
-            }
+
           }
         ]
       });
