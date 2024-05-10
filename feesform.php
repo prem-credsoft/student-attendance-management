@@ -30,7 +30,7 @@ if (isset($_GET['id'])) {
     }
 }
 
-$students = selectFromTable('studentinfo', ['id', 'name', 'pending_fees'], []);
+$students = selectFromTable('studentinfo', ['id', 'name', 'pending_fees', 'total_fees'], []);
 if (!$students) {
     die("Could not retrieve data from the database.");
 }
@@ -81,11 +81,12 @@ if (!$students) {
                                                     <?php
                                                     $totalPaid = selectFromTable('receipt', ['SUM(amount) AS total_paid'], ['student_id' => $student['id']]);
                                                     $totalPaid = $totalPaid[0]['total_paid'] ?? 0;
-                                                    $isFullyPaid = ($totalPaid == 9800);
+                                                    $isFullyPaid = ($totalPaid == $student['total_fees']);
                                                     ?>
                                                     <option value="<?php echo htmlspecialchars($student['id']); ?>"
                                                         data-pending-fees="<?php echo htmlspecialchars($student['pending_fees']); ?>"
                                                         data-total-paid="<?php echo htmlspecialchars($totalPaid); ?>"
+                                                        data-total-fees="<?php echo htmlspecialchars($student['total_fees']); ?>"
                                                         <?php echo $studentId == $student['id'] ? 'selected' : ''; ?>
                                                         <?php echo $isFullyPaid ? 'disabled' : ''; ?>>
                                                         <?php echo htmlspecialchars($student['name']); ?>,
@@ -100,7 +101,7 @@ if (!$students) {
                                         <div class="form-group">
                                             <label for="total_fees">Total Fees</label>
                                             <input type="text" class="form-control" id="total_fees" name="total_fees"
-                                                value="9800" readonly>
+                                                value="" readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -196,10 +197,12 @@ if (!$students) {
     var selectedOption = selectPicker.options[selectPicker.selectedIndex];
     var pendingFees = parseFloat(selectedOption.getAttribute('data-pending-fees'));
     var totalPaid = parseFloat(selectedOption.getAttribute('data-total-paid'));
+    var totalFees = parseFloat(selectedOption.getAttribute('data-total-fees'));
 
     // Set initial values from selected student data
     document.getElementById('pending_fees').value = pendingFees.toFixed(2);
     document.getElementById('total_paid').value = totalPaid.toFixed(2);
+    document.getElementById('total_fees').value = totalFees.toFixed(2);
 
     // Update based on the current input, considering existing payments
     updateFeesOnAmountChange();
