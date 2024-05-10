@@ -42,6 +42,10 @@
       // Fetch student information
       $studentInfo = selectFromTable('studentinfo', ['id', 'name', 'batch_name', 'father_name', 'mother_name', 'dob', 'gender', 'mobile_number', 'profession', 'address', 'admission_time', 'pending_fees', 'discount', 'total_fees'], ['id' => $studentId])[0];
 
+      // Fetch total paid fees
+      $totalPaidFees = selectFromTable('receipt', ['SUM(amount) AS total_paid'], ['student_id' => $studentId]);
+      $totalPaidFees = $totalPaidFees[0]['total_paid'] ?? 0;
+
       // Fetch attendance records
       $attendanceRecords = selectFromTable('attendance', ['date', 'status', 'Reason'], ['student_id' => $studentId]);
 
@@ -74,15 +78,15 @@
                     <p><strong>GR No: </strong>RIE - <?php echo htmlspecialchars($studentInfo['id']); ?></p>
                     <p><strong>Name:</strong> <?php echo htmlspecialchars($studentInfo['name']); ?></p>
                     <p><strong>Batch:</strong> <?php echo htmlspecialchars($studentInfo['batch_name']); ?></p>
-                    <p><strong>Father's Name:</strong> <?php echo htmlspecialchars($studentInfo['father_name']); ?></p>
-                    <p><strong>Mother's Name:</strong> <?php echo htmlspecialchars($studentInfo['mother_name']); ?></p>
                     <p><strong>Date of Birth:</strong> <?php echo htmlspecialchars($studentInfo['dob']); ?></p>
+                    <p><strong>Gender:</strong> <?php echo htmlspecialchars($studentInfo['gender']); ?></p>
+                    <p><strong>Profession:</strong> <?php echo htmlspecialchars($studentInfo['profession']); ?></p>
                   </div>
                   <div class="col-md-6">
-                    <p><strong>Gender:</strong> <?php echo htmlspecialchars($studentInfo['gender']); ?></p>
+                    <p><strong>Father's Name:</strong> <?php echo htmlspecialchars($studentInfo['father_name']); ?></p>
+                    <p><strong>Mother's Name:</strong> <?php echo htmlspecialchars($studentInfo['mother_name']); ?></p>
                     <p><strong>Mobile Number:</strong> <?php echo htmlspecialchars($studentInfo['mobile_number']); ?>
                     </p>
-                    <p><strong>Profession:</strong> <?php echo htmlspecialchars($studentInfo['profession']); ?></p>
                     <p><strong>Address:</strong> <?php echo htmlspecialchars($studentInfo['address']); ?></p>
                     <p><strong>Admission Time:</strong> <?php echo htmlspecialchars($studentInfo['admission_time']); ?>
                     </p>
@@ -96,9 +100,10 @@
             <div class="card mb-3 h5">
               <div class="card-header bg-success text-white">Fees Information</div>
               <div class="card-body">
-                <p><strong>Pending Fees:</strong> <?php echo htmlspecialchars($studentInfo['pending_fees']); ?></p>
-                <p><strong>Discount:</strong> <?php echo htmlspecialchars($studentInfo['discount']); ?></p>
                 <p><strong>Total Fees:</strong> <?php echo htmlspecialchars($studentInfo['total_fees']); ?></p>
+                <p><strong>Pending Fees:</strong> <?php echo htmlspecialchars($studentInfo['pending_fees']); ?></p>
+                <p><strong>Paid Fees:</strong> <?php echo htmlspecialchars($totalPaidFees); ?></p>
+                <p><strong>Discount:</strong> <?php echo htmlspecialchars($studentInfo['discount']); ?></p>
               </div>
             </div>
           </div>
@@ -145,4 +150,5 @@
         </div>
       </div>
 
+      <?php include ('./footer.php'); ?>
       <?php include ('./footer.php'); ?>

@@ -148,9 +148,9 @@ if (isset($_GET['id'])) {
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="discount">Discount</label>
+                                            <label for="discount">Scholarship</label>
                                             <input type="text" class="form-control" id="discount" name="discount"
-                                                placeholder="Enter Discount"
+                                                placeholder="Enter Scholarship"
                                                 value="<?php echo htmlspecialchars($studentData['discount'] ?? ''); ?>">
                                         </div>
                                     </div>
