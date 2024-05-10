@@ -1,13 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Admin | All Receipt</title>
-</head>
-
-<body>
   <?php
   include ('./header.php');
   require_once 'function.php';
@@ -118,7 +108,6 @@
           {
             extend: 'pdfHtml5',
             title: 'Inquiry Data',
-
           }
         ]
       });
