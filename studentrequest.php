@@ -15,10 +15,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'dob' => $_POST['dob'] ?? '',
         'gender' => $_POST['gender'] ?? '',
         'mobile_number' => $_POST['mobileNumber'] ?? '',
-        'fee_status' => $_POST['feeStatus'] ?? '',
         'profession' => $_POST['profession'] ?? 'Other',
         'address' => $_POST['address'] ?? '',
         'admission_time' => date('Y-m-d'),
+        'discount' => $_POST['discount'] ?? 0,
+        'total_fees' => $_POST['totalFees'] ?? 0
     ];
 
     if (!empty($_POST['id'])) {

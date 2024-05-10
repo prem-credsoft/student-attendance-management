@@ -60,8 +60,9 @@ $isSuperAdmin = isset($_SESSION['user_status']) && $_SESSION['user_status'] === 
                       <th>GR No.</th>
                       <th>Student Name</th>
                       <th>Batch</th>
-                      <th>Pending Fees</th>
+                      <!-- <th>Pending Fees</th> -->
                       <th>Mobile Number</th>
+                      <th>Profiles</th>
                       <th>Edit</th>
                       <?php if ($isSuperAdmin): ?>
                         <th>Delete</th>
@@ -77,8 +78,9 @@ $isSuperAdmin = isset($_SESSION['user_status']) && $_SESSION['user_status'] === 
                       echo "<td> RIE - " . $row['id'] . "</td>";
                       echo "<td>" . $row['name'] . "</td>";
                       echo "<td>" . $row['batch_name'] . "</td>";
-                      echo "<td>" . $row['pending_fees'] . "</td>";
+                      // echo "<td>" . $row['pending_fees'] . ".00</td>";
                       echo "<td>" . $row['mobile_number'] . "</td>";
+                      echo "<td><a href='javascript:void(0);' onclick='confirmProfile(" . $row['id'] . ")' class='btn btn-info'>Profile</a></td>";
                       echo "<td><a href='javascript:void(0);' onclick='confirmEdit(" . $row['id'] . ")' class='btn btn-primary'><i class='fas fa-edit'></i></a></td>";
                       if ($isSuperAdmin) {
                         echo "<td><a href='javascript:void(0);' onclick='confirmDelete(" . $row['id'] . ")' class='btn btn-danger'><i class='fas fa-trash'></a></td>";
@@ -115,20 +117,24 @@ $isSuperAdmin = isset($_SESSION['user_status']) && $_SESSION['user_status'] === 
     });
   });
 
+  function confirmProfile(id) {
+    var confirmAction = confirm("Are you sure you want to see this Student Profile?");
+    if (confirmAction) {
+      window.location.href = 'student_profile.php?id=' + id;
+    }
+  }
+
   function confirmEdit(id) {
     var confirmAction = confirm("Are you sure you want to edit this Student Details?");
     if (confirmAction) {
       window.location.href = 'studentform.php?id=' + id;
     }
   }
-</script>
-<script>
+
   function confirmDelete(id) {
     var confirmAction = confirm("Are you sure you want to delete this Student Details?");
     if (confirmAction) {
       window.location.href = 'student_function.php?id=' + id;
-    } else {
-      // console.log('Deletion cancelled');
     }
   }
 </script>

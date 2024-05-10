@@ -15,7 +15,7 @@ $isSuperAdmin = isset($_SESSION['user_status']) && $_SESSION['user_status'] === 
 
 // Fetch student details and total paid amounts
 $query = "
-    SELECT si.id, si.name, si.mobile_number, si.pending_fees, COALESCE(SUM(r.amount), 0) AS total_paid
+    SELECT si.id, si.name, si.mobile_number, si.total_fees, si.pending_fees, COALESCE(SUM(r.amount), 0) AS total_paid
     FROM studentinfo si
     LEFT JOIN receipt r ON si.id = r.student_id
     GROUP BY si.id
@@ -64,6 +64,7 @@ $students = $db->query($query)->fetchAll(PDO::FETCH_ASSOC);
                       <th>GR No.</th>
                       <th>Student Name</th>
                       <th>Mobile Number</th>
+                      <th>Total Fees</th>
                       <th>Pending Fees</th>
                       <th>Total Paid</th>
                       <th>All Receipt</th>
@@ -79,6 +80,7 @@ $students = $db->query($query)->fetchAll(PDO::FETCH_ASSOC);
                       <td>RIE - <?php echo $student['id']; ?></td>
                       <td><?php echo $student['name']; ?></td>
                       <td><?php echo $student['mobile_number']; ?></td>
+                      <td><?php echo $student['total_fees']; ?></td>
                       <td><?php echo $student['pending_fees']; ?></td>
                       <td><?php echo $student['total_paid']; ?></td>
                       <td><a href='javascript:void(0);' onclick='confirmAllReceipts("<?php echo $student['id']; ?>")' class='btn btn-info'>All Receipts</a></td>

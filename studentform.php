@@ -128,20 +128,6 @@ if (isset($_GET['id'])) {
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="feeStatus">Fee Status</label>
-                                            <select class="form-control" id="feeStatus" name="feeStatus">
-                                                <option value="Fully Paid" <?php echo ($studentData && $studentData['fee_status'] == 'Fully Paid') ? 'selected' : ''; ?>>
-                                                    Fully Paid</option>
-                                                <option value="Partially Paid" <?php echo ($studentData && $studentData['fee_status'] == 'Partially Paid') ? 'selected' : ''; ?>>
-                                                    Partially Paid</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Add Profession Field -->
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
                                             <label for="profession">Profession</label>
                                             <select class="form-control" id="profession" name="profession" required>
                                                 <option value="Student" <?php echo ($inquiryData && $inquiryData['profession'] == 'Student') || ($studentData && $studentData['profession'] == 'Student') ? 'selected' : ''; ?>>Student
@@ -158,6 +144,26 @@ if (isset($_GET['id'])) {
                                             </select>
                                         </div>
                                     </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="discount">Discount</label>
+                                            <input type="text" class="form-control" id="discount" name="discount"
+                                                placeholder="Enter Discount"
+                                                value="<?php echo htmlspecialchars($studentData['discount'] ?? ''); ?>">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="totalFees">Total Fees</label>
+                                            <input type="number" class="form-control" id="totalFees" name="totalFees"
+                                                placeholder="Enter Total Fees"
+                                                value="<?php echo htmlspecialchars($studentData['total_fees'] ?? ''); ?>">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="selectPicker">Batch</label>
@@ -170,13 +176,14 @@ if (isset($_GET['id'])) {
                                             </select>
                                         </div>
                                     </div>
-                                </div>
-                                <!-- Add Address Field -->
-                                <div class="form-group">
-                                    <label for="address">Address</label>
-                                    <input type="text" class="form-control" id="address" name="address"
-                                        placeholder="Enter Address"
-                                        value="<?php echo htmlspecialchars($inquiryData['address'] ?? $studentData['address'] ?? ''); ?>">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="address">Address</label>
+                                            <input type="text" class="form-control" id="address" name="address"
+                                                placeholder="Enter Address"
+                                                value="<?php echo htmlspecialchars($inquiryData['address'] ?? $studentData['address'] ?? ''); ?>">
+                                        </div>
+                                    </div>
                                 </div>
                                 <!-- /.card-body -->
                             </div>
