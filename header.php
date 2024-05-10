@@ -156,15 +156,7 @@ $isFaculty = isset($_SESSION['user_status']) && $_SESSION['user_status'] === 'fa
               </p>
             </a>
           </li> -->
-          <li class="nav-item">
-            <a href="./leaves.php" class="nav-link
-            <?php if (strpos($_SERVER['REQUEST_URI'], 'leaves.php') !== false) {echo "active";}?>">
-              <i class="nav-icon fas fa-users"></i>
-              <p>
-                Leaves
-              </p>
-            </a>
-          </li>
+          
           <?php if (!$isFaculty): ?>
           <li class="nav-item">
             <a href="./inquirysms.php" class="nav-link

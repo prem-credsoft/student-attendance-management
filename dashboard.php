@@ -90,7 +90,7 @@
             <div class="inner">
             <?php
               require_once 'function.php';
-              $result = selectFromTable('leaves', ['COUNT(*) AS total_leaves'], []);
+              $result = selectFromTable('attendance', ['COUNT(*) AS total_leaves'], []);
               $total_leaves = $result[0]['total_leaves'];
               ?>
               <h3><?php echo $total_leaves; ?></h3>
