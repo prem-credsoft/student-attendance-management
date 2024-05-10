@@ -99,7 +99,6 @@ $isSuperAdmin = isset($_SESSION['user_status']) && $_SESSION['user_status'] === 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
 <script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.html5.min.js"></script>
 <script>
-<<<<<<< Updated upstream
   $(document).ready(function () {
     $('#example1').DataTable({
       "paging": true,
@@ -119,18 +118,13 @@ $isSuperAdmin = isset($_SESSION['user_status']) && $_SESSION['user_status'] === 
     }
   }
 
-=======
->>>>>>> Stashed changes
   function confirmEdit(id) {
     var confirmAction = confirm("Are you sure you want to edit this Student Details?");
     if (confirmAction) {
       window.location.href = 'studentform.php?id=' + id;
     }
   }
-<<<<<<< Updated upstream
 
-=======
->>>>>>> Stashed changes
   function confirmDelete(id) {
     var confirmAction = confirm("Are you sure you want to delete this Student Details?");
     if (confirmAction) {
