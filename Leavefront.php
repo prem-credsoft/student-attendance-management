@@ -4,10 +4,6 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Leaves</title>
-    <!-- Select2 CSS -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
-
-    <link rel="stylesheet" href="./plugins/icheck-bootstrap/icheck-bootstrap.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="./asset/css/adminlte.min.css">
     <style>
@@ -22,7 +18,6 @@
             width: 250vh;
             max-width: 1000px;
             margin: 0 auto;
-            /* padding: 15px; */
         }
 
         .form-control {
@@ -39,9 +34,45 @@
 </head>
 <body>
 <?php
-// include('./header.php');
-require_once('function.php');
-require_once('db.php');
+// Database connection setup
+if ($_SERVER['HTTP_HOST'] == 'localhost') {
+    $host = "localhost";
+    $dbname = "student-attendance-management";
+    $user = "root";
+    $password = "";
+} else {
+    $host = "localhost";
+    $dbname = "credsoft_rieportal";
+    $user = "credsoft_rieportal";
+    $password = "Balaji@1435";
+}
+
+try {
+    $db = new PDO("mysql:host=$host;dbname=$dbname", $user, $password);
+    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $e) {
+    die("Connection failed: " . $e->getMessage());
+}
+
+function selectFromTable($table, $columns, $conditions) {
+    global $db;
+    $cols = implode(", ", $columns);
+    $query = "SELECT $cols FROM $table";
+    if (!empty($conditions)) {
+        $query .= " WHERE ";
+        $clauses = [];
+        foreach ($conditions as $key => $value) {
+            $clauses[] = "$key = :$key";
+        }
+        $query .= implode(" AND ", $clauses);
+    }
+    $stmt = $db->prepare($query);
+    foreach ($conditions as $key => &$value) {
+        $stmt->bindParam(":$key", $value);
+    }
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
 
 $editMode = false;
 $studentId = '';
@@ -82,7 +113,7 @@ if (!$students) {
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="selectPicker">Student Detail</label>
-                                    <select class="form-control select2" id="selectPicker" name="student_id">
+                                    <select class="form-control" id="selectPicker" name="student_id">
                                         <?php foreach ($students as $student): ?>
                                             <option value="<?php echo htmlspecialchars($student['id']); ?>"
                                                 <?php echo $studentId == $student['id'] ? 'selected' : ''; ?>>
@@ -102,7 +133,7 @@ if (!$students) {
                                 </div>
                                 <div class="form-group">
                                     <label for="batch">Batch</label>
-                                    <select class="form-control select2" id="batch" name="batch_id">
+                                    <select class="form-control" id="batch" name="batch_id">
                                         <?php
                                         $batches = selectFromTable('batch_table', ['id', 'name'], []);
                                         foreach ($batches as $batch):
@@ -128,42 +159,6 @@ if (!$students) {
         </div>
     </section>
 </div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
-<script>
-    $(document).ready(function() {
-        $('.select2').select2({
-            placeholder: "Select a student",
-            allowClear: true
-        });
-    });
-</script>
-
-<script>
-    $(document).ready(function () {
-        $('button').click(function () {
-            var formData = $('form').serialize();
-            // console.log(formData);
-            $.ajax({
-                type: 'POST',
-                url: 'leavesrequest.php',
-                data: formData,
-                dataType: 'json',
-                success: function (response) {
-                    if (response.success) {
-                        alert(response.message);
-                        window.location.href = './leavefront.php';
-                    } else {
-                        alert(response.message);
-                    }
-                },
-                error: function() {
-                    alert("Error submitting details.");
-                }
-            });
-        });
-    });
-</script>
-
-
 </body>
 </html>
+
