@@ -142,8 +142,9 @@
                               echo "<tr>";
                               for ($i = 1; $i <= $num_days; $i++) {
                                 $date = date('Y-m-d', strtotime(date('Y-m-') . sprintf('%02d', $i)));
-                                $attendance = selectFromTable('attendance', ['status'], ['student_id' => $student['id'], 'date' => $date]);
+                                $attendance = selectFromTable('attendance', ['status', 'reason'], ['student_id' => $student['id'], 'date' => $date]);
                                 $status = $attendance ? $attendance[0]['status'] : -1; // Default to -1 if no entry
+                                $reason = $attendance && $status == 2 ? htmlspecialchars($attendance[0]['reason']) : ''; // Fetch reason if status is 'Leave'
                                 echo "<td class='pr-5'>";
                                 if ($date < $currentDate) {
                                   switch ($status) {
@@ -154,7 +155,7 @@
                                       echo "<div class='status-absent'>Absent</div>";
                                       break;
                                     case 2:
-                                      echo "<div class='status-leave'>Leave</div>";
+                                      echo "<div class='status-leave' data-reason='$reason'>Leave</div>"; // Add data-reason attribute
                                       break;
                                     default:
                                       echo "<div class='status'>N/A</div>";
@@ -245,6 +246,18 @@
             alert('Error submitting data');
           }
         });
+      });
+
+      // Tooltip for showing leave reasons
+      $('.status-leave').hover(function() {
+        var reason = $(this).data('reason');
+        $(this).attr('title', reason); // Using native tooltips, but you can use custom tooltip libraries
+      });
+
+      // Alternatively, for a click event to show a more styled popup
+      $('.status-leave').click(function() {
+        var reason = $(this).data('reason');
+        alert('Leave Reason: ' + reason); // Replace this with a modal if needed
       });
     });
   </script>

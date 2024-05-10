@@ -45,18 +45,18 @@ require_once('db.php');
 
 $editMode = false;
 $studentId = '';
-$reason = '';
+$Reason = '';
 $startDate = '';
 $endDate = '';
 
 if (isset($_GET['id'])) {
     $editMode = true;
-    $leaveDetails = selectFromTable('leaves', ['student_id', 'reason', 'start_date', 'end_date'], ['id' => $_GET['id']]);
+    $leaveDetails = selectFromTable('attendance', ['student_id', 'Reason', 'date', 'date'], ['id' => $_GET['id']]);
     if ($leaveDetails) {
         $studentId = $leaveDetails[0]['student_id'];
-        $reason = $leaveDetails[0]['reason'];
-        $startDate = $leaveDetails[0]['start_date'];
-        $endDate = $leaveDetails[0]['end_date'];
+        $Reason = $leaveDetails[0]['Reason'];
+        $startDate = $leaveDetails[0]['date'];
+        $endDate = $leaveDetails[0]['date'];
     }
 }
 
@@ -78,7 +78,7 @@ if (!$students) {
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
-                        <form id="inquiryForm" method="POST" action="feesrequest.php">
+                        <form id="inquiryForm" method="POST" action="leavesrequest.php">
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="selectPicker">Student Detail</label>
@@ -93,30 +93,34 @@ if (!$students) {
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="reason">Reason</label>
-                                    <input type="text" class="form-control" id="reason" name="reason" value="<?php echo htmlspecialchars($reason); ?>">
+                                    <label for="Reason">Reason</label>
+                                    <input type="text" class="form-control" id="Reason" name="Reason" value="<?php echo htmlspecialchars($Reason); ?>">
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="startDate">Start Date</label>
-                                            <input type="date" class="form-control" id="startDate" name="start_date" value="<?php echo htmlspecialchars($startDate); ?>">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="endDate">End Date</label>
-                                            <input type="date" class="form-control" id="endDate" name="end_date" value="<?php echo htmlspecialchars($endDate); ?>">
-                                        </div>
-                                    </div>
+                                <div class="form-group">
+                                    <label for="date">Date</label>
+                                    <input type="date" class="form-control" id="date" name="date" value="<?php echo htmlspecialchars($startDate); ?>">
                                 </div>
+                                <div class="form-group">
+                                    <label for="batch">Batch</label>
+                                    <select class="form-control select2" id="batch" name="batch_id">
+                                        <?php
+                                        $batches = selectFromTable('batch_table', ['id', 'name'], []);
+                                        foreach ($batches as $batch):
+                                            $selected = (isset($studentData['batch_id']) && $studentData['batch_id'] == $batch['id']) ? 'selected' : '';
+                                            echo "<option value='" . htmlspecialchars($batch['id']) . "' $selected>" . htmlspecialchars($batch['name']) . "</option>";
+                                        endforeach;
+                                        ?>
+                                    </select>
+                                </div>
+                                <!-- Hidden input for status -->
+                                <input type="hidden" name="status" value="2">
                             </div>
                             <!-- Add a hidden input to handle the ID when updating -->
                             <?php if ($editMode): ?>
                                 <input type="hidden" name="id" value="<?php echo $_GET['id']; ?>">
                             <?php endif; ?>
+                            <button class="btn btn-primary" type="submit"><?php echo $editMode ? 'Update' : 'Submit'; ?></button>
                         </form>
-                        <button class="btn btn-primary" id="submitLeaves"><?php echo $editMode ? 'Update' : 'Submit'; ?></button>
                     </div>
                     <!-- /.card -->
                 </div>
