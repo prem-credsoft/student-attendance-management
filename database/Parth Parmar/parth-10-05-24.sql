@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 10, 2024 at 02:22 PM
+-- Generation Time: May 10, 2024 at 02:26 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -105,28 +105,6 @@ INSERT INTO `inquiryinfo` (`id`, `name`, `reference`, `address`, `mobile_number`
 (32, 'JKL', 'rehreheheh', 'dfheheheherhe,  gerregrghrgg,  sdgsgsgsa', '1651649481', '7:30 AM To 8:30 AM', 'Housewife', '2024-05-04', '2024-05-04 18:36:23'),
 (33, 'aaaa', 'UYYRR', 'sdvsbsbss, fefgse', '9876541238', '4:00 PM To 5:00 PM', 'Kids', '2024-05-04', '2024-05-04 18:36:45'),
 (34, 'IOOI', 'abc', 'dsvsdvsd', '6546545131', '5:00 PM To 6:00 PM', 'Working Professional', '2024-05-06', '2024-05-06 15:38:32');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `leaves`
---
-
-CREATE TABLE `leaves` (
-  `id` int(11) NOT NULL,
-  `student_id` int(11) NOT NULL,
-  `reason` varchar(255) NOT NULL,
-  `start_date` date NOT NULL,
-  `end_date` date NOT NULL,
-  `created_at` datetime NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `leaves`
---
-
-INSERT INTO `leaves` (`id`, `student_id`, `reason`, `start_date`, `end_date`, `created_at`) VALUES
-(16, 24, 'sdgsgsdhgsdh', '2024-05-10', '2024-05-10', '2024-05-09 17:06:03');
 
 -- --------------------------------------------------------
 
@@ -249,13 +227,6 @@ ALTER TABLE `inquiryinfo`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `leaves`
---
-ALTER TABLE `leaves`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `student_id` (`student_id`);
-
---
 -- Indexes for table `receipt`
 --
 ALTER TABLE `receipt`
@@ -300,12 +271,6 @@ ALTER TABLE `inquiryinfo`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
--- AUTO_INCREMENT for table `leaves`
---
-ALTER TABLE `leaves`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
-
---
 -- AUTO_INCREMENT for table `receipt`
 --
 ALTER TABLE `receipt`
@@ -326,12 +291,6 @@ ALTER TABLE `users`
 --
 -- Constraints for dumped tables
 --
-
---
--- Constraints for table `leaves`
---
-ALTER TABLE `leaves`
-  ADD CONSTRAINT `leaves_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `studentinfo` (`id`);
 
 --
 -- Constraints for table `receipt`
