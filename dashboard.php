@@ -71,7 +71,7 @@
             <div class="inner">
             <?php
               require_once 'function.php';
-              $result = selectFromTable('receipt', ['COUNT(*) AS total_receipt'], []);
+              $result = selectFromTable('studentinfo', ['COUNT(*) AS total_receipt'], ['fee_status' => 1]);
               $total_receipt = $result[0]['total_receipt'];
               ?>
               <h3><?php echo $total_receipt; ?></h3>
@@ -82,25 +82,6 @@
               <i class="ion ion-cash"></i>
             </div>
             <a href="./fees.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-        <div class="col-lg-3 col-6">
-          <!-- small box -->
-          <div class="small-box bg-success">
-            <div class="inner">
-            <?php
-              require_once 'function.php';
-              $result = selectFromTable('attendance', ['COUNT(*) AS total_leaves'], []);
-              $total_leaves = $result[0]['total_leaves'];
-              ?>
-              <h3><?php echo $total_leaves; ?></h3>
-
-              <p>Leaves</p>
-            </div>
-            <div class="icon">
-              <i class="ion ion-calendar"></i>
-            </div>
-            <a href="./leaves.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <div class="col-lg-3 col-6">

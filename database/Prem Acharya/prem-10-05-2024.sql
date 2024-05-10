@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 10, 2024 at 01:24 PM
+-- Generation Time: May 10, 2024 at 03:45 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -33,57 +33,33 @@ CREATE TABLE `attendance` (
   `date` date DEFAULT NULL,
   `status` tinyint(4) DEFAULT NULL,
   `batch_id` int(11) DEFAULT NULL,
-  `created_at` datetime NOT NULL DEFAULT current_timestamp()
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `Reason` varchar(250) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `attendance`
 --
 
-INSERT INTO `attendance` (`id`, `student_id`, `date`, `status`, `batch_id`, `created_at`) VALUES
-(4, 26, '2024-05-01', 1, 5, '2024-05-04 12:50:25'),
-(5, 26, '2024-05-02', 0, 5, '2024-05-04 12:50:25'),
-(6, 26, '2024-05-03', 1, 5, '2024-05-04 12:50:25'),
-(7, 27, '2024-05-01', 0, 5, '2024-05-04 12:50:25'),
-(8, 27, '2024-05-02', 1, 5, '2024-05-04 12:50:25'),
-(9, 27, '2024-05-03', 1, 5, '2024-05-04 12:50:25'),
-(10, 28, '2024-05-01', 1, 5, '2024-05-04 12:50:25'),
-(11, 28, '2024-05-02', 0, 5, '2024-05-04 12:50:25'),
-(12, 28, '2024-05-03', 2, 5, '2024-05-04 12:50:25'),
-(13, 52, '2024-05-01', 0, 5, '2024-05-04 12:50:25'),
-(14, 52, '2024-05-02', 0, 5, '2024-05-04 12:50:25'),
-(15, 52, '2024-05-03', 0, 5, '2024-05-04 12:50:25'),
-(16, 55, '2024-05-01', 2, 5, '2024-05-04 12:50:25'),
-(17, 55, '2024-05-02', 0, 5, '2024-05-04 12:50:25'),
-(18, 55, '2024-05-03', 0, 5, '2024-05-04 12:50:25'),
-(22, 57, '2024-05-01', 0, 5, '2024-05-04 12:50:25'),
-(23, 57, '2024-05-02', 2, 5, '2024-05-04 12:50:25'),
-(24, 57, '2024-05-03', 1, 5, '2024-05-04 12:50:25'),
-(25, 58, '2024-05-01', 1, 5, '2024-05-04 12:50:25'),
-(26, 58, '2024-05-02', 0, 5, '2024-05-04 12:50:25'),
-(27, 58, '2024-05-03', 0, 5, '2024-05-04 12:50:25'),
-(28, 59, '2024-05-01', 0, 5, '2024-05-04 12:50:25'),
-(29, 59, '2024-05-02', 1, 5, '2024-05-04 12:50:25'),
-(30, 59, '2024-05-03', 0, 5, '2024-05-04 12:50:25'),
-(35, 24, '2024-05-02', 2, 11, '2024-05-04 12:50:25'),
-(36, 24, '2024-05-03', 0, 11, '2024-05-04 12:50:25'),
-(38, 24, '2024-05-04', 1, 11, '2024-05-04 12:50:25'),
-(40, 26, '2024-05-04', 0, 5, '2024-05-04 12:50:53'),
-(41, 27, '2024-05-04', 0, 5, '2024-05-04 12:50:53'),
-(42, 28, '2024-05-04', 0, 5, '2024-05-04 12:50:53'),
-(43, 52, '2024-05-04', 0, 5, '2024-05-04 12:50:53'),
-(44, 55, '2024-05-04', 0, 5, '2024-05-04 12:50:53'),
-(46, 57, '2024-05-04', 0, 5, '2024-05-04 12:50:53'),
-(47, 58, '2024-05-04', 1, 5, '2024-05-04 12:50:53'),
-(49, 59, '2024-05-04', 2, 5, '2024-05-04 12:52:39'),
-(50, 61, '2024-05-04', 0, 11, '2024-05-04 13:38:51'),
-(52, 24, '2024-05-09', 0, 11, '2024-05-09 16:18:29'),
-(53, 61, '2024-05-09', 0, 11, '2024-05-09 16:18:29'),
-(54, 24, '2024-05-10', 0, 11, '2024-05-10 15:31:57'),
-(55, 26, '2024-05-10', 1, 11, '2024-05-10 15:31:57'),
-(56, 52, '2024-05-10', 0, 11, '2024-05-10 15:31:57'),
-(57, 61, '2024-05-10', 0, 11, '2024-05-10 15:31:57'),
-(58, 64, '2024-05-10', 0, 11, '2024-05-10 15:31:57');
+INSERT INTO `attendance` (`id`, `student_id`, `date`, `status`, `batch_id`, `created_at`, `Reason`) VALUES
+(47, 58, '2024-05-04', 1, 5, '2024-05-04 12:50:53', ''),
+(49, 59, '2024-05-04', 2, 5, '2024-05-04 12:52:39', ''),
+(50, 61, '2024-05-04', 0, 11, '2024-05-04 13:38:51', ''),
+(51, 9, '2024-05-10', 0, 5, '2024-05-10 16:59:10', ''),
+(58, 26, '2024-05-10', 2, 5, '2024-05-10 17:19:10', 'demo'),
+(59, 26, '2024-05-10', 2, 5, '2024-05-10 17:19:26', 'demo'),
+(60, 63, '2024-05-08', 2, 5, '2024-05-10 17:20:44', 'demo'),
+(61, 56, '2024-05-09', 2, 5, '2024-05-10 17:42:40', 'ysrhbfknml,we;.gt[pojiugcegvhjfknlq'),
+(62, 24, '2024-05-10', 0, 11, '2024-05-10 18:39:36', ''),
+(63, 52, '2024-05-10', 1, 11, '2024-05-10 18:39:36', ''),
+(64, 61, '2024-05-10', 0, 11, '2024-05-10 18:39:36', ''),
+(65, 64, '2024-05-10', 0, 11, '2024-05-10 18:39:36', ''),
+(66, 27, '2024-05-10', 0, 5, '2024-05-10 19:06:34', ''),
+(67, 57, '2024-05-10', 0, 5, '2024-05-10 19:06:34', ''),
+(68, 58, '2024-05-10', 1, 5, '2024-05-10 19:06:34', ''),
+(69, 59, '2024-05-10', 0, 5, '2024-05-10 19:06:34', ''),
+(70, 62, '2024-05-10', 0, 5, '2024-05-10 19:06:34', ''),
+(71, 63, '2024-05-10', 0, 5, '2024-05-10 19:06:34', '');
 
 -- --------------------------------------------------------
 
@@ -139,28 +115,6 @@ INSERT INTO `inquiryinfo` (`id`, `name`, `reference`, `address`, `mobile_number`
 -- --------------------------------------------------------
 
 --
--- Table structure for table `leaves`
---
-
-CREATE TABLE `leaves` (
-  `id` int(11) NOT NULL,
-  `student_id` int(11) NOT NULL,
-  `reason` varchar(255) NOT NULL,
-  `start_date` date NOT NULL,
-  `end_date` date NOT NULL,
-  `created_at` datetime NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `leaves`
---
-
-INSERT INTO `leaves` (`id`, `student_id`, `reason`, `start_date`, `end_date`, `created_at`) VALUES
-(16, 24, 'sdgsgsdhgsdh', '2024-05-10', '2024-05-10', '2024-05-09 17:06:03');
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `receipt`
 --
 
@@ -180,7 +134,18 @@ CREATE TABLE `receipt` (
 INSERT INTO `receipt` (`id`, `student_id`, `amount`, `payment_date`, `message`, `created_at`) VALUES
 (1, 24, 9800.00, '2024-05-10', 'fbdfb', '2024-05-10 10:24:25'),
 (2, 26, 200.00, '2024-05-10', 'xbd', '2024-05-10 10:25:10'),
-(3, 26, 5000.00, '2024-05-10', 'ghkgk', '2024-05-10 10:25:37');
+(3, 26, 5000.00, '2024-05-10', 'ghkgk', '2024-05-10 10:25:37'),
+(4, 24, 100.00, '2024-05-10', 'gfg', '2024-05-10 13:15:15'),
+(5, 24, 10.00, '2024-05-10', 'cvncv', '2024-05-10 13:18:59'),
+(6, 27, 500.00, '2024-05-10', 'dvsvb', '2024-05-10 13:19:48'),
+(7, 52, 5000.00, '2024-05-10', 'cbdf', '2024-05-10 13:20:30'),
+(8, 55, 3000.00, '2024-05-10', 'bdfb', '2024-05-10 13:20:48'),
+(9, 57, 600.00, '2024-05-10', 'fddfb', '2024-05-10 13:22:07'),
+(10, 58, 1234.00, '2024-05-10', 'bdgbn', '2024-05-10 13:22:24'),
+(11, 59, 1313.00, '2024-05-10', 'sdxgsf', '2024-05-10 13:22:49'),
+(13, 61, 1234.00, '2024-05-10', 'dfdf', '2024-05-10 13:24:25'),
+(14, 24, 20.00, '2024-05-10', 'sfg', '2024-05-10 13:25:21'),
+(15, 62, 5000.00, '2024-05-10', 'ghfg', '2024-05-10 13:25:43');
 
 -- --------------------------------------------------------
 
@@ -213,17 +178,16 @@ CREATE TABLE `studentinfo` (
 --
 
 INSERT INTO `studentinfo` (`id`, `name`, `batch`, `batch_name`, `father_name`, `mother_name`, `dob`, `gender`, `mobile_number`, `fee_status`, `profession`, `address`, `admission_time`, `created_at`, `pending_fees`, `discount`, `total_fees`) VALUES
-(24, 'nextjs', 11, 'React', 'Node JS', 'React JS', '2024-04-04', 'Male', '1531545613', 0, 'Working Professional', 'sdvsbsbss, fefgse', '2024-05-10', '2024-04-30 16:40:20', 0, 0, 0),
-(26, 'QQQQQQQ', 11, 'React', 'ABC', 'dfhfgjf', '2024-04-04', 'Female', '9876541238', 0, 'Kids', 'fsdfsfsdfsfsdfg, gwegwesg', '2024-05-09', '2024-04-30 17:41:48', 4600, 0, 0),
-(27, 'ABC', 5, 'xyzx', 'vvvvv', 'ddddd', '2024-04-02', 'Male', '9876541238', 0, 'Housewife', 'sdfgbfdbdsb', '2024-05-02', '2024-04-30 18:29:07', 9800, 0, 0),
-(28, 'xxxxyyyyy', 5, 'xyzx', 'ABC', 'sdgsd', '2024-04-04', 'Female', '1231651618', 0, 'Working Professional', 'fsdfsfsdfsfsdfg, gwegwesg', '2024-05-02', '2024-04-30 18:34:32', 9800, 0, 0),
-(52, 'rest', 11, 'React', 'asdfgt', 'dfhfgjf', '2024-04-04', 'Male', '1234567898', 0, 'Housewife', 'dfheheheherhe,  gerregrghrgg,  sdgsgsgsa', '2024-05-09', '2024-04-30 18:41:41', 9800, 0, 0),
-(55, 'XYZ', 5, 'xyzx', 'ABC', 'DEF', '2024-05-03', 'Female', '4565864577', 0, 'Working Professional', 'fsdfsfsdfsfsdfg, gwegwesg', '2024-05-02', '2024-05-02 12:21:54', 9800, 0, 0),
-(57, 'NMKL', 5, 'xyzx', 'asdfgt', 'dfhfgjf', '0000-00-00', 'Male', '7894561230', 0, 'Student', 'sdgsbsb', '2024-05-02', '2024-05-02 12:47:33', 9800, 0, 0),
-(58, 'GJ', 5, 'xyzx', 'sdvfsdsdvfs', 'sdgsd', '2024-05-05', 'Male', '5465468325', 0, 'Working Professional', 'sdvsbsbss, fefgse', '2024-05-02', '2024-05-02 12:49:29', 9800, 0, 0),
-(59, 'WWW', 5, 'xyzx', 'sdvfsdsdvfs', 'sdgsd', '2024-05-05', 'Male', '1221547854', 0, 'Housewife', 'sdfgbfdbdsb', '2024-05-02', '2024-05-02 12:51:08', 9800, 0, 0),
-(61, 'dart', 11, 'Rust', 'html', 'css', '2024-05-03', 'Male', '4565165131', 0, 'Working Professional', 'fsdfsfsdfsfsdfg, gwegwesg', '2024-05-04', '2024-05-04 13:38:42', 9800, 0, 0),
-(62, 'gjulyuyughrjy', 5, 'abc', 'fgchvjbkn', 'fgghjk', '2024-05-02', 'Male', '4768765435', 0, 'Kids', 'cgykuhkgfyk', '2024-05-04', '2024-05-04 16:51:25', 9800, 0, 0),
+(24, 'nextjs', 11, 'React', 'Node JS', 'React JS', '2024-04-04', 'Male', '1531545613', 0, 'Working Professional', 'sdvsbsbss, fefgse', '2024-05-10', '2024-04-30 16:40:20', 70, 0, 10000),
+(26, 'QQQQQQQ', 11, 'React', 'ABC', 'dfhfgjf', '2024-04-04', 'Female', '9876541238', 0, 'Kids', 'fsdfsfsdfsfsdfg, gwegwesg', '2024-05-10', '2024-04-30 17:41:48', 4600, 0, 9800),
+(27, 'ABC', 5, 'abc', 'vvvvv', 'ddddd', '2024-04-02', 'Male', '9876541238', 0, 'Housewife', 'sdfgbfdbdsb', '2024-05-10', '2024-04-30 18:29:07', 6500, 0, 7000),
+(52, 'rest', 11, 'React', 'asdfgt', 'dfhfgjf', '2024-04-04', 'Male', '1234567898', 0, 'Housewife', 'dfheheheherhe,  gerregrghrgg,  sdgsgsgsa', '2024-05-10', '2024-04-30 18:41:41', 4800, 0, 9800),
+(55, 'XYZ', 5, 'abc', 'ABC', 'DEF', '2024-05-03', 'Female', '4565864577', 0, 'Working Professional', 'fsdfsfsdfsfsdfg, gwegwesg', '2024-05-10', '2024-05-02 12:21:54', 6800, 0, 9800),
+(57, 'NMKL', 5, 'abc', 'asdfgt', 'dfhfgjf', '0000-00-00', 'Male', '7894561230', 0, 'Student', 'sdgsbsb', '2024-05-10', '2024-05-02 12:47:33', 5400, 0, 6000),
+(58, 'GJ', 5, 'abc', 'sdvfsdsdvfs', 'sdgsd', '2024-05-05', 'Male', '5465468325', 0, 'Working Professional', 'sdvsbsbss, fefgse', '2024-05-10', '2024-05-02 12:49:29', 8566, 0, 9800),
+(59, 'WWW', 5, 'abc', 'sdvfsdsdvfs', 'sdgsd', '2024-05-05', 'Male', '1221547854', 0, 'Housewife', 'sdfgbfdbdsb', '2024-05-10', '2024-05-02 12:51:08', 6687, 0, 8000),
+(61, 'dart', 11, 'React', 'html', 'css', '2024-05-03', 'Male', '4565165131', 0, 'Working Professional', 'fsdfsfsdfsfsdfg, gwegwesg', '2024-05-10', '2024-05-04 13:38:42', 8566, 0, 9800),
+(62, 'gjulyuyughrjy', 5, 'abc', 'fgchvjbkn', 'fgghjk', '2024-05-02', 'Male', '4768765435', 0, 'Kids', 'cgykuhkgfyk', '2024-05-10', '2024-05-04 16:51:25', 0, 0, 5000),
 (63, 'demo', 5, 'abc', 'senior demo', 'mrs senior demo', '2024-05-01', 'Male', '2345678908', 0, 'Student', 'ncujgwker,gmw,oerpgwejnw uweihrk', '2024-05-04', '2024-05-04 16:52:31', 9800, 0, 0),
 (64, 'vide', 11, 'React', 'ABC', 'sdgsd', '2024-05-04', 'Male', '4654132132', 0, 'Working Professional', 'fsdfsfsdfsfsdfg, gwegwesg', '2024-05-09', '2024-05-09 17:04:45', 9800, 0, 0);
 
@@ -279,13 +243,6 @@ ALTER TABLE `inquiryinfo`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `leaves`
---
-ALTER TABLE `leaves`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `student_id` (`student_id`);
-
---
 -- Indexes for table `receipt`
 --
 ALTER TABLE `receipt`
@@ -315,7 +272,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `attendance`
 --
 ALTER TABLE `attendance`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
 
 --
 -- AUTO_INCREMENT for table `batch_table`
@@ -330,16 +287,10 @@ ALTER TABLE `inquiryinfo`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
--- AUTO_INCREMENT for table `leaves`
---
-ALTER TABLE `leaves`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
-
---
 -- AUTO_INCREMENT for table `receipt`
 --
 ALTER TABLE `receipt`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `studentinfo`
@@ -356,19 +307,6 @@ ALTER TABLE `users`
 --
 -- Constraints for dumped tables
 --
-
---
--- Constraints for table `attendance`
---
-ALTER TABLE `attendance`
-  ADD CONSTRAINT `attendance_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `studentinfo` (`id`),
-  ADD CONSTRAINT `attendance_ibfk_2` FOREIGN KEY (`batch_id`) REFERENCES `batch_table` (`id`);
-
---
--- Constraints for table `leaves`
---
-ALTER TABLE `leaves`
-  ADD CONSTRAINT `leaves_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `studentinfo` (`id`);
 
 --
 -- Constraints for table `receipt`
