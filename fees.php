@@ -103,11 +103,34 @@ $students = $db->query($query)->fetchAll(PDO::FETCH_ASSOC);
   </section>
   <!-- /.content -->
 </div>
-<!-- /.content-wrapper -->
-
 <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.1/js/dataTables.buttons.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.html5.min.js"></script>
 <script>
+$(document).ready(function () {
+  $('#example1').DataTable({
+    "paging": true,
+    "lengthChange": true,
+    "searching": true,
+    "ordering": true,
+    "responsive": true,
+    "dom": 'Bfrtip',
+    "buttons": [
+      {
+        extend: 'excelHtml5',
+        title: 'Inquiry Data',
+      },
+      {
+        extend: 'pdfHtml5',
+        title: 'Inquiry Data',
+      }
+    ]
+  });
+  });
+
   function confirmDelete(id) {
     var confirmAction = confirm("Are you sure you want to delete this fees Details?");
     if (confirmAction) {
@@ -116,18 +139,6 @@ $students = $db->query($query)->fetchAll(PDO::FETCH_ASSOC);
       // console.log('Deletion cancelled');
     }
   }
-</script>
-
-<script>
-  // function confirmEdit(id) {
-  //   var confirmAction = confirm("Are you sure you want to edit this fees receipt?");
-  //   if (confirmAction) {
-  //     window.location.href = 'feesform.php?id=' + id;
-  //   } else {
-  //     console.log('Edit cancelled');
-  //   }
-  // }
-
   function confirmAllReceipts(studentId) {
     var confirmAction = confirm("Are you sure you want to see all fees receipts for this student?");
     if (confirmAction) {
@@ -136,19 +147,5 @@ $students = $db->query($query)->fetchAll(PDO::FETCH_ASSOC);
       console.log('Action cancelled');
     }
   }
-</script>
-
-<script>
-  $(document).ready(function () {
-    $('#example1').DataTable({
-      "paging": true,
-      "lengthChange": true,
-      "searching": true,
-      "ordering": true,
-      "info": false,
-      "autoWidth": true,
-      "responsive": true
-    });
-  });
 </script>
 <?php include ('./footer.php'); ?>

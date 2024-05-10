@@ -16,7 +16,12 @@
 </div>
 <!-- ./wrapper -->
 
-
+<script>
+    $(document).ready(function () {
+      $(".dt-button").addClass("btn");
+      $(".dt-button").addClass("btn-primary");
+    });
+  </script>
 <!-- Bootstrap 4 -->
 <script src="./plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
