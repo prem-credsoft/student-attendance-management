@@ -22,23 +22,51 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'total_fees' => $_POST['totalFees'] ?? 0
     ];
 
-    if (!empty($_POST['id'])) {
-        // Update existing student
-        $id = $_POST['id'];
-        $result = updateTable('studentinfo', $data, ['id' => $id]);
-        $actionResult = $result ? "Student Details updated successfully." : "Failed to update Student Details.";
-    } else {
+    $studentId = null;
+    $isNewStudent = empty($_POST['id']);
+
+    if ($isNewStudent) {
         // Insert new student
         $result = insertIntoTable('studentinfo', $data);
+        $studentId = $result ? $result : null; // Use the returned lastInsertId
         $actionResult = $result ? "Student Details submitted successfully." : "Failed to submit Student Details.";
-        
-        // Check if this is from an inquiry and delete the inquiry if the insert was successful
-        if ($result && !empty($_POST['inquiryId'])) {
-            $inquiryId = $_POST['inquiryId'];
-            $deleteResult = deleteFromTable('inquiryinfo', ['id' => $inquiryId]);
-            if (!$deleteResult) {
-                $actionResult = "Failed to delete inquiry after adding student.";
-            }
+    } else {
+        // Update existing student
+        $studentId = $_POST['id'];
+        $result = updateTable('studentinfo', $data, ['id' => $studentId]);
+        $actionResult = $result ? "Student Details updated successfully." : "Failed to update Student Details.";
+    }
+
+    // Calculate and update pending fees
+    if ($result) {
+        $totalPayments = selectFromTable('receipt', ['SUM(amount) as total_payments'], ['student_id' => $studentId])[0]['total_payments'] ?? 0;
+        $pendingFees = $data['total_fees'] - $totalPayments - $data['discount'];
+        $updatePendingFees = updateTable('studentinfo', ['pending_fees' => $pendingFees], ['id' => $studentId]);
+        if (!$updatePendingFees) {
+            $actionResult .= " Failed to update pending fees.";
+        }
+    }
+
+    // Handle scholarship as a receipt if there's a discount (update receipt on fees table)
+    // if ($result && !empty($data['discount'])) {
+    //     $receiptData = [
+    //         'student_id' => $studentId,
+    //         'amount' => $data['discount'],
+    //         'payment_date' => date('Y-m-d'),
+    //         'message' => 'Scholarship'
+    //     ];
+    //     $receiptResult = insertIntoTable('receipt', $receiptData);
+    //     if (!$receiptResult) {
+    //         $actionResult .= " However, failed to record the scholarship receipt.";
+    //     }
+    // }
+
+    // Handle inquiry deletion if applicable
+    if ($result && $isNewStudent && !empty($_POST['inquiryId'])) {
+        $inquiryId = $_POST['inquiryId'];
+        $deleteResult = deleteFromTable('inquiryinfo', ['id' => $inquiryId]);
+        if (!$deleteResult) {
+            $actionResult .= " Failed to delete inquiry after adding student.";
         }
     }
 

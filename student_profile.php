@@ -103,7 +103,7 @@
                 <p><strong>Total Fees:</strong> <?php echo htmlspecialchars($studentInfo['total_fees']); ?></p>
                 <p><strong>Pending Fees:</strong> <?php echo htmlspecialchars($studentInfo['pending_fees']); ?></p>
                 <p><strong>Paid Fees:</strong> <?php echo htmlspecialchars($totalPaidFees); ?></p>
-                <p><strong>Discount:</strong> <?php echo htmlspecialchars($studentInfo['discount']); ?></p>
+                <p><strong>Scholarship:</strong> <?php echo htmlspecialchars($studentInfo['discount']); ?></p>
               </div>
             </div>
           </div>
@@ -150,5 +150,4 @@
         </div>
       </div>
 
-      <?php include ('./footer.php'); ?>
       <?php include ('./footer.php'); ?>
