@@ -15,6 +15,7 @@ $user = $user[0];
 
 // Check user status
 $isFaculty = isset($_SESSION['user_status']) && $_SESSION['user_status'] === 'faculty';
+$isAdmin = isset($_SESSION['user_status']) && $_SESSION['user_status'] === 'admin';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -164,18 +165,19 @@ $isFaculty = isset($_SESSION['user_status']) && $_SESSION['user_status'] === 'fa
                 </p>
               </a>
             </li>
-            <!-- <li class="nav-item">
-            <a href="./attendance.php" class="nav-link
-            <?php if (strpos($_SERVER['REQUEST_URI'], 'attendance.php') !== false) {
+            <?php if (!$isFaculty && !$isAdmin): ?>
+              <li class="nav-item">
+                <a href="./user_management.php" class="nav-link
+            <?php if (strpos($_SERVER['REQUEST_URI'], 'user_management.php') !== false) {
               echo "active";
             } ?>">
-              <i class="nav-icon far fa-calendar-alt"></i>
-              <p>
-                Attendance
-              </p>
-            </a>
-          </li> -->
-
+                  <i class="nav-icon fas fa-user"></i>
+                  <p>
+                  User Management
+                  </p>
+                </a>
+              </li>
+            <?php endif; ?>
             <?php if (!$isFaculty): ?>
               <li class="nav-item">
                 <a href="./inquirysms.php" class="nav-link
