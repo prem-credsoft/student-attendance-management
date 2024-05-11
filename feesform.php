@@ -14,7 +14,7 @@ require_once ('function.php');
 require_once ('db.php');
 
 $editMode = false;
-$studentId = '';
+$studentId = $_GET['student_id'] ?? '';
 $amount = '';
 $message = '';
 $paymentDate = '';
@@ -34,6 +34,12 @@ $students = selectFromTable('studentinfo', ['id', 'name', 'pending_fees', 'total
 if (!$students) {
     die("Could not retrieve data from the database.");
 }
+
+// Find selected student details
+$selectedStudent = array_filter($students, function($student) use ($studentId) {
+    return $student['id'] == $studentId;
+});
+$selectedStudent = $selectedStudent ? array_values($selectedStudent)[0] : null;
 ?>
 
 <!-- Content Wrapper. Contains page content -->
@@ -74,34 +80,16 @@ if (!$students) {
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="selectPicker">Student Detail</label>
-                                            <select class="form-control select2" id="selectPicker"
-                                                name="student_id" onchange="updateFeesDetails()">
-                                                <?php foreach ($students as $student): ?>
-                                                    <?php
-                                                    $totalPaid = selectFromTable('receipt', ['SUM(amount) AS total_paid'], ['student_id' => $student['id']]);
-                                                    $totalPaid = $totalPaid[0]['total_paid'] ?? 0;
-                                                    $isFullyPaid = ($totalPaid == $student['total_fees']);
-                                                    ?>
-                                                    <option value="<?php echo htmlspecialchars($student['id']); ?>"
-                                                        data-pending-fees="<?php echo htmlspecialchars($student['pending_fees']); ?>"
-                                                        data-total-paid="<?php echo htmlspecialchars($totalPaid); ?>"
-                                                        data-total-fees="<?php echo htmlspecialchars($student['total_fees']); ?>"
-                                                        <?php echo $studentId == $student['id'] ? 'selected' : ''; ?>
-                                                        <?php echo $isFullyPaid ? 'disabled' : ''; ?>>
-                                                        <?php echo htmlspecialchars($student['name']); ?>,
-                                                        RIE - <?php echo htmlspecialchars($student['id']); ?>
-                                                        <?php echo $isFullyPaid ? ' (Fully Paid)' : ''; ?>
-                                                    </option>
-                                                <?php endforeach; ?>
-                                            </select>
+                                            <label for="student_name">Student Name</label>
+                                            <input type="text" class="form-control" id="student_name" name="student_name"
+                                                value="<?php echo htmlspecialchars($selectedStudent['name'] ?? ''); ?>" readonly>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="total_fees">Total Fees</label>
-                                            <input type="text" class="form-control" id="total_fees" name="total_fees"
-                                                value="" readonly>
+                                            <label for="student_id">Student ID</label>
+                                            <input type="text" class="form-control" id="student_id" name="student_id"
+                                                value="<?php echo htmlspecialchars($studentId); ?>" readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -109,7 +97,7 @@ if (!$students) {
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="amount">Amount</label>
-                                            <input type="text" class="form-control" id="amount" name="amount"
+                                            <input type="number" class="form-control" id="amount" name="amount"
                                                 placeholder="Enter Amount" required value="<?php echo htmlspecialchars($amount); ?>">
                                         </div>
                                     </div>
@@ -142,7 +130,7 @@ if (!$students) {
                             <?php if ($editMode): ?>
                             <input type="hidden" name="id" value="<?php echo $_GET['id']; ?>">
                             <?php endif; ?>
-                            <button type="button" class="btn btn-primary" id="submitInquiry"><?php echo $editMode ? 'Update' : 'Submit'; ?></button>
+                            <button type="submit" class="btn btn-primary"><?php echo $editMode ? 'Update' : 'Submit'; ?></button>
                         </form>
                     </div>
                     <!-- /.card -->
@@ -229,3 +217,4 @@ document.addEventListener('DOMContentLoaded', function() {
 </body>
 
 </html>
+

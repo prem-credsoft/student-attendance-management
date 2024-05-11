@@ -149,7 +149,7 @@ if (isset($_GET['id'])) {
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="discount">Scholarship</label>
-                                            <input type="text" class="form-control" id="discount" name="discount"
+                                            <input type="number" class="form-control" id="discount" name="discount"
                                                 placeholder="Enter Scholarship"
                                                 value="<?php echo htmlspecialchars($studentData['discount'] ?? ''); ?>">
                                         </div>

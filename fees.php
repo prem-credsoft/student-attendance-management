@@ -51,9 +51,6 @@ $students = $db->query($query)->fetchAll(PDO::FETCH_ASSOC);
           <div class="card">
             <div class="card-header">
               <h3 class="card-title">Fees Details</h3>
-              <div class="card-tools">
-                <a href="./feesform.php" class="btn btn-primary">Add New Fees Receipt</a>
-              </div>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
@@ -80,8 +77,8 @@ $students = $db->query($query)->fetchAll(PDO::FETCH_ASSOC);
                       <td>RIE - <?php echo $student['id']; ?></td>
                       <td><?php echo $student['name']; ?></td>
                       <td><?php echo $student['mobile_number']; ?></td>
-                      <td><?php echo $student['total_fees']; ?></td>
-                      <td><?php echo $student['pending_fees']; ?></td>
+                      <td><?php echo $student['total_fees']; ?>.00</td>
+                      <td><?php echo $student['pending_fees']; ?>.00</td>
                       <td><?php echo $student['total_paid']; ?></td>
                       <td><a href='javascript:void(0);' onclick='confirmAllReceipts("<?php echo $student['id']; ?>")' class='btn btn-info'>All Receipts</a></td>
                       <!-- <td><a href='javascript:void(0);' onclick='confirmEdit("<?php echo $student['id']; ?>")' class='btn btn-primary'><i class='fas fa-edit'></i></a></td> -->

@@ -42,7 +42,7 @@
               <div class="card-header">
                 <h3 class="card-title">All Fees Receipt of <?php echo htmlspecialchars($studentName); ?></h3>
                 <div class="card-tools">
-                  <a href="./feesform.php" class="btn btn-primary">Add New Fees Receipt</a>
+                  <a href="./feesform.php?student_id=<?php echo htmlspecialchars($studentId); ?>" class="btn btn-primary">Add New Fees Receipt</a>
                 </div>
               </div>
               <!-- /.card-header -->
@@ -114,4 +114,5 @@
     });
   </script>
 
+  <?php include ('./footer.php'); ?>
   <?php include ('./footer.php'); ?>

@@ -40,11 +40,11 @@
       $studentId = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
       // Fetch student information
-      $studentInfo = selectFromTable('studentinfo', ['id', 'name', 'batch_name', 'father_name', 'mother_name', 'dob', 'gender', 'mobile_number', 'profession', 'address', 'admission_time', 'pending_fees', 'discount', 'total_fees'], ['id' => $studentId])[0];
+      $studentInfo = selectFromTable('studentinfo', ['id', 'name', 'batch_name', 'father_name', 'mother_name', 'dob', 'gender', 'mobile_number', 'profession', 'address', 'admission_time', 'pending_fees', 'discount', 'total_fees', 'paid_fees'], ['id' => $studentId])[0];
 
       // Fetch total paid fees
-      $totalPaidFees = selectFromTable('receipt', ['SUM(amount) AS total_paid'], ['student_id' => $studentId]);
-      $totalPaidFees = $totalPaidFees[0]['total_paid'] ?? 0;
+      // $totalPaidFees = selectFromTable('receipt', ['SUM(amount) AS total_paid'], ['student_id' => $studentId]);
+      // $totalPaidFees = $totalPaidFees[0]['total_paid'] ?? 0;
 
       // Fetch attendance records
       $attendanceRecords = selectFromTable('attendance', ['date', 'status', 'Reason'], ['student_id' => $studentId]);
@@ -100,10 +100,10 @@
             <div class="card mb-3 h5">
               <div class="card-header bg-success text-white">Fees Information</div>
               <div class="card-body">
-                <p><strong>Total Fees:</strong> <?php echo htmlspecialchars($studentInfo['total_fees']); ?></p>
-                <p><strong>Pending Fees:</strong> <?php echo htmlspecialchars($studentInfo['pending_fees']); ?></p>
-                <p><strong>Paid Fees:</strong> <?php echo htmlspecialchars($totalPaidFees); ?></p>
-                <p><strong>Scholarship:</strong> <?php echo htmlspecialchars($studentInfo['discount']); ?></p>
+                <p><strong>Total Fees:</strong> <?php echo htmlspecialchars($studentInfo['total_fees']); ?>.00</p>
+                <p><strong>Pending Fees:</strong> <?php echo htmlspecialchars($studentInfo['pending_fees']); ?>.00</p>
+                <p><strong>Paid Fees:</strong> <?php echo htmlspecialchars($studentInfo['paid_fees']); ?>.00</p>
+                <p><strong>Scholarship:</strong> <?php echo htmlspecialchars($studentInfo['discount']); ?>.00</p>
               </div>
             </div>
           </div>
