@@ -97,89 +97,37 @@
                 <form id="attendanceForm" method="post">
                   <input type="hidden" name="batch_id" value="<?php echo isset($_GET['id']) ? $_GET['id'] : 0; ?>">
                   <input type="hidden" name="current_date" value="<?php echo date("Y-m-d"); ?>">
-                  <!-- <div class="table-responsive"> -->
-                    <div class="table-container" style="display: flex;">
-                      <div class="table-wrapper">
-                        <table id="grNoNameTable" class="table table-bordered table-striped table1">
-                          <thead>
-                            <tr>
-                              <th class="pl-5">GR No.</th>
-                              <th class="pl-5">Student Name</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <?php
-                            $students = selectFromTable('studentinfo', ['id', 'name'], ['batch' => $batchId]);
-                            foreach ($students as $student):
-                              echo "<tr>";
-                              echo "<td>RIE - {$student['id']}</td>";
-                              echo "<td>{$student['name']}</td>";
-                              echo "</tr>";
-                            endforeach;
-                            ?>
-                          </tbody>
-                        </table>
-                      </div>
-                      <div class="table-responsive">
-                      <div class="table-wrapper">
-                        <table id="attendanceTable" class="table table-bordered table-striped table2">
-                          <thead>
-                            <tr>
-                              <?php
-                              $num_days = date('t');
-                              for ($i = 1; $i <= $num_days; $i++) {
-                                $date = date('D-d', strtotime(date('Y-m-') . sprintf('%02d', $i)));
-                                echo "<th>$date</th>";
-                              }
-                              ?>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <?php
-                            $currentDate = date('Y-m-d');
-                            $students = selectFromTable('studentinfo', ['id', 'name'], ['batch' => $batchId]);
-                            foreach ($students as $student):
-                              echo "<tr>";
-                              for ($i = 1; $i <= $num_days; $i++) {
-                                $date = date('Y-m-d', strtotime(date('Y-m-') . sprintf('%02d', $i)));
-                                $attendance = selectFromTable('attendance', ['status', 'reason'], ['student_id' => $student['id'], 'date' => $date]);
-                                $status = $attendance ? $attendance[0]['status'] : -1; // Default to -1 if no entry
-                                $reason = $attendance && $status == 2 ? htmlspecialchars($attendance[0]['reason']) : ''; // Fetch reason if status is 'Leave'
-                                echo "<td class='pr-5'>";
-                                if ($date < $currentDate) {
-                                  switch ($status) {
-                                    case 0:
-                                      echo "<div class='status-present'>Present</div>";
-                                      break;
-                                    case 1:
-                                      echo "<div class='status-absent'>Absent</div>";
-                                      break;
-                                    case 2:
-                                      echo "<div class='status-leave' data-reason='$reason'>Leave</div>"; // Add data-reason attribute
-                                      break;
-                                    default:
-                                      echo "<div class='status'>N/A</div>";
-                                      break;
-                                  }
-                                } elseif ($date == $currentDate) {
-                                  echo "<div style='display: flex;'>";
-                                  echo "<div><input type='radio' class='attendance-checkbox' data-student-id='{$student['id']}' name='status[{$student['id']}][$date]' value='0' " . ($status == 0 ? "checked" : "") . "><Label class='pr-3'>PR</Label></div>";
-                                  echo "<div><input type='radio' class='attendance-checkbox' data-student-id='{$student['id']}' name='status[{$student['id']}][$date]' value='1' " . ($status == 1 ? "checked" : "") . "><Label class='pr-3'>AB</Label></div>";
-                                  echo "<div><input type='radio' class='attendance-checkbox' data-student-id='{$student['id']}' name='status[{$student['id']}][$date]' value='2' " . ($status == 2 ? "checked" : "") . "><Label class='pr-3'>LE</Label></div>";
-                                  echo "</div>";
-                                } else {
-                                  // echo "<div class='status'>N/A</div>";
-                                }
-                                echo "</td>";
-                              }
-                              echo "</tr>";
-                            endforeach;
-                            ?>
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                  </div>
+                  <table id="combinedTable" class="table table-bordered table-striped">
+                    <thead>
+                      <tr>
+                        <th class="pl-5">GR No.</th>
+                        <th class="pl-5">Student Name</th>
+                        <th><?php echo date('D-d', strtotime(date('Y-m-d'))); ?></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <?php
+                      $currentDate = date('Y-m-d');
+                      $students = selectFromTable('studentinfo', ['id', 'name'], ['batch' => $batchId]);
+                      foreach ($students as $student):
+                        $attendance = selectFromTable('attendance', ['status', 'reason'], ['student_id' => $student['id'], 'date' => $currentDate]);
+                        $status = $attendance ? $attendance[0]['status'] : -1; // Default to -1 if no entry
+                        $reason = $attendance && $status == 2 ? htmlspecialchars($attendance[0]['reason']) : ''; // Fetch reason if status is 'Leave'
+                        echo "<tr>";
+                        echo "<td>RIE - {$student['id']}</td>";
+                        echo "<td>{$student['name']}</td>";
+                        echo "<td class='pr-5'>";
+                        echo "<div style='display: flex;'>";
+                        echo "<div><input type='radio' class='attendance-checkbox' data-student-id='{$student['id']}' name='status[{$student['id']}][$currentDate]' value='0' " . ($status == 0 ? "checked" : "") . "><Label class='pr-3'>PR</Label></div>";
+                        echo "<div><input type='radio' class='attendance-checkbox' data-student-id='{$student['id']}' name='status[{$student['id']}][$currentDate]' value='1' " . ($status == 1 ? "checked" : "") . "><Label class='pr-3'>AB</Label></div>";
+                        echo "<div><input type='radio' class='attendance-checkbox' data-student-id='{$student['id']}' name='status[{$student['id']}][$currentDate]' value='2' " . ($status == 2 ? "checked" : "") . "><Label class='pr-3'>LE</Label></div>";
+                        echo "</div>";
+                        echo "</td>";
+                        echo "</tr>";
+                      endforeach;
+                      ?>
+                    </tbody>
+                  </table>
                   <button type="button" id="submitAttendance" class="btn btn-primary mt-3">Submit Attendance</button>
                 </form>
 
@@ -196,7 +144,7 @@
   <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
   <script>
     $(document).ready(function () {
-      $('#attendanceTable').DataTable({
+      $('#combinedTable').DataTable({
         "paging": false,
         "lengthChange": true,
         "searching": false,
