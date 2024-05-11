@@ -92,19 +92,22 @@ include('function.php'); // Include the common functions
 <script>
 $(document).ready(function() {
     $('#loginForm').submit(function(event) {
-        event.preventDefault(); // Prevent the form from submitting normally
+        event.preventDefault();
         
-        // Get form data
         var formData = $(this).serialize();
 
-        // Send AJAX request to loginrequest.php
         $.ajax({
             type: 'POST',
             url: 'loginrequest.php',
             data: formData,
+            dataType: 'json',
             success: function(response) {
-                if (response.trim() === 'success') {
-                    window.location.href = 'dashboard.php';
+                if (response.status === 'success') {
+                    if (response.userType === 'faculty') {
+                        window.location.href = './batch.php';
+                    } else {
+                        window.location.href = './dashboard.php';
+                    }
                 } else {
                     alert('Invalid username or password');
                 }

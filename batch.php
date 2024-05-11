@@ -49,9 +49,11 @@ $isFaculty = isset($_SESSION['user_status']) && $_SESSION['user_status'] === 'fa
             <div class="card-header">
               <h3 class="card-title">Batch List</h3>
               <!-- Add button here -->
+              <?php if ($isSuperAdmin || $isAdmin): ?>
               <div class="card-tools">
                 <a href="./addbatch.php" class="btn btn-primary">Add New Batch</a>
               </div>
+              <?php endif; ?>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
@@ -113,6 +115,20 @@ $isFaculty = isset($_SESSION['user_status']) && $_SESSION['user_status'] === 'fa
 <script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.html5.min.js"></script>
 <script>
   $(document).ready(function () {
+    var buttonsConfig = [];
+    <?php if (!$isFaculty): ?>
+    buttonsConfig = [
+      {
+        extend: 'excelHtml5',
+        title: 'Inquiry Data',
+      },
+      {
+        extend: 'pdfHtml5',
+        title: 'Inquiry Data',
+      }
+    ];
+    <?php endif; ?>
+
     $('#example1').DataTable({
       "paging": true,
       "lengthChange": false,
@@ -122,16 +138,7 @@ $isFaculty = isset($_SESSION['user_status']) && $_SESSION['user_status'] === 'fa
       "autoWidth": false,
       "responsive": true,
       "dom": 'Bfrtip',
-      "buttons": [
-      {
-        extend: 'excelHtml5',
-        title: 'Inquiry Data',
-      },
-      {
-        extend: 'pdfHtml5',
-        title: 'Inquiry Data',
-      }
-    ]
+      "buttons": buttonsConfig
     });
   });
 

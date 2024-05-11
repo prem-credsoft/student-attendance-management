@@ -18,13 +18,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (array_key_exists($userStatus, $statusMap)) {
             $_SESSION['user_id'] = $userId;
             $_SESSION['user_status'] = $statusMap[$userStatus];
-            echo "success";
+            echo json_encode(['status' => 'success', 'userType' => $statusMap[$userStatus]]);
         } else {
-            echo "error"; // Status not recognized
+            echo json_encode(['status' => 'error']); // Status not recognized
         }
     } else {
-        echo "error"; // User not found or password does not match
+        echo json_encode(['status' => 'error']); // User not found or password does not match
     }
 } else {
-    echo "invalid_request";
+    echo json_encode(['status' => 'invalid_request']);
 }

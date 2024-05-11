@@ -128,7 +128,7 @@ if (isset($_GET['id'])) {
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="profession">Profession</label>
+                                            <label for="profession">What Are You?</label>
                                             <select class="form-control" id="profession" name="profession" required>
                                                 <option value="Student" <?php echo ($inquiryData && $inquiryData['profession'] == 'Student') || ($studentData && $studentData['profession'] == 'Student') ? 'selected' : ''; ?>>Student
                                                 </option>
