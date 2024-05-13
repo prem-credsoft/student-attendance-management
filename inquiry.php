@@ -11,9 +11,17 @@ require_once 'function.php';
 
 // Check user status from session
 $isSuperAdmin = isset($_SESSION['user_status']) && $_SESSION['user_status'] === 'super_admin';
+
+// Handle date filter
+$startDate = $_GET['start_date'] ?? date('Y-m-d', strtotime('-30 days')); // Default to last 30 days if not set
+$endDate = $_GET['end_date'] ?? date('Y-m-d'); // Default to today if not set
+
+// Ensure the start date is not later than the end date
+if (strtotime($startDate) > strtotime($endDate)) {
+    $startDate = $endDate;
+}
 ?>
 
-<!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <div class="content-header">
@@ -39,11 +47,15 @@ $isSuperAdmin = isset($_SESSION['user_status']) && $_SESSION['user_status'] === 
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Inquiry List</h3>
-                            <!-- Add button here -->
-                            <div class="card-tools">
-                                <a href="./inquiryform.php" class="btn btn-primary">Add New Inquiry</a>
-                            </div>
+                            <h3 class="card-title mb-2">Inquiry List</h3>
+                            <!-- Date filter form -->
+                            <form method="GET" class="card-tools">
+                                <label>Filter:</label>
+                                <input type="date" id="start_date" name="start_date" value="<?= htmlspecialchars($startDate) ?>">
+                                <b>TO</b>
+                                <input class="mb-2" type="date" id="end_date" name="end_date" value="<?= htmlspecialchars($endDate) ?>">
+                                <a href="./inquiryform.php" class="btn btn-primary mb-2 ml-5">Add New Inquiry</a>
+                            </form>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
@@ -67,22 +79,17 @@ $isSuperAdmin = isset($_SESSION['user_status']) && $_SESSION['user_status'] === 
                                     </thead>
                                     <tbody>
                                     <?php
-                                    // require_once 'function.php'; // Adjust the path as necessary
                                     $rows = selectFromTable('inquiryinfo', ['id', 'name', 'reference', 'mobile_number', 'address', 'time_of_classes', 'profession', 'date'], []);
-                                    if(!$rows) {
-                                        die("Error running query.");
-                                    }
-                                    $index = 1;
                                     foreach ($rows as $row) {
-                                        echo "<tr>";
-                                        echo "<td>" . $index++ . "</td>";
-                                        echo "<td>" . $row['name'] . "</td>";
-                                        echo "<td>" . $row['reference'] . "</td>";
-                                        echo "<td>" . $row['mobile_number'] . "</td>";
-                                        echo "<td>" . $row['address'] . "</td>";
-                                        echo "<td>" . $row['time_of_classes'] . "</td>";
-                                        echo "<td>" . $row['profession'] . "</td>";
-                                        echo "<td>" . $row['date'] . "</td>";
+                                        echo "<tr data-date='{$row['date']}'>";
+                                        echo "<td>{$row['id']}</td>";
+                                        echo "<td>" . htmlspecialchars($row['name']) . "</td>";
+                                        echo "<td>" . htmlspecialchars($row['reference']) . "</td>";
+                                        echo "<td>" . htmlspecialchars($row['mobile_number']) . "</td>";
+                                        echo "<td>" . htmlspecialchars($row['address']) . "</td>";
+                                        echo "<td>" . htmlspecialchars($row['time_of_classes']) . "</td>";
+                                        echo "<td>" . htmlspecialchars($row['profession']) . "</td>";
+                                        echo "<td>" . htmlspecialchars($row['date']) . "</td>";
                                         echo "<td><a href='javascript:void(0);' onclick='confirmAdd(" . $row['id'] . ")' class='btn btn-info'>Add</a></td>";
                                         if ($isSuperAdmin) {
                                             echo "<td><a href='javascript:void(0);' onclick='confirmDelete(" . $row['id'] . ")' class='btn btn-danger'><i class='fas fa-trash'></i></a></td>";
@@ -105,13 +112,58 @@ $isSuperAdmin = isset($_SESSION['user_status']) && $_SESSION['user_status'] === 
 </div>
 <!-- /.content-wrapper -->
 
-<!-- <link href="https://cdn.jsdelivr.net/npm/toastr/build/toastr.min.css" rel="stylesheet"/> -->
 <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/1.6.1/js/dataTables.buttons.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
 <script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.html5.min.js"></script>
+<script>
+$(document).ready(function() {
+    function filterRows() {
+        var startDate = $('#start_date').val();
+        var endDate = $('#end_date').val();
+        $('#example1 tbody tr').filter(function() {
+            var date = $(this).data('date');
+            return date < startDate || date > endDate;
+        }).hide();
+        $('#example1 tbody tr').filter(function() {
+            var date = $(this).data('date');
+            return date >= startDate && date <= endDate;
+        }).show();
+    }
+
+    $('#start_date, #end_date').change(filterRows);
+    filterRows(); // Initial filter on page load
+
+    $('#example1').DataTable({
+            "paging": true,
+            "lengthChange": true,
+            "searching": true,
+            "ordering": true,
+            "info": false,
+            "autoWidth": false,
+            "responsive": true,
+            "dom": 'Bfrtip',
+            "buttons": [
+                {
+                    extend: 'excelHtml5',
+                    title: 'Inquiry Data',
+                    exportOptions: {
+                        columns: ':not(:last-child)'
+                    }
+                },
+                {
+                    extend: 'pdfHtml5',
+                    title: 'Inquiry Data',
+                    exportOptions: {
+                        columns: ':not(:last-child)'
+                    }
+                }
+            ]
+        });
+});
+</script>
 <script>
     function confirmDelete(id) {
         var confirmAction = confirm("Are you sure you want to delete this Inquiry?");
@@ -130,34 +182,5 @@ $isSuperAdmin = isset($_SESSION['user_status']) && $_SESSION['user_status'] === 
         }
     }
 </script>
-<script>
-  $(document).ready(function () {
-    $('#example1').DataTable({
-      "paging": true,
-      "lengthChange": true,
-      "searching": true,
-      "ordering": true,
-      "info": false,
-      "autoWidth": false,
-      "responsive": true,
-      "dom": 'Bfrtip',
-      "buttons": [
-        {
-          extend: 'excelHtml5',
-          title: 'Inquiry Data',
-          exportOptions: {
-            columns: ':not(:last-child)'
-          }
-        },
-        {
-          extend: 'pdfHtml5',
-          title: 'Inquiry Data',
-          exportOptions: {
-            columns: ':not(:last-child)'
-          }
-        }
-      ]
-    });
-  });
-</script>
 <?php include('./footer.php');?>
+
