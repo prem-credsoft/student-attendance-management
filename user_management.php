@@ -59,7 +59,7 @@ $userStatus = $_SESSION['user_status'] ?? null;
                             <div class="card-header">
                                 <h3 class="card-title">Super Admins</h3>
                                 <div class="card-tools">
-                                    <a href="./profileform.php" class="btn btn-primary">Add New Users</a>
+                                    <a href="./user_management_form.php" class="btn btn-primary">Add New Users</a>
                                 </div>
                             </div>
                             <div class="card-body">
@@ -72,7 +72,7 @@ $userStatus = $_SESSION['user_status'] ?? null;
                                                 <th>Full Name</th>
                                                 <th>Email</th>
                                                 <th>Mobile</th>
-                                                <th>Status</th>
+                                                <th>Roles</th>
                                                 <th>Edit</th>
                                                 <th>Delete</th>
                                             </tr>
@@ -86,7 +86,7 @@ $userStatus = $_SESSION['user_status'] ?? null;
                                                 <td><?= htmlspecialchars($row['email']) ?></td>
                                                 <td><?= htmlspecialchars($row['mobile']) ?></td>
                                                 <td>Super Admin</td>
-                                                <td><a href='profileform.php?id=<?= htmlspecialchars($row['id']) ?>' class='btn btn-primary'><i class='fas fa-edit'></i></a></td>
+                                                <td><a href='user_management_form.php?id=<?= htmlspecialchars($row['id']) ?>' class='btn btn-primary'><i class='fas fa-edit'></i></a></td>
                                                 <td><a href='javascript:void(0);' onclick='confirmDelete(<?= $row['id'] ?>)' class='btn btn-danger'><i class='fas fa-trash'></i></a></td>
                                             </tr>
                                             <?php endforeach; ?>
@@ -111,7 +111,7 @@ $userStatus = $_SESSION['user_status'] ?? null;
                                                 <th>Full Name</th>
                                                 <th>Email</th>
                                                 <th>Mobile</th>
-                                                <th>Status</th>
+                                                <th>Roles</th>
                                                 <th>Edit</th>
                                                 <th>Delete</th>
                                             </tr>
@@ -125,7 +125,7 @@ $userStatus = $_SESSION['user_status'] ?? null;
                                                 <td><?= htmlspecialchars($row['email']) ?></td>
                                                 <td><?= htmlspecialchars($row['mobile']) ?></td>
                                                 <td>Admin</td>
-                                                <td><a href='profileform.php?id=<?= htmlspecialchars($row['id']) ?>' class='btn btn-primary'><i class='fas fa-edit'></i></a></td>
+                                                <td><a href='user_management_form.php?id=<?= htmlspecialchars($row['id']) ?>' class='btn btn-primary'><i class='fas fa-edit'></i></a></td>
                                                 <td><a href='javascript:void(0);' onclick='confirmDelete(<?= $row['id'] ?>)' class='btn btn-danger'><i class='fas fa-trash'></i></a></td>
                                             </tr>
                                             <?php endforeach; ?>
@@ -150,7 +150,7 @@ $userStatus = $_SESSION['user_status'] ?? null;
                                                 <th>Full Name</th>
                                                 <th>Email</th>
                                                 <th>Mobile</th>
-                                                <th>Status</th>
+                                                <th>Roles</th>
                                                 <th>Edit</th>
                                                 <th>Delete</th>
                                             </tr>
@@ -164,7 +164,7 @@ $userStatus = $_SESSION['user_status'] ?? null;
                                                 <td><?= htmlspecialchars($row['email']) ?></td>
                                                 <td><?= htmlspecialchars($row['mobile']) ?></td>
                                                 <td>Faculty</td>
-                                                <td><a href='profileform.php?id=<?= htmlspecialchars($row['id']) ?>' class='btn btn-primary'><i class='fas fa-edit'></i></a></td>
+                                                <td><a href='user_management_form.php?id=<?= htmlspecialchars($row['id']) ?>' class='btn btn-primary'><i class='fas fa-edit'></i></a></td>
                                                 <td><a href='javascript:void(0);' onclick='confirmDelete(<?= $row['id'] ?>)' class='btn btn-danger'><i class='fas fa-trash'></i></a></td>
                                             </tr>
                                             <?php endforeach; ?>
@@ -189,7 +189,7 @@ $userStatus = $_SESSION['user_status'] ?? null;
                                                 <th>Full Name</th>
                                                 <th>Email</th>
                                                 <th>Mobile</th>
-                                                <th>Status</th>
+                                                <th>Roles</th>
                                                 <th>Edit</th>
                                             </tr>
                                         </thead>
@@ -202,7 +202,7 @@ $userStatus = $_SESSION['user_status'] ?? null;
                                                 <td><?= htmlspecialchars($row['email']) ?></td>
                                                 <td><?= htmlspecialchars($row['mobile']) ?></td>
                                                 <td>Admin</td>
-                                                <td><a href='profileform.php?id=<?= htmlspecialchars($row['id']) ?>' class='btn btn-primary'><i class='fas fa-edit'></i></a></td>
+                                                <td><a href='user_management_form.php?id=<?= htmlspecialchars($row['id']) ?>' class='btn btn-primary'><i class='fas fa-edit'></i></a></td>
                                             </tr>
                                             <?php endforeach; ?>
                                         </tbody>
@@ -226,7 +226,7 @@ $userStatus = $_SESSION['user_status'] ?? null;
                                                 <th>Full Name</th>
                                                 <th>Email</th>
                                                 <th>Mobile</th>
-                                                <th>Status</th>
+                                                <th>Roles</th>
                                                 <th>Edit</th>
                                             </tr>
                                         </thead>
@@ -239,7 +239,7 @@ $userStatus = $_SESSION['user_status'] ?? null;
                                                 <td><?= htmlspecialchars($row['email']) ?></td>
                                                 <td><?= htmlspecialchars($row['mobile']) ?></td>
                                                 <td>Faculty</td>
-                                                <td><a href='profileform.php?id=<?= htmlspecialchars($row['id']) ?>' class='btn btn-primary'><i class='fas fa-edit'></i></a></td>
+                                                <td><a href='user_management_form.php?id=<?= htmlspecialchars($row['id']) ?>' class='btn btn-primary'><i class='fas fa-edit'></i></a></td>
                                             </tr>
                                             <?php endforeach; ?>
                                         </tbody>
@@ -262,7 +262,7 @@ $userStatus = $_SESSION['user_status'] ?? null;
                                                 <th>Username</th>
                                                 <th>Full Name</th>
                                                 <th>Email</th>
-                                                <th>Mobile</th>
+                                                <th>Roles</th>
                                                 <th>Status</th>
                                             </tr>
                                         </thead>
@@ -331,7 +331,7 @@ $userStatus = $_SESSION['user_status'] ?? null;
   function confirmDelete(id) {
     var confirmAction = confirm("Are you sure you want to delete this profile?");
     if (confirmAction) {
-        window.location.href = 'profile_function.php?id=' + id;
+        window.location.href = 'user_management_function.php?id=' + id;
     }
   }
 </script>
