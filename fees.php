@@ -81,10 +81,6 @@ $students = $db->query($query)->fetchAll(PDO::FETCH_ASSOC);
                       <td><?php echo $student['pending_fees']; ?>.00</td>
                       <td><?php echo $student['total_paid']; ?></td>
                       <td><a href='javascript:void(0);' onclick='confirmAllReceipts("<?php echo $student['id']; ?>")' class='btn btn-info'>All Receipts</a></td>
-                      <!-- <td><a href='javascript:void(0);' onclick='confirmEdit("<?php echo $student['id']; ?>")' class='btn btn-primary'><i class='fas fa-edit'></i></a></td> -->
-                      <?php if ($isSuperAdmin): ?>
-                        <!-- <td><a href='javascript:void(0);' onclick='confirmDelete("<?php echo $student['id']; ?>")' class='btn btn-danger'><i class='fas fa-trash'></i></a></td> -->
-                      <?php endif; ?>
                     </tr>
                     <?php endforeach; ?>
                   </tbody>
@@ -128,14 +124,7 @@ $(document).ready(function () {
   });
   });
 
-  function confirmDelete(id) {
-    var confirmAction = confirm("Are you sure you want to delete this fees Details?");
-    if (confirmAction) {
-      window.location.href = 'fees_function.php?id=' + id;
-    } else {
-      // console.log('Deletion cancelled');
-    }
-  }
+
   function confirmAllReceipts(studentId) {
     var confirmAction = confirm("Are you sure you want to see all fees receipts for this student?");
     if (confirmAction) {

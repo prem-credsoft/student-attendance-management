@@ -87,7 +87,7 @@ $selectedStudent = $selectedStudent ? array_values($selectedStudent)[0] : null;
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="student_id">Student ID</label>
+                                            <label for="student_id">Student Id</label>
                                             <input type="text" class="form-control" id="student_id" name="student_id"
                                                 value="<?php echo htmlspecialchars($studentId); ?>" readonly>
                                         </div>
@@ -152,8 +152,9 @@ $selectedStudent = $selectedStudent ? array_values($selectedStudent)[0] : null;
 </script>
 <script>
     $(document).ready(function () {
-        $('button').click(function () {
-            var formData = $('form').serialize();
+        $('#inquiryForm').submit(function (event) {
+            event.preventDefault(); // Prevent the default form submission
+            var formData = $(this).serialize();
             // console.log(formData);
             $.ajax({
                 type: 'POST',
@@ -162,10 +163,10 @@ $selectedStudent = $selectedStudent ? array_values($selectedStudent)[0] : null;
                 dataType: 'json',
                 success: function (response) {
                     if (response.success) {
-                        alert("Form Submit successfully");
-                        window.location.href = './fees.php';
+                        alert("Form submitted successfully");
+                        window.location.href = 'fees_receipt.php?student_id=' + $('#student_id').val();
                     } else {
-                        alert("Error submitting details.");
+                        alert(response.message); // Show error message from server
                     }
                 },
                 error: function() {
@@ -214,7 +215,4 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 <?php include ('./footer.php'); ?>
-</body>
-
-</html>
 
