@@ -6,6 +6,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $batchId = $_POST['batch'] ?? '';
     $batchName = selectFromTable('batch_table', ['name'], ['id' => $batchId])[0]['name'] ?? '';
 
+    // Determine the correct profession value
+    $profession = $_POST['profession'] ?? '';
+    if ($profession === 'Other') {
+        $profession = $_POST['otherProfession'] ?? 'Other'; // Use the input from the otherProfession field if 'Other' is selected
+    }
+
     $data = [
         'name' => $_POST['studentName'] ?? '',
         'batch' => $batchId,
@@ -15,11 +21,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'dob' => $_POST['dob'] ?? '',
         'gender' => $_POST['gender'] ?? '',
         'mobile_number' => $_POST['mobileNumber'] ?? '',
-        'profession' => $_POST['profession'] ?? 'Other',
+        'profession' => $profession,
         'address' => $_POST['address'] ?? '',
         'admission_time' => date('Y-m-d'),
         'discount' => $_POST['discount'] ?? 0,
-        'total_fees' => $_POST['totalFees'] ?? 0
+        'total_fees' => $_POST['totalFees'] ?? 0,
+        'reference' => $_POST['reference'] ?? '',
+        'home_number' => $_POST['homeNumber'] ?? '', 
+        'father_number' => $_POST['fatherNumber'] ?? '',
+        'father_profession' => $_POST['fatherProfession'] ?? '',
+        'workplace_address' => $_POST['workPlaceAddress'] ?? '',
+        'aadharcard_number' => $_POST['aadharcardNumber'] ?? '',
+        'joining_purpose' => $_POST['joiningPurpose'] ?? '',
+        'extratime_daily' => $_POST['extraTimeDaily'] ?? ''
     ];
 
     $studentId = null;

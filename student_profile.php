@@ -40,7 +40,7 @@
       $studentId = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
       // Fetch student information
-      $studentInfo = selectFromTable('studentinfo', ['id', 'name', 'batch_name', 'father_name', 'mother_name', 'dob', 'gender', 'mobile_number', 'profession', 'address', 'admission_time', 'pending_fees', 'discount', 'total_fees', 'paid_fees'], ['id' => $studentId])[0];
+      $studentInfo = selectFromTable('studentinfo', ['id', 'name', 'batch_name', 'father_name', 'mother_name', 'dob', 'gender', 'mobile_number', 'profession', 'address', 'admission_time', 'pending_fees', 'discount', 'total_fees', 'paid_fees', 'extratime_daily', 'joining_purpose', 'aadharcard_number', 'workplace_address', 'father_profession', 'reference', 'home_number', 'father_number'], ['id' => $studentId])[0];
 
       // Fetch total paid fees
       // $totalPaidFees = selectFromTable('receipt', ['SUM(amount) AS total_paid'], ['student_id' => $studentId]);
@@ -69,32 +69,42 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-md-6">
-            <!-- Basic Info Card -->
+            <!-- Personal Details Card -->
             <div class="card mb-3 h5">
-              <div class="card-header bg-primary text-white">Basic Information</div>
+              <div class="card-header bg-info text-white">Personal Details</div>
               <div class="card-body">
-                <div class="row">
-                  <div class="col-md-6">
-                    <p><strong>GR No: </strong>RIE - <?php echo htmlspecialchars($studentInfo['id']); ?></p>
-                    <p><strong>Name:</strong> <?php echo htmlspecialchars($studentInfo['name']); ?></p>
-                    <p><strong>Batch:</strong> <?php echo htmlspecialchars($studentInfo['batch_name']); ?></p>
-                    <p><strong>Date of Birth:</strong> <?php echo htmlspecialchars($studentInfo['dob']); ?></p>
-                    <p><strong>Gender:</strong> <?php echo htmlspecialchars($studentInfo['gender']); ?></p>
-                    <p><strong>Profession:</strong> <?php echo htmlspecialchars($studentInfo['profession']); ?></p>
-                  </div>
-                  <div class="col-md-6">
-                    <p><strong>Father's Name:</strong> <?php echo htmlspecialchars($studentInfo['father_name']); ?></p>
-                    <p><strong>Mother's Name:</strong> <?php echo htmlspecialchars($studentInfo['mother_name']); ?></p>
-                    <p><strong>Mobile Number:</strong> <?php echo htmlspecialchars($studentInfo['mobile_number']); ?>
-                    </p>
-                    <p><strong>Address:</strong> <?php echo htmlspecialchars($studentInfo['address']); ?></p>
-                    <p><strong>Admission Time:</strong> <?php echo htmlspecialchars($studentInfo['admission_time']); ?>
-                    </p>
-                  </div>
-                </div>
+                <p><strong>GR No:</strong> RIE - <?php echo htmlspecialchars($studentInfo['id']); ?></p>
+                <p><strong>Name:</strong> <?php echo htmlspecialchars($studentInfo['name']); ?></p>
+                <p><strong>Batch:</strong> <?php echo htmlspecialchars($studentInfo['batch_name']); ?></p>
+                <p><strong>Date of Birth:</strong> <?php echo htmlspecialchars($studentInfo['dob']); ?></p>
+                <p><strong>Gender:</strong> <?php echo htmlspecialchars($studentInfo['gender']); ?></p>
+                <p><strong>Profession:</strong> <?php echo htmlspecialchars($studentInfo['profession']); ?></p>
+                <p><strong>Mobile Number:</strong> <?php echo htmlspecialchars($studentInfo['mobile_number']); ?></p>
+                <p><strong>Address:</strong> <?php echo htmlspecialchars($studentInfo['address']); ?></p>
+                <p><strong>Admission Time:</strong> <?php echo htmlspecialchars($studentInfo['admission_time']); ?></p>
+                <p><strong>Extra Time Daily:</strong> <?php echo htmlspecialchars($studentInfo['extratime_daily']); ?></p>
+                <p><strong>Joining Purpose:</strong> <?php echo htmlspecialchars($studentInfo['joining_purpose']); ?></p>
+                <p><strong>Aadhar Card Number:</strong> <?php echo htmlspecialchars($studentInfo['aadharcard_number']); ?></p>
+                <p><strong>Reference:</strong> <?php echo htmlspecialchars($studentInfo['reference']); ?></p>
               </div>
             </div>
           </div>
+          <div class="col-md-6">
+            <!-- Family Details Card -->
+            <div class="card mb-3 h5">
+              <div class="card-header bg-secondary text-white">Family Details</div>
+              <div class="card-body">
+                <p><strong>Father's Name:</strong> <?php echo htmlspecialchars($studentInfo['father_name']); ?></p>
+                <p><strong>Mother's Name:</strong> <?php echo htmlspecialchars($studentInfo['mother_name']); ?></p>
+                <p><strong>Father's Profession:</strong> <?php echo htmlspecialchars($studentInfo['father_profession']); ?></p>
+                <p><strong>Home Number:</strong> <?php echo htmlspecialchars($studentInfo['home_number']); ?></p>
+                <p><strong>Father's Mobile Number:</strong> <?php echo htmlspecialchars($studentInfo['father_number']); ?></p>
+                <p><strong>Workplace Address:</strong> <?php echo htmlspecialchars($studentInfo['workplace_address']); ?></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
           <div class="col-md-3">
             <!-- Financial Info Card -->
             <div class="card mb-3 h5">
@@ -120,7 +130,6 @@
           </div>
         </div>
         <div class="row">
-
           <div class="col-md-12">
             <!-- Leave Records Card -->
             <div class="card mb-3 h5">
