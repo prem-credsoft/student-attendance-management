@@ -30,6 +30,13 @@
                 <li class="breadcrumb-item"><a href="./dashboard.php">Home</a></li>
                 <li class="breadcrumb-item active">Inquiry SMS</li>
               </ol>
+              <!-- filter for date wise -->
+              <form method="GET" class="card-tools">
+                  <label>Filter:</label>
+                      <input type="date" id="start_date" name="start_date" value="<?= htmlspecialchars($startDate) ?>">
+                      <b>TO</b>
+                  <input class="mb-2" type="date" id="end_date" name="end_date" value="<?= htmlspecialchars($endDate) ?>">
+              </form>
             </div>
           </div>
         </div><!-- /.container-fluid -->
@@ -66,14 +73,6 @@
             <div class="col-md-6">
               <!-- Inquiry List -->
               <div class="card">
-                <div class="card-header">
-                  <select class="form-control" id="dateFilter" onchange="updateInquiryList()">
-                    <option value="today" selected>Today</option>
-                    <option value="yesterday">Yesterday</option>
-                    <option value="3days">Past 3 Days</option>
-                    <option value="week">Past Week</option>
-                  </select>
-                </div>
                 <div class="card-body card-list-custom">
                   <table class="table table-bordered" id="inquiryTable">
                     <thead>
