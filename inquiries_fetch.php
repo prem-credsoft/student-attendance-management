@@ -1,32 +1,13 @@
 <?php
 require_once 'db.php'; // Include database connection setup
 
-$dateFilter = $_GET['dateFilter'] ?? 'today'; // Default to today if nothing is passed
-$today = date('Y-m-d');
-$sql = "";
-$params = [];
+// Fetch start_date and end_date from GET parameters
+$startDate = $_GET['start_date'] ?? date('Y-m-d'); // Default to today if not provided
+$endDate = $_GET['end_date'] ?? date('Y-m-d'); // Default to today if not provided
 
-switch ($dateFilter) {
-    case 'today':
-        $sql = "SELECT id, name, mobile_number, date FROM inquiryinfo WHERE date = ?";
-        $params = [$today];
-        break;
-    case 'yesterday':
-        $yesterday = date('Y-m-d', strtotime('-1 day'));
-        $sql = "SELECT id, name, mobile_number, date FROM inquiryinfo WHERE date = ?";
-        $params = [$yesterday];
-        break;
-    case '3days':
-        $datePast = date('Y-m-d', strtotime('-2 days'));
-        $sql = "SELECT id, name, mobile_number, date FROM inquiryinfo WHERE date BETWEEN ? AND ?";
-        $params = [$datePast, $today];
-        break;
-    case 'week':
-        $dateWeek = date('Y-m-d', strtotime('-1 week'));
-        $sql = "SELECT id, name, mobile_number, date FROM inquiryinfo WHERE date BETWEEN ? AND ?";
-        $params = [$dateWeek, $today];
-        break;
-}
+// Prepare SQL query to fetch inquiries within the date range
+$sql = "SELECT id, name, mobile_number, date FROM inquiryinfo WHERE date BETWEEN ? AND ?";
+$params = [$startDate, $endDate];
 
 try {
     $stmt = $db->prepare($sql);
@@ -47,7 +28,8 @@ try {
         echo "</tr>";
     }
 } catch (PDOException $e) {
-    echo "No Records";
+    echo "Error: " . $e->getMessage();
     exit;
 }
+?>
 ?>

@@ -33,9 +33,10 @@
               <!-- filter for date wise -->
               <form method="GET" class="card-tools">
                   <label>Filter:</label>
-                      <input type="date" id="start_date" name="start_date" value="<?= htmlspecialchars($startDate) ?>">
-                      <b>TO</b>
-                  <input class="mb-2" type="date" id="end_date" name="end_date" value="<?= htmlspecialchars($endDate) ?>">
+                  <input type="date" id="start_date" name="start_date">
+                  <b>TO</b>
+                  <input class="mb-2" type="date" id="end_date" name="end_date">
+                  <button type="button" id="filterButton" class="btn btn-primary">Filter</button>
               </form>
             </div>
           </div>
@@ -84,19 +85,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <?php
-                      require_once 'function.php';
-                      $today = date('Y-m-d');
-                      $rows = selectFromTable('inquiryinfo', ['id', 'name', 'mobile_number', 'date'], ['date' => $today]);
-                      foreach ($rows as $row) {
-                        echo "<tr>";
-                        echo "<td><input type='checkbox' name='selectedInquiries[]' value='" . $row['id'] . "'></td>";
-                        echo "<td>" . htmlspecialchars($row['name']) . "</td>";
-                        echo "<td>" . htmlspecialchars($row['mobile_number']) . "</td>";
-                        echo "<td>" . $row['date'] . "</td>";
-                        echo "</tr>";
-                      }
-                      ?>
+                      <!-- Data will be loaded here dynamically -->
                     </tbody>
                   </table>
                 </div>
@@ -112,6 +101,30 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
 $(document).ready(function () {
+    // Function to update inquiry list based on date filter
+    function updateInquiryList() {
+        var startDate = $('#start_date').val();
+        var endDate = $('#end_date').val();
+        $.ajax({
+            url: 'inquiries_fetch.php',
+            type: 'GET',
+            data: {start_date: startDate, end_date: endDate},
+            success: function(data) {
+                $('#inquiryTable tbody').html(data);
+                // Reattach event listeners to new checkboxes
+                $('#inquiryTable').on('change', 'input[type="checkbox"][name="selectedInquiries[]"]', function () {
+                    logSelectedInquiries();
+                });
+            },
+            error: function() {
+                alert('Error fetching data.');
+            }
+        });
+    }
+
+    // Attach the updateInquiryList to the filter button
+    $('#filterButton').click(updateInquiryList);
+
     // Function to log selected inquiries
     function logSelectedInquiries() {
         var selectedInquiries = [];
@@ -173,28 +186,6 @@ $(document).ready(function () {
             theCount.css('font-weight', 'bold');
         }
     });
-
-    // Existing AJAX call to update inquiry list
-    function updateInquiryList() {
-        var dateFilter = $('#dateFilter').val();
-        $.ajax({
-            url: 'inquiries_fetch.php',
-            type: 'GET',
-            data: {dateFilter: dateFilter},
-            success: function(data) {
-                $('#inquiryTable tbody').html(data);
-                // Reattach event listeners to new checkboxes
-                $('#inquiryTable').on('change', 'input[type="checkbox"][name="selectedInquiries[]"]', function () {
-                    logSelectedInquiries();
-                });
-            },
-            error: function() {
-                alert('Error fetching data.');
-            }
-        });
-    }
-
-    // Attach the updateInquiryList to the select element
-    $('#dateFilter').change(updateInquiryList);
 });
     </script>
+
