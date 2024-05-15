@@ -90,7 +90,7 @@ $isAdmin = isset($_SESSION['user_status']) && $_SESSION['user_status'] === 'admi
         <li class="nav-item d-flex align-items-center">
           <span class="mr-3" style="font-size:20px;">Hi, <?php echo $user['fullname']; ?></span>
           <a href="./profile.php" style="font-size:20px;" class="d-block mr-2"><i class="fas fa-cog"></i></a>
-          <a href="./logout.php" style="font-size:20px;"><i class="fas fa-sign-out-alt"></i></a>
+          <a href="./logout.php" style="font-size:20px;"><i class="fas fa-sign-out-alt" style="color:red"></i></a>
         </li>
       </ul>
     </nav>
