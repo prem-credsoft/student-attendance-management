@@ -84,14 +84,15 @@ $isFaculty = isset($_SESSION['user_status']) && $_SESSION['user_status'] === 'fa
                   <tbody>
                     <?php foreach ($receipts as $receipt): ?>
                       <tr>
-                      <td><?php echo htmlspecialchars($receipt['id']); ?></td>
+                        <td><?php echo htmlspecialchars($receipt['id']); ?></td>
                         <td>RIE - <?php echo htmlspecialchars($receipt['student_id']); ?></td>
                         <td><?php echo htmlspecialchars($studentName); ?></td>
                         <td><?php echo htmlspecialchars($receipt['amount']); ?></td>
                         <td><?php echo htmlspecialchars($receipt['payment_date']); ?></td>
                         <td><?php echo htmlspecialchars($receipt['message']); ?></td>
                         <?php if ($isSuperAdmin || $isAdmin): ?>
-                          <td><button class="btn btn-info" onclick="printPDF('<?php echo $receipt['id']; ?>')"><i class="fas fa-download"></i></button></td>
+                          <td><button class="btn btn-info" onclick="printPDF('<?php echo $receipt['id']; ?>')"><i
+                                class="fas fa-download"></i></button></td>
                           <td><a href='javascript:void(0);' onclick="confirmEdit('<?php echo $receipt['id']; ?>')"
                               class='btn btn-primary'><i class='fas fa-edit'></i></a></td>
                         <?php endif; ?>
@@ -147,7 +148,17 @@ $isFaculty = isset($_SESSION['user_status']) && $_SESSION['user_status'] === 'fa
   });
 
   function printPDF(receiptId) {
-    window.open('./pdf_design.php?id=' + receiptId);
+    var printWindow = window.open('fee_receipt_design.php?id=' + receiptId, '_blank');
+
+    // Wait until the new window is fully loaded
+    printWindow.onload = function () {
+      printWindow.print();
+
+      // Add an event listener to close the window after printing
+      printWindow.onafterprint = function () {
+        printWindow.close();
+      };
+    };
   }
 
   function confirmDelete(id) {
@@ -169,5 +180,4 @@ $isFaculty = isset($_SESSION['user_status']) && $_SESSION['user_status'] === 'fa
   }
 </script>
 
-<?php include ('./footer.php'); ?>
 <?php include ('./footer.php'); ?>
