@@ -7,8 +7,8 @@
   <title>Admin | Students Details</title>
 </head>
 
-<?php 
-include('./header.php');
+<?php
+include ('./header.php');
 require_once 'function.php';
 
 // Check user status from session
@@ -28,7 +28,13 @@ $isFaculty = isset($_SESSION['user_status']) && $_SESSION['user_status'] === 'fa
         </div><!-- /.col -->
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="./dashboard.php">Home</a></li>
+            <li class="breadcrumb-item">
+              <?php if ($_SESSION['user_status'] === 'faculty'): ?>
+                <a href="./batch.php">Home</a>
+              <?php else: ?>
+                <a href="./dashboard.php">Home</a>
+              <?php endif; ?>
+            </li>
             <li class="breadcrumb-item active">Batch Details</li>
           </ol>
         </div>
@@ -50,9 +56,9 @@ $isFaculty = isset($_SESSION['user_status']) && $_SESSION['user_status'] === 'fa
               <h3 class="card-title">Batch List</h3>
               <!-- Add button here -->
               <?php if ($isSuperAdmin || $isAdmin): ?>
-              <div class="card-tools">
-                <a href="./addbatch.php" class="btn btn-primary">Add New Batch</a>
-              </div>
+                <div class="card-tools">
+                  <a href="./addbatch.php" class="btn btn-primary">Add New Batch</a>
+                </div>
               <?php endif; ?>
             </div>
             <!-- /.card-header -->
@@ -117,16 +123,16 @@ $isFaculty = isset($_SESSION['user_status']) && $_SESSION['user_status'] === 'fa
   $(document).ready(function () {
     var buttonsConfig = [];
     <?php if (!$isFaculty): ?>
-    buttonsConfig = [
-      {
-        extend: 'excelHtml5',
-        title: 'Inquiry Data',
-      },
-      {
-        extend: 'pdfHtml5',
-        title: 'Inquiry Data',
-      }
-    ];
+      buttonsConfig = [
+        {
+          extend: 'excelHtml5',
+          title: 'Inquiry Data',
+        },
+        {
+          extend: 'pdfHtml5',
+          title: 'Inquiry Data',
+        }
+      ];
     <?php endif; ?>
 
     $('#example1').DataTable({

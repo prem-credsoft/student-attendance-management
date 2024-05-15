@@ -74,7 +74,11 @@ $isAdmin = isset($_SESSION['user_status']) && $_SESSION['user_status'] === 'admi
           <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-          <a href="./dashboard.php" class="nav-link">Home</a>
+          <?php if ($_SESSION['user_status'] === 'faculty'): ?>
+            <a href="./batch.php" class="nav-link">Batch</a>
+          <?php else: ?>
+            <a href="./dashboard.php" class="nav-link">Home</a>
+          <?php endif; ?>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
           <a href="#" class="nav-link">Contact</a>
@@ -95,117 +99,121 @@ $isAdmin = isset($_SESSION['user_status']) && $_SESSION['user_status'] === 'admi
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
       <!-- Brand Logo -->
-      <a href="./dashboard.php" class="brand-link" style="text-align:center;background:#efefef;">
-        <img src="./asset/img/logo.svg" alt="RIE logo Logo" style="height:50px;">
-        <!-- <span class="brand-text font-weight-light">Admin</span> -->
-      </a>
+      <?php if ($_SESSION['user_status'] === 'faculty'): ?>
+        <a href="./batch.php" class="brand-link" style="text-align:center;background:#efefef;">
+        <?php else: ?>
+          <a href="./dashboard.php" class="brand-link" style="text-align:center;background:#efefef;">
+          <?php endif; ?>
+          <img src="./asset/img/logo.svg" alt="RIE logo Logo" style="height:50px;">
+          <!-- <span class="brand-text font-weight-light">Admin</span> -->
+        </a>
 
-      <!-- Sidebar -->
-      <div class="sidebar">
+        <!-- Sidebar -->
+        <div class="sidebar">
 
-        <!-- Sidebar Menu -->
-        <nav class="mt-2">
-          <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-            <!-- Add icons to the links using the .nav-icon class
+          <!-- Sidebar Menu -->
+          <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+              <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-            <?php if (!$isFaculty): ?>
-              <li class="nav-item">
-                <a href="./dashboard.php" class="nav-link 
+              <?php if (!$isFaculty): ?>
+                <li class="nav-item">
+                  <a href="./dashboard.php" class="nav-link 
             <?php if (strpos($_SERVER['REQUEST_URI'], 'dashboard.php') !== false) {
               echo "active";
             } ?>">
-                  <i class="nav-icon fas fa-tachometer-alt"></i>
-                  <p>
-                    Dashboard
-                  </p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="./inquiry.php" class="nav-link
+                    <i class="nav-icon fas fa-tachometer-alt"></i>
+                    <p>
+                      Dashboard
+                    </p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="./inquiry.php" class="nav-link
             <?php if (strpos($_SERVER['REQUEST_URI'], 'inquiry.php') !== false) {
               echo "active";
             } ?>">
-                  <i class="nav-icon far fa-envelope"></i>
-                  <p>
-                    Inquiry
-                  </p>
-                </a>
-              <li class="nav-item">
-                <a href="./studentsdetails.php" class="nav-link
+                    <i class="nav-icon far fa-envelope"></i>
+                    <p>
+                      Inquiry
+                    </p>
+                  </a>
+                <li class="nav-item">
+                  <a href="./studentsdetails.php" class="nav-link
             <?php if (strpos($_SERVER['REQUEST_URI'], 'studentsdetails.php') !== false) {
               echo "active";
             } ?>">
-                  <i class="nav-icon fas fa-user"></i>
-                  <p>
-                    Students Details
-                  </p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="./fees.php" class="nav-link
+                    <i class="nav-icon fas fa-user"></i>
+                    <p>
+                      Students Details
+                    </p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="./fees.php" class="nav-link
             <?php if (strpos($_SERVER['REQUEST_URI'], 'fees.php') !== false) {
               echo "active";
             } ?>">
-                  <i class="nav-icon fas fa-rupee-sign"></i>
-                  <p>
-                    Fees Receipt
-                  </p>
-                </a>
-              </li>
-            <?php endif; ?>
-            <li class="nav-item">
-              <a href="./batch.php" class="nav-link
+                    <i class="nav-icon fas fa-rupee-sign"></i>
+                    <p>
+                      Fees Receipt
+                    </p>
+                  </a>
+                </li>
+              <?php endif; ?>
+              <li class="nav-item">
+                <a href="./batch.php" class="nav-link
             <?php if (strpos($_SERVER['REQUEST_URI'], 'batch.php') !== false) {
               echo "active";
             } ?>">
-                <i class="nav-icon fas fa-th-large"></i>
-                <p>
-                  Batch Attendance
-                  <!-- <span class="badge badge-danger right">New</span> -->
-                </p>
-              </a>
-            </li>
-            <?php if (!$isFaculty && !$isAdmin): ?>
-              <li class="nav-item">
-                <a href="./user_management.php" class="nav-link
+                  <i class="nav-icon fas fa-th-large"></i>
+                  <p>
+                    Batch Attendance
+                    <!-- <span class="badge badge-danger right">New</span> -->
+                  </p>
+                </a>
+              </li>
+              <?php if (!$isFaculty && !$isAdmin): ?>
+                <li class="nav-item">
+                  <a href="./user_management.php" class="nav-link
             <?php if (strpos($_SERVER['REQUEST_URI'], 'user_management.php') !== false) {
               echo "active";
             } ?>">
-                  <i class="nav-icon fas fa-user"></i>
-                  <p>
-                  User Management
-                  </p>
-                </a>
-              </li>
-            <?php endif; ?>
-            <?php if (!$isFaculty): ?>
-              <li class="nav-item">
-                <a href="./inquirysms.php" class="nav-link
+                    <i class="nav-icon fas fa-user"></i>
+                    <p>
+                      User Management
+                    </p>
+                  </a>
+                </li>
+              <?php endif; ?>
+              <?php if (!$isFaculty): ?>
+                <li class="nav-item">
+                  <a href="./inquirysms.php" class="nav-link
             <?php if (strpos($_SERVER['REQUEST_URI'], 'inquirysms.php') !== false) {
               echo "active";
             } ?>">
-                  <i class="nav-icon fas fa-users"></i>
-                  <p>
-                    Inquiry SMS
-                  </p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="./studentsms.php" class="nav-link
+                    <i class="nav-icon fas fa-users"></i>
+                    <p>
+                      Inquiry SMS
+                    </p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="./studentsms.php" class="nav-link
             <?php if (strpos($_SERVER['REQUEST_URI'], 'studentsms.php') !== false) {
               echo "active";
             } ?>">
-                  <i class="nav-icon fas fa-users"></i>
-                  <p>
-                    Student SMS
-                  </p>
-                </a>
-              </li>
-            <?php endif; ?>
+                    <i class="nav-icon fas fa-users"></i>
+                    <p>
+                      Student SMS
+                    </p>
+                  </a>
+                </li>
+              <?php endif; ?>
 
-          </ul>
-        </nav>
-        <!-- /.sidebar-menu -->
-      </div>
-      <!-- /.sidebar -->
+            </ul>
+          </nav>
+          <!-- /.sidebar-menu -->
+        </div>
+        <!-- /.sidebar -->
     </aside>
