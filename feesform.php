@@ -30,7 +30,7 @@ if (isset($_GET['id'])) {
     }
 }
 
-$students = selectFromTable('studentinfo', ['id', 'name', 'pending_fees', 'total_fees'], []);
+$students = selectFromTable('studentinfo', ['id', 'name', 'pending_fees', 'total_fees', 'paid_fees'], []);
 if (!$students) {
     die("Could not retrieve data from the database.");
 }
@@ -40,6 +40,8 @@ $selectedStudent = array_filter($students, function($student) use ($studentId) {
     return $student['id'] == $studentId;
 });
 $selectedStudent = $selectedStudent ? array_values($selectedStudent)[0] : null;
+
+$isFullyPaid = $selectedStudent && $selectedStudent['pending_fees'] == 0;
 ?>
 
 <!-- Content Wrapper. Contains page content -->
@@ -93,38 +95,44 @@ $selectedStudent = $selectedStudent ? array_values($selectedStudent)[0] : null;
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="amount">Amount</label>
-                                            <input type="number" class="form-control" id="amount" name="amount"
-                                                placeholder="Enter Amount" required value="<?php echo htmlspecialchars($amount); ?>">
+                                <?php if ($isFullyPaid): ?>
+                                    <div class="alert alert-success" role="alert">
+                                        This student has fully paid all fees.
+                                    </div>
+                                <?php else: ?>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="amount">Amount</label>
+                                                <input type="number" class="form-control" id="amount" name="amount"
+                                                    placeholder="Enter Amount" required value="<?php echo htmlspecialchars($amount); ?>">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="message">Message</label>
+                                                <input type="text" class="form-control" id="message" name="message"
+                                                    placeholder="Enter Message" value="<?php echo htmlspecialchars($message); ?>">
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="message">Message</label>
-                                            <input type="text" class="form-control" id="message" name="message"
-                                                placeholder="Enter Message" value="<?php echo htmlspecialchars($message); ?>">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="pending_fees">Pending Fees</label>
+                                                <input type="text" class="form-control" id="pending_fees" name="pending_fees"
+                                                    value="<?php echo htmlspecialchars($selectedStudent['pending_fees'] ?? '0'); ?>" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="total_paid">Student Total Paid</label>
+                                                <input type="text" class="form-control" id="total_paid" name="total_paid"
+                                                    value="<?php echo htmlspecialchars($selectedStudent['paid_fees'] ?? '0'); ?>" readonly>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="pending_fees">Pending Fees</label>
-                                            <input type="text" class="form-control" id="pending_fees"
-                                                name="pending_fees" value="" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="total_paid">Student Total Paid</label>
-                                            <input type="text" class="form-control" id="total_paid" name="total_paid"
-                                                value="" readonly>
-                                        </div>
-                                    </div>
-                                </div>
+                                <?php endif; ?>
                             </div>
                             <!-- Add a hidden input to handle the ID when updating -->
                             <?php if ($editMode): ?>
@@ -152,10 +160,12 @@ $selectedStudent = $selectedStudent ? array_values($selectedStudent)[0] : null;
 </script>
 <script>
     $(document).ready(function () {
+        var originalPendingFees = parseFloat($('#pending_fees').val());
+        var originalTotalPaid = parseFloat($('#total_paid').val());
+
         $('#inquiryForm').submit(function (event) {
-            event.preventDefault(); // Prevent the default form submission
+            event.preventDefault();
             var formData = $(this).serialize();
-            // console.log(formData);
             $.ajax({
                 type: 'POST',
                 url: 'feesrequest.php',
@@ -166,53 +176,30 @@ $selectedStudent = $selectedStudent ? array_values($selectedStudent)[0] : null;
                         alert("Form submitted successfully");
                         window.location.href = 'fees_receipt.php?student_id=' + $('#student_id').val();
                     } else {
-                        alert(response.message); // Show error message from server
+                        alert(response.message);
                     }
                 },
                 error: function() {
-                    alert("Error submitting details."); // Fallback error message
+                    alert("Error submitting details.");
                 }
             });
         });
 
         // Update fees details when the amount input changes
         $('#amount').on('input', function() {
-            updateFeesOnAmountChange();
+            var amountEntered = parseFloat($(this).val());
+            if (!isNaN(amountEntered)) {
+                var newPendingFees = originalPendingFees - amountEntered;
+                var newTotalPaid = originalTotalPaid + amountEntered;
+                $('#pending_fees').val(newPendingFees.toFixed(2));
+                $('#total_paid').val(newTotalPaid.toFixed(2));
+            } else {
+                // Reset to original values if amount is cleared or invalid
+                $('#pending_fees').val(originalPendingFees.toFixed(2));
+                $('#total_paid').val(originalTotalPaid.toFixed(2));
+            }
         });
     });
-
-    function updateFeesDetails() {
-    var selectPicker = document.getElementById('selectPicker');
-    var selectedOption = selectPicker.options[selectPicker.selectedIndex];
-    var pendingFees = parseFloat(selectedOption.getAttribute('data-pending-fees'));
-    var totalPaid = parseFloat(selectedOption.getAttribute('data-total-paid'));
-    var totalFees = parseFloat(selectedOption.getAttribute('data-total-fees'));
-
-    // Set initial values from selected student data
-    document.getElementById('pending_fees').value = pendingFees.toFixed(2);
-    document.getElementById('total_paid').value = totalPaid.toFixed(2);
-    document.getElementById('total_fees').value = totalFees.toFixed(2);
-
-    // Update based on the current input, considering existing payments
-    updateFeesOnAmountChange();
-}
-
-    function updateFeesOnAmountChange() {
-    var amountEntered = parseFloat($('#amount').val() || 0);
-    var initialTotalFees = parseFloat($('#total_fees').val());
-    var currentTotalPaid = parseFloat($('#total_paid').val()) - amountEntered; // Subtract the old amount first if editing
-    var newTotalPaid = currentTotalPaid + amountEntered; // Add the new entered amount
-    var newPendingFees = initialTotalFees - newTotalPaid;
-
-    $('#total_paid').val(newTotalPaid.toFixed(2));
-    $('#pending_fees').val(newPendingFees.toFixed(2));
-}
-
-// Ensure this runs on page load to set up initial values
-document.addEventListener('DOMContentLoaded', function() {
-    updateFeesDetails();
-    $('#amount').trigger('input'); // Trigger input to recalculate on load
-});
 </script>
 <?php include ('./footer.php'); ?>
 

@@ -92,7 +92,7 @@ $isFaculty = isset($_SESSION['user_status']) && $_SESSION['user_status'] === 'fa
                         <td><?php echo htmlspecialchars($receipt['message']); ?></td>
                         <?php if ($isSuperAdmin || $isAdmin): ?>
                           <td><button class="btn btn-info" onclick="printPDF('<?php echo $receipt['id']; ?>')"><i
-                                class="fas fa-download"></i></button></td>
+                                class="fas fa-print"></i></button></td>
                           <td><a href='javascript:void(0);' onclick="confirmEdit('<?php echo $receipt['id']; ?>')"
                               class='btn btn-primary'><i class='fas fa-edit'></i></a></td>
                         <?php endif; ?>
