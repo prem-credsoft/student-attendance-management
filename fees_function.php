@@ -22,8 +22,9 @@ if (isset($_GET['id'])) {
     // Calculate new pending fees
     $newPendingFees = $totalFees - $totalPaid;
 
-    // Update pending fees in studentinfo table
-    updateTable('studentinfo', ['pending_fees' => $newPendingFees], ['id' => $studentId]);
+    // Update pending fees and fee status in studentinfo table
+    $feeStatus = ($newPendingFees == 0) ? 1 : 0;
+    updateTable('studentinfo', ['pending_fees' => $newPendingFees, 'fee_status' => $feeStatus], ['id' => $studentId]);
 
     header('Location: fees_receipt.php?student_id=' . $studentId . '&msg=Receipt Deleted');
 } else {

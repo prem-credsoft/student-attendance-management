@@ -84,6 +84,8 @@ $paymentDate = date('d/m/Y', strtotime($receiptDetails[0]['payment_date'])) ?? d
 
         .flex-right {
             justify-content: right;
+            padding-top: 50px;
+            border: 0px !important;
         }
 
         .line2 {
@@ -151,10 +153,6 @@ $paymentDate = date('d/m/Y', strtotime($receiptDetails[0]['payment_date'])) ?? d
             </div>
             <div class="line line2">
                 <div>
-                    <b>Course:</b>
-                    <p><u><?php echo htmlspecialchars($batchName); ?></u></p>
-                </div>
-                <div>
                     <b>Batch:</b>
                     <p><u><?php echo htmlspecialchars($batchName); ?></u></p>
                 </div>
@@ -182,7 +180,7 @@ $paymentDate = date('d/m/Y', strtotime($receiptDetails[0]['payment_date'])) ?? d
                     </tr>
                 </table>
             </div>
-            <div class="line line2 flex-right">
+            <div class="line line2 flex-right" >
                 <div>
                     <b>Signature:</b>
                     <p>_____________________</p>
