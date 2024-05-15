@@ -66,12 +66,13 @@ $isFaculty = isset($_SESSION['user_status']) && $_SESSION['user_status'] === 'fa
                 <table id="example1" class="table table-bordered">
                   <thead>
                     <tr>
+                      <th>Receipt No.</th>
                       <th>GR No.</th>
                       <th>Student Name</th>
                       <th>Amount</th>
                       <th>Payment Date</th>
                       <th>Message</th>
-                      <th>Print Receipt</th>
+                      <th>Print</th>
                       <?php if ($isSuperAdmin || $isAdmin): ?>
                         <th>Edit</th>
                       <?php endif; ?>
@@ -83,14 +84,14 @@ $isFaculty = isset($_SESSION['user_status']) && $_SESSION['user_status'] === 'fa
                   <tbody>
                     <?php foreach ($receipts as $receipt): ?>
                       <tr>
+                      <td><?php echo htmlspecialchars($receipt['id']); ?></td>
                         <td>RIE - <?php echo htmlspecialchars($receipt['student_id']); ?></td>
                         <td><?php echo htmlspecialchars($studentName); ?></td>
                         <td><?php echo htmlspecialchars($receipt['amount']); ?></td>
                         <td><?php echo htmlspecialchars($receipt['payment_date']); ?></td>
                         <td><?php echo htmlspecialchars($receipt['message']); ?></td>
                         <?php if ($isSuperAdmin || $isAdmin): ?>
-                          <td><button class="btn btn-primary" onclick="printPDF('<?php echo $receipt['id']; ?>')">Print
-                              PDF</button></td>
+                          <td><button class="btn btn-info" onclick="printPDF('<?php echo $receipt['id']; ?>')"><i class="fas fa-download"></i></button></td>
                           <td><a href='javascript:void(0);' onclick="confirmEdit('<?php echo $receipt['id']; ?>')"
                               class='btn btn-primary'><i class='fas fa-edit'></i></a></td>
                         <?php endif; ?>
@@ -146,19 +147,7 @@ $isFaculty = isset($_SESSION['user_status']) && $_SESSION['user_status'] === 'fa
   });
 
   function printPDF(receiptId) {
-    $.ajax({
-      url: './pdf_design.php',
-      type: 'GET',
-      data: { id: receiptId },
-      dataType: 'json', // Ensure jQuery treats the response as JSON
-      success: function (docDefinition) {
-        // Directly use the response object
-        pdfMake.createPdf(docDefinition).download('receipt-' + receiptId + '.pdf');
-      },
-      error: function () {
-        alert('Failed to generate PDF');
-      }
-    });
+    window.open('./pdf_design.php?id=' + receiptId);
   }
 
   function confirmDelete(id) {
@@ -180,4 +169,5 @@ $isFaculty = isset($_SESSION['user_status']) && $_SESSION['user_status'] === 'fa
   }
 </script>
 
+<?php include ('./footer.php'); ?>
 <?php include ('./footer.php'); ?>

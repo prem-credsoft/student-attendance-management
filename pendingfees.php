@@ -15,7 +15,7 @@ $isSuperAdmin = isset($_SESSION['user_status']) && $_SESSION['user_status'] === 
 
 // Fetch student details and total paid amounts
 $query = "
-    SELECT si.id, si.name, si.mobile_number, si.pending_fees, COALESCE(SUM(r.amount), 0) AS total_paid
+    SELECT si.id, si.name, si.mobile_number,si.fee_status, si.pending_fees, COALESCE(SUM(r.amount), 0) AS total_paid
     FROM studentinfo si
     LEFT JOIN receipt r ON si.id = r.student_id
     GROUP BY si.id
@@ -72,7 +72,7 @@ $students = $db->query($query)->fetchAll(PDO::FETCH_ASSOC);
                   </thead>
                   <tbody>
                     <?php foreach ($students as $student): ?>
-                      <?php if ($student['pending_fees'] != 0): // Check if pending fees are not zero ?>
+                      <?php if ($student['fee_status'] != 1): // Check if pending fees are not zero ?>
                         <tr>
                           <td>RIE - <?php echo $student['id']; ?></td>
                           <td><?php echo $student['name']; ?></td>

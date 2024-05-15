@@ -71,7 +71,7 @@
             <div class="inner">
             <?php
               require_once 'function.php';
-              $result = selectFromTable('studentinfo', ['COUNT(*) AS total_receipt'], ['fee_status' => 1]);
+              $result = selectFromTable('studentinfo', ['COUNT(*) AS total_receipt'], ['fee_status' => 0]);
               $total_receipt = $result[0]['total_receipt'];
               ?>
               <h3><?php echo $total_receipt; ?></h3>

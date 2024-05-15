@@ -40,8 +40,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $totalPaid = $totalPaid[0]['total_paid'] ?? 0;
         $newPendingFees = $totalFees - $totalPaid;
 
-        // Update the student info with new pending fees and total paid
-        updateTable('studentinfo', ['pending_fees' => $newPendingFees, 'paid_fees' => $totalPaid], ['id' => $studentId]);
+        // Determine fee status based on pending fees
+        $feeStatus = ($newPendingFees == 0) ? 1 : 0;
+
+        // Update the student info with new pending fees, total paid, and fee status
+        updateTable('studentinfo', [
+            'pending_fees' => $newPendingFees, 
+            'paid_fees' => $totalPaid, 
+            'fee_status' => $feeStatus
+        ], ['id' => $studentId]);
 
         echo json_encode(['success' => true, 'message' => "Payment $action successfully."]);
     } else {
