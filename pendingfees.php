@@ -15,7 +15,7 @@ $isSuperAdmin = isset($_SESSION['user_status']) && $_SESSION['user_status'] === 
 
 // Fetch student details and total paid amounts
 $query = "
-    SELECT si.id, si.name, si.mobile_number,si.fee_status, si.pending_fees, COALESCE(SUM(r.amount), 0) AS total_paid
+    SELECT si.id, si.name, si.mobile_number, si.fee_status, si.due_date, si.total_fees, si.pending_fees, COALESCE(SUM(r.amount), 0) AS total_paid
     FROM studentinfo si
     LEFT JOIN receipt r ON si.id = r.student_id
     GROUP BY si.id
@@ -61,6 +61,8 @@ $students = $db->query($query)->fetchAll(PDO::FETCH_ASSOC);
                       <th>GR No.</th>
                       <th>Student Name</th>
                       <th>Mobile Number</th>
+                      <th>Next Due Date</th>
+                      <th>Total Fees</th>
                       <th>Pending Fees</th>
                       <th>Total Paid</th>
                       <th>All Receipt</th>
@@ -68,7 +70,7 @@ $students = $db->query($query)->fetchAll(PDO::FETCH_ASSOC);
                       <?php if ($isSuperAdmin): ?>
                         <!-- <th>Delete</th> -->
                       <?php endif; ?>
-                    </tr>   
+                    </tr>
                   </thead>
                   <tbody>
                     <?php foreach ($students as $student): ?>
@@ -77,9 +79,12 @@ $students = $db->query($query)->fetchAll(PDO::FETCH_ASSOC);
                           <td>RIE - <?php echo $student['id']; ?></td>
                           <td><?php echo $student['name']; ?></td>
                           <td><?php echo $student['mobile_number']; ?></td>
+                          <td><?php echo $student['due_date']; ?></td>
+                          <td><?php echo $student['total_fees']; ?>.00</td>
                           <td><?php echo $student['pending_fees']; ?></td>
                           <td><?php echo $student['total_paid']; ?></td>
-                          <td><a href='javascript:void(0);' onclick='confirmAllReceipts("<?php echo $student['id']; ?>")' class='btn btn-info'>All Receipts</a></td>
+                          <td><a href='javascript:void(0);' onclick='confirmAllReceipts("<?php echo $student['id']; ?>")'
+                              class='btn btn-info'>All Receipts</a></td>
                           <?php if ($isSuperAdmin): ?>
                             <!-- Additional admin-only controls can be added here -->
                           <?php endif; ?>
@@ -106,25 +111,25 @@ $students = $db->query($query)->fetchAll(PDO::FETCH_ASSOC);
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
 <script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.html5.min.js"></script>
 <script>
-$(document).ready(function () {
-  $('#example1').DataTable({
-    "paging": true,
-    "lengthChange": true,
-    "searching": true,
-    "ordering": true,
-    "responsive": true,
-    "dom": 'Bfrtip',
-    "buttons": [
-      {
-        extend: 'excelHtml5',
-        title: 'Inquiry Data',
-      },
-      {
-        extend: 'pdfHtml5',
-        title: 'Inquiry Data',
-      }
-    ]
-  });
+  $(document).ready(function () {
+    $('#example1').DataTable({
+      "paging": true,
+      "lengthChange": true,
+      "searching": true,
+      "ordering": true,
+      "responsive": true,
+      "dom": 'Bfrtip',
+      "buttons": [
+        {
+          extend: 'excelHtml5',
+          title: 'Inquiry Data',
+        },
+        {
+          extend: 'pdfHtml5',
+          title: 'Inquiry Data',
+        }
+      ]
+    });
   });
 
   function confirmDelete(id) {
