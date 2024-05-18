@@ -166,7 +166,7 @@ $paymentDate = date('d/m/Y', strtotime($receiptDetails[0]['payment_date'])) ?? d
                     </tr>
                     <tr>
                         <td>1</td>
-                        <td>Fully Fees</td>
+                        <td>Course Fees</td>
                         <td><?php echo htmlspecialchars($amount); ?></td>
                     </tr>
                 </table>
