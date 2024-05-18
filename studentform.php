@@ -220,12 +220,20 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-md-12">
+                                        <div class="col-md-9">
                                             <div class="form-group">
                                                 <label for="address">Address</label>
                                                 <input type="text" class="form-control" id="address" name="address"
                                                     placeholder="Enter Address"
                                                     value="<?php echo htmlspecialchars($inquiryData['address'] ?? $studentData['address'] ?? ''); ?>">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label for="dueDate">Due Date of Fees</label>
+                                                <input type="date" class="form-control" id="dueDate" name="dueDate"
+                                                    placeholder="Enter Due Date of Fees"
+                                                    value="<?php echo htmlspecialchars($studentData['due_date'] ?? ''); ?>">
                                             </div>
                                         </div>
                                     </div>

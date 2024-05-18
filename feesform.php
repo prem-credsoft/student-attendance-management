@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Admin | Fees Form</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
-    </head>
+</head>
 
 <?php
 include ('./header.php');
@@ -30,13 +30,13 @@ if (isset($_GET['id'])) {
     }
 }
 
-$students = selectFromTable('studentinfo', ['id', 'name', 'pending_fees', 'total_fees', 'paid_fees'], []);
+$students = selectFromTable('studentinfo', ['id', 'name', 'pending_fees', 'total_fees', 'paid_fees', 'due_date'], []);
 if (!$students) {
     die("Could not retrieve data from the database.");
 }
 
 // Find selected student details
-$selectedStudent = array_filter($students, function($student) use ($studentId) {
+$selectedStudent = array_filter($students, function ($student) use ($studentId) {
     return $student['id'] == $studentId;
 });
 $selectedStudent = $selectedStudent ? array_values($selectedStudent)[0] : null;
@@ -83,8 +83,10 @@ $isFullyPaid = $selectedStudent && $selectedStudent['pending_fees'] == 0;
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="student_name">Student Name</label>
-                                            <input type="text" class="form-control" id="student_name" name="student_name"
-                                                value="<?php echo htmlspecialchars($selectedStudent['name'] ?? ''); ?>" readonly>
+                                            <input type="text" class="form-control" id="student_name"
+                                                name="student_name"
+                                                value="<?php echo htmlspecialchars($selectedStudent['name'] ?? ''); ?>"
+                                                readonly>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -105,30 +107,42 @@ $isFullyPaid = $selectedStudent && $selectedStudent['pending_fees'] == 0;
                                             <div class="form-group">
                                                 <label for="amount">Amount</label>
                                                 <input type="number" class="form-control" id="amount" name="amount"
-                                                    placeholder="Enter Amount" required value="<?php echo htmlspecialchars($amount); ?>">
+                                                    placeholder="Enter Amount" required
+                                                    value="<?php echo htmlspecialchars($amount); ?>">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="message">Message</label>
                                                 <input type="text" class="form-control" id="message" name="message"
-                                                    placeholder="Enter Message" value="<?php echo htmlspecialchars($message); ?>">
+                                                    placeholder="Enter Message"
+                                                    value="<?php echo htmlspecialchars($message); ?>">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-md-6">
+                                        <div class="col-md-4">
                                             <div class="form-group">
-                                                <label for="pending_fees">Pending Fees</label>
-                                                <input type="text" class="form-control" id="pending_fees" name="pending_fees"
-                                                    value="<?php echo htmlspecialchars($selectedStudent['pending_fees'] ?? '0'); ?>" readonly>
+                                                <label for="due_date">Next Due Date</label>
+                                                <input type="date" class="form-control" id="due_date" name="due_date"
+                                                    value="<?php echo htmlspecialchars($selectedStudent['due_date'] ?? ''); ?>">
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="pending_fees">Pending Fees</label>
+                                                <input type="text" class="form-control" id="pending_fees"
+                                                    name="pending_fees"
+                                                    value="<?php echo htmlspecialchars($selectedStudent['pending_fees'] ?? '0'); ?>"
+                                                    readonly>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="total_paid">Student Total Paid</label>
                                                 <input type="text" class="form-control" id="total_paid" name="total_paid"
-                                                    value="<?php echo htmlspecialchars($selectedStudent['paid_fees'] ?? '0'); ?>" readonly>
+                                                    value="<?php echo htmlspecialchars($selectedStudent['paid_fees'] ?? '0'); ?>"
+                                                    readonly>
                                             </div>
                                         </div>
                                     </div>
@@ -136,9 +150,10 @@ $isFullyPaid = $selectedStudent && $selectedStudent['pending_fees'] == 0;
                             </div>
                             <!-- Add a hidden input to handle the ID when updating -->
                             <?php if ($editMode): ?>
-                            <input type="hidden" name="id" value="<?php echo $_GET['id']; ?>">
+                                <input type="hidden" name="id" value="<?php echo $_GET['id']; ?>">
                             <?php endif; ?>
-                            <button type="submit" class="btn btn-primary"><?php echo $editMode ? 'Update' : 'Submit'; ?></button>
+                            <button type="submit"
+                                class="btn btn-primary"><?php echo $editMode ? 'Update' : 'Submit'; ?></button>
                         </form>
                     </div>
                     <!-- /.card -->
@@ -151,7 +166,7 @@ $isFullyPaid = $selectedStudent && $selectedStudent['pending_fees'] == 0;
 <!-- /.content-wrapper -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         $('.select2').select2({
             placeholder: "Select a student",
             allowClear: true
@@ -179,14 +194,14 @@ $isFullyPaid = $selectedStudent && $selectedStudent['pending_fees'] == 0;
                         alert(response.message);
                     }
                 },
-                error: function() {
+                error: function () {
                     alert("Error submitting details.");
                 }
             });
         });
 
         // Update fees details when the amount input changes
-        $('#amount').on('input', function() {
+        $('#amount').on('input', function () {
             var amountEntered = parseFloat($(this).val());
             if (!isNaN(amountEntered)) {
                 var newPendingFees = originalPendingFees - amountEntered;
@@ -202,4 +217,3 @@ $isFullyPaid = $selectedStudent && $selectedStudent['pending_fees'] == 0;
     });
 </script>
 <?php include ('./footer.php'); ?>
-

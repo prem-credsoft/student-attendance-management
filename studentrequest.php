@@ -24,6 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'profession' => $profession,
         'address' => $_POST['address'] ?? '',
         'admission_time' => date('Y-m-d'),
+        'due_date' => $_POST['dueDate'] ?? null,
         'discount' => $_POST['discount'] ?? 0,
         'total_fees' => $_POST['totalFees'] ?? 0,
         'reference' => $_POST['reference'] ?? '',

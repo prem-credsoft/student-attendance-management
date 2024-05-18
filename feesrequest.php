@@ -7,6 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $amount = $_POST['amount'] ?? null;
     $message = $_POST['message'] ?? '';
     $paymentDate = date('Y-m-d');
+    $dueDate = $_POST['due_date'] ?? null;  // Capture the due date from the form
 
     if (!$studentId || !$amount) {
         echo json_encode(['success' => false, 'message' => 'Required fields are missing.']);
@@ -43,11 +44,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Determine fee status based on pending fees
         $feeStatus = ($newPendingFees == 0) ? 1 : 0;
 
-        // Update the student info with new pending fees, total paid, and fee status
+        // Update the student info with new pending fees, total paid, fee status, and due date
         updateTable('studentinfo', [
             'pending_fees' => $newPendingFees, 
             'paid_fees' => $totalPaid, 
-            'fee_status' => $feeStatus
+            'fee_status' => $feeStatus,
+            'due_date' => $dueDate  // Update the due date
         ], ['id' => $studentId]);
 
         echo json_encode(['success' => true, 'message' => "Payment $action successfully."]);
