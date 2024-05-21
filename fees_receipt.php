@@ -183,5 +183,3 @@ $isFaculty = isset($_SESSION['user_status']) && $_SESSION['user_status'] === 'fa
 </script>
 
 <?php include ('./footer.php'); ?>
-<?php include ('./footer.php'); ?>
-<?php include ('./footer.php'); ?>
