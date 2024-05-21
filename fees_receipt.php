@@ -71,7 +71,7 @@ $isFaculty = isset($_SESSION['user_status']) && $_SESSION['user_status'] === 'fa
                       <th>Student Name</th>
                       <th>Amount</th>
                       <th>Payment Date</th>
-                      <!-- <th>Next Due Date</th> -->
+                      <th>Next Due Date</th>
                       <th>Message</th>
                       <th>Print</th>
                       <?php if ($isSuperAdmin || $isAdmin): ?>
@@ -90,7 +90,7 @@ $isFaculty = isset($_SESSION['user_status']) && $_SESSION['user_status'] === 'fa
                         <td><?php echo htmlspecialchars($studentName); ?></td>
                         <td><?php echo htmlspecialchars($receipt['amount']); ?></td>
                         <td><?php echo htmlspecialchars($receipt['payment_date']); ?></td>
-                        <!-- <td><?php echo htmlspecialchars($receipt['due_date']); ?></td> -->
+                        <td><?php echo htmlspecialchars($receipt['due_date']); ?></td>
                         <td><?php echo htmlspecialchars($receipt['message']); ?></td>
                         <?php if ($isSuperAdmin || $isAdmin): ?>
                           <td><button class="btn btn-info" onclick="printPDF('<?php echo $receipt['id']; ?>')"><i
