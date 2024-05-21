@@ -13,7 +13,7 @@ include ('./header.php');
 require_once ('function.php');
 require_once ('db.php');
 
-$editMode = false;
+$editMode = isset($_GET['editMode']) ? $_GET['editMode'] === 'true' : false;
 $studentId = $_GET['student_id'] ?? '';
 $amount = '';
 $message = '';
@@ -21,12 +21,13 @@ $paymentDate = '';
 
 if (isset($_GET['id'])) {
     $editMode = true;
-    $feeDetails = selectFromTable('receipt', ['student_id', 'amount', 'message', 'payment_date'], ['id' => $_GET['id']]);
+    $feeDetails = selectFromTable('receipt', ['student_id', 'amount', 'message', 'payment_date', 'due_date'], ['id' => $_GET['id']]);
     if ($feeDetails) {
         $studentId = $feeDetails[0]['student_id'];
         $amount = $feeDetails[0]['amount'];
         $message = $feeDetails[0]['message'];
         $paymentDate = $feeDetails[0]['payment_date'];
+        $dueDate = $feeDetails[0]['due_date'];
     }
 }
 
@@ -73,7 +74,6 @@ $isFullyPaid = $selectedStudent && $selectedStudent['pending_fees'] == 0;
                     <div class="card card-primary">
                         <div class="card-header">
                             <h3 class="card-title">Fees Details</h3>
-
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
@@ -97,11 +97,13 @@ $isFullyPaid = $selectedStudent && $selectedStudent['pending_fees'] == 0;
                                         </div>
                                     </div>
                                 </div>
-                                <?php if ($isFullyPaid): ?>
-                                    <div class="alert alert-success" role="alert">
+                                <!-- Check if fully paid and not in edit mode -->
+                                <?php if ($isFullyPaid && !$editMode): ?>
+                                    <div class="alert alert-success text-center" role="alert">
                                         This student has fully paid all fees.
                                     </div>
                                 <?php else: ?>
+                                    <!-- Display form fields -->
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
@@ -125,7 +127,7 @@ $isFullyPaid = $selectedStudent && $selectedStudent['pending_fees'] == 0;
                                             <div class="form-group">
                                                 <label for="due_date">Next Due Date</label>
                                                 <input type="date" class="form-control" id="due_date" name="due_date"
-                                                    value="<?php echo htmlspecialchars($selectedStudent['due_date'] ?? ''); ?>">
+                                                    value="<?php echo htmlspecialchars($dueDate ?? ''); ?>">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
@@ -147,13 +149,13 @@ $isFullyPaid = $selectedStudent && $selectedStudent['pending_fees'] == 0;
                                         </div>
                                     </div>
                                 <?php endif; ?>
+                                <!-- Add a hidden input to handle the ID when updating -->
+                                <?php if ($editMode): ?>
+                                    <input type="hidden" name="id" value="<?php echo $_GET['id']; ?>">
+                                <?php endif; ?>
+                                <button type="submit"
+                                    class="btn btn-primary"><?php echo $editMode ? 'Update' : 'Submit'; ?></button>
                             </div>
-                            <!-- Add a hidden input to handle the ID when updating -->
-                            <?php if ($editMode): ?>
-                                <input type="hidden" name="id" value="<?php echo $_GET['id']; ?>">
-                            <?php endif; ?>
-                            <button type="submit"
-                                class="btn btn-primary"><?php echo $editMode ? 'Update' : 'Submit'; ?></button>
                         </form>
                     </div>
                     <!-- /.card -->

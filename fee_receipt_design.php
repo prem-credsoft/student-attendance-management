@@ -1,14 +1,42 @@
 <?php
+session_start();
+
 include('function.php');
 
 $receiptId = $_GET['id'] ?? null;
 $receiptDetails = [];
 $studentDetails = [];
+$receiptCount = 0;
+$pendingFees = 0;
 
 if ($receiptId) {
-    $receiptDetails = selectFromTable('receipt', ['id', 'student_id', 'amount', 'payment_date', 'message'], ['id' => $receiptId]);
+    $receiptDetails = selectFromTable('receipt', ['id', 'student_id', 'amount', 'payment_date', 'message', 'due_date'], ['id' => $receiptId]);
     if (!empty($receiptDetails)) {
-        $studentDetails = selectFromTable('studentinfo', ['name', 'batch_name', 'id'], ['id' => $receiptDetails[0]['student_id']]);
+        $studentId = $receiptDetails[0]['student_id'];
+        $studentDetails = selectFromTable('studentinfo', ['name', 'batch_name', 'id', 'pending_fees', 'due_date', 'total_fees', 'discount'], ['id' => $studentId]);
+        
+        // Fetch all receipts for the student
+        $allReceipts = selectFromTable('receipt', ['id', 'amount', 'payment_date'], ['student_id' => $studentId]);
+
+        // Sort receipts by payment date
+        usort($allReceipts, function($a, $b) {
+            return strtotime($a['payment_date']) - strtotime($b['payment_date']);
+        });
+
+        // Calculate the pending fees
+        $totalFees = $studentDetails[0]['total_fees'] ?? 0;
+        $discount = $studentDetails[0]['discount'] ?? 0;
+        $paidAmount = 0;
+
+        foreach ($allReceipts as $index => $receipt) {
+            $paidAmount += $receipt['amount'];
+            if ($receipt['id'] == $receiptId) {
+                $receiptCount = $index + 1;
+                break;
+            }
+        }
+
+        $pendingFees = $totalFees - $paidAmount - $discount;
     }
 }
 
@@ -145,10 +173,14 @@ $paymentDate = date('d/m/Y', strtotime($receiptDetails[0]['payment_date'])) ?? d
                     <p><?php echo htmlspecialchars($studentId); ?></p>
                 </div>
             </div>
-            <div class="line line2 flex-column">
+            <div class="line line2  ">
                 <div>
                     <b>Student Name:</b>
                     <p><u><?php echo htmlspecialchars($studentName); ?></u></p>
+                </div>
+                <div>
+                    <b>Pending Fees:</b>
+                    <p><u><?php echo htmlspecialchars($pendingFees); ?></u></p>
                 </div>
             </div>
             <div class="line line2">
@@ -156,7 +188,13 @@ $paymentDate = date('d/m/Y', strtotime($receiptDetails[0]['payment_date'])) ?? d
                     <b>Batch:</b>
                     <p><u><?php echo htmlspecialchars($batchName); ?></u></p>
                 </div>
-            </div>
+                <?php if ($pendingFees > 0): ?>
+                <div>
+                    <b>Next Due Date:</b>
+                    <p><u><?php echo !empty($receiptDetails[0]['due_date']) ? htmlspecialchars(date('d/m/Y', strtotime($receiptDetails[0]['due_date']))) : 'Not Set'; ?></u></p>
+                </div>
+                <?php endif; ?>
+            </div>            
             <div class="line line2">
                 <table class="table">
                     <tr>
@@ -165,8 +203,20 @@ $paymentDate = date('d/m/Y', strtotime($receiptDetails[0]['payment_date'])) ?? d
                         <th>Total</th>
                     </tr>
                     <tr>
-                        <td>1</td>
-                        <td>Course Fees</td>
+                        <td><?php echo $receiptCount; ?></td>
+                        <td>
+                            <?php
+                            // Determine the installment description based on receiptCount
+                            switch ($receiptCount) {
+                                case 1:
+                                    echo "Course Fees - 1st Installment";
+                                    break;
+                                default:
+                                    echo "Course Fees - " . ordinal($receiptCount) . " Installment";
+                                    break;
+                            }
+                            ?>
+                        </td>
                         <td><?php echo htmlspecialchars($amount); ?></td>
                     </tr>
                 </table>
@@ -190,5 +240,4 @@ $paymentDate = date('d/m/Y', strtotime($receiptDetails[0]['payment_date'])) ?? d
     </div>
 </body>
 
-</html>
 </html>

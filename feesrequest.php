@@ -18,7 +18,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         'student_id' => $studentId,
         'amount' => $amount,
         'payment_date' => $paymentDate,
-        'message' => $message
+        'message' => $message,
+        'due_date' => $dueDate  // Include the due date in the data
     ];
 
     if ($id) {
@@ -33,13 +34,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if ($result) {
         // Fetch total fees from the studentinfo table
-        $studentInfo = selectFromTable('studentinfo', ['total_fees'], ['id' => $studentId]);
+        $studentInfo = selectFromTable('studentinfo', ['total_fees', 'discount'], ['id' => $studentId]);
         $totalFees = $studentInfo[0]['total_fees'] ?? 0;
+        $discount = $studentInfo[0]['discount'] ?? 0;
 
         // Recalculate total paid and pending fees
         $totalPaid = selectFromTable('receipt', ['SUM(amount) AS total_paid'], ['student_id' => $studentId]);
         $totalPaid = $totalPaid[0]['total_paid'] ?? 0;
-        $newPendingFees = $totalFees - $totalPaid;
+        $newPendingFees = $totalFees - $totalPaid - $discount;
 
         // Determine fee status based on pending fees
         $feeStatus = ($newPendingFees == 0) ? 1 : 0;
