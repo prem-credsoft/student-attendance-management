@@ -40,7 +40,7 @@
       $studentId = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
       // Fetch student information
-      $studentInfo = selectFromTable('studentinfo', ['id', 'name', 'batch_name', 'father_name', 'mother_name', 'dob', 'gender', 'mobile_number', 'profession', 'address', 'admission_time', 'pending_fees', 'discount', 'total_fees', 'paid_fees', 'extratime_daily', 'joining_purpose', 'aadharcard_number', 'workplace_address', 'father_profession', 'reference', 'home_number', 'father_number'], ['id' => $studentId])[0];
+      $studentInfo = selectFromTable('studentinfo', ['id', 'name', 'batch_name', 'father_name', 'mother_name', 'dob', 'gender', 'mobile_number', 'profession', 'address', 'admission_time', 'pending_fees', 'discount', 'total_fees', 'paid_fees', 'extratime_daily', 'joining_purpose', 'aadharcard_number', 'workplace_address', 'father_profession', 'reference', 'home_number', 'father_number', 'gmail_id'], ['id' => $studentId])[0];
 
       // Fetch total paid fees
       // $totalPaidFees = selectFromTable('receipt', ['SUM(amount) AS total_paid'], ['student_id' => $studentId]);
@@ -95,6 +95,7 @@
                     <p><strong>Aadhar Card Number:</strong>
                       <?php echo htmlspecialchars($studentInfo['aadharcard_number']); ?></p>
                     <p><strong>Reference:</strong> <?php echo htmlspecialchars($studentInfo['reference']); ?></p>
+                    <p><strong>Gmail ID:</strong> <?php echo htmlspecialchars($studentInfo['gmail_id']); ?></p>
                   </div>
                 </div>
               </div>

@@ -34,7 +34,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'workplace_address' => $_POST['workPlaceAddress'] ?? '',
         'aadharcard_number' => $_POST['aadharcardNumber'] ?? '',
         'joining_purpose' => $_POST['joiningPurpose'] ?? '',
-        'extratime_daily' => $_POST['extraTimeDaily'] ?? ''
+        'extratime_daily' => $_POST['extraTimeDaily'] ?? '',
+        'gmail_id' => $_POST['gmailId'] ?? ''
     ];
 
     $studentId = null;

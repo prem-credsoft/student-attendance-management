@@ -197,7 +197,8 @@
                                             <div class="form-group">
                                                 <label for="aadharcardNumber">Aadharcard Number</label>
                                                 <input type="text" class="form-control" id="aadharcardNumber"
-                                                    name="aadharcardNumber" placeholder="Enter Aadhar Number" maxlength="12"
+                                                    name="aadharcardNumber" placeholder="Enter Aadhar Number"
+                                                    maxlength="12"
                                                     value="<?php echo htmlspecialchars($studentData['aadharcard_number'] ?? ''); ?>"
                                                     onkeypress="return onlyNumbers(event)">
                                             </div>
@@ -220,7 +221,7 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-md-9">
+                                        <div class="col-md-5">
                                             <div class="form-group">
                                                 <label for="address">Address</label>
                                                 <input type="text" class="form-control" id="address" name="address"
@@ -228,7 +229,15 @@
                                                     value="<?php echo htmlspecialchars($inquiryData['address'] ?? $studentData['address'] ?? ''); ?>">
                                             </div>
                                         </div>
-                                        <div class="col-md-3">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="gmailId">Gmail ID</label>
+                                                <input type="text" class="form-control" id="gmailId" name="gmailId"
+                                                    placeholder="Enter Gmail ID"
+                                                    value="<?php echo htmlspecialchars($studentData['gmail_id'] ?? ''); ?>">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
                                             <div class="form-group">
                                                 <label for="dueDate">Due Date of Fees</label>
                                                 <input type="date" class="form-control" id="dueDate" name="dueDate"
