@@ -100,7 +100,7 @@
             <div class="icon">
               <i class="ion ion-android-contacts"></i>
             </div>
-            <a href="./profile.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="./user_management.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
