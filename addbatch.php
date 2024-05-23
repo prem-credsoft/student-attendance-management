@@ -105,10 +105,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <?php include('./footer.php'); ?>
 </html>
 
-<script>
+<!-- <script>
 document.getElementById('addBatchForm').addEventListener('submit', function(event) {
     if (!confirm('Are you sure you want to add this batch?')) {
         event.preventDefault(); // Prevent form submission if cancel is clicked
     }
 });
-</script>
+</script> -->
