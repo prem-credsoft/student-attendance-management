@@ -3,6 +3,54 @@ require_once 'function.php';
 require_once 'db.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Required fields list
+    $requiredFields = [
+        'studentName', 'dob', 'gender', 'mobileNumber', 'address', 'totalFees', 'joiningPurpose', 
+        'extraTimeDaily', 'gmailId', 'fatherName', 'motherName', 'fatherNumber', 'homeNumber', 
+        'fatherProfession', 'workPlaceAddress', 'aadharcardNumber', 'batch', 'dueDate', 'reference'
+    ];
+
+    $missingFields = [];
+    foreach ($requiredFields as $field) {
+        if (empty($_POST[$field])) {
+            $missingFields[] = $field;
+        }
+    }
+
+    if (!empty($missingFields)) {
+        header('Content-Type: application/json');
+        echo json_encode([
+            'success' => false,
+            'message' => "Missing required fields: " . implode(', ', $missingFields)
+        ]);
+        exit;
+    }
+
+    // Additional specific validations
+    $errors = [];
+
+    // Validate Gmail ID
+    if (!filter_var($_POST['gmailId'], FILTER_VALIDATE_EMAIL) || strpos($_POST['gmailId'], '@') === false) {
+        $errors[] = 'Invalid Gmail ID. It must be a valid Gmail address.';
+    }
+
+    // Validate phone numbers
+    $phoneFields = ['mobileNumber', 'fatherNumber', 'homeNumber'];
+    foreach ($phoneFields as $phoneField) {
+        if (!preg_match('/^[6-9]\d{9}$/', $_POST[$phoneField])) {
+            $errors[] = ucfirst($phoneField) . ' must be a 10-digit number starting with 6, 7, 8, or 9.';
+        }
+    }
+
+    if (!empty($errors)) {
+        header('Content-Type: application/json');
+        echo json_encode([
+            'success' => false,
+            'message' => implode(' ', $errors)
+        ]);
+        exit;
+    }
+
     $batchId = $_POST['batch'] ?? '';
     $batchName = selectFromTable('batch_table', ['name'], ['id' => $batchId])[0]['name'] ?? '';
 

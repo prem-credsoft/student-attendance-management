@@ -99,18 +99,6 @@ $isSuperAdmin = isset($_SESSION['user_status']) && $_SESSION['user_status'] === 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
 <script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.html5.min.js"></script>
 <script>
-  $(document).ready(function () {
-    $('#example1').DataTable({
-      "paging": true,
-      "lengthChange": true,
-      "searching": true,
-      "ordering": true,
-      "info": false,
-      "autoWidth": true,
-      "responsive": true
-    });
-  });
-
   function confirmProfile(id) {
     var confirmAction = confirm("Are you sure you want to see this Student Profile?");
     if (confirmAction) {

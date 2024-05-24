@@ -79,20 +79,21 @@
                                         <label for="studentName">Student Name</label>
                                         <input type="text" class="form-control" id="studentName" name="studentName"
                                             placeholder="Enter Student Name"
-                                            value="<?php echo htmlspecialchars($inquiryData['name'] ?? $studentData['name'] ?? ''); ?>">
+                                            value="<?php echo htmlspecialchars($inquiryData['name'] ?? $studentData['name'] ?? ''); ?>" required>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="dob">Date of birth</label>
                                                 <input type="date" class="form-control" id="dob" name="dob"
-                                                    value="<?php echo htmlspecialchars($studentData['dob'] ?? ''); ?>">
+                                                    value="<?php echo htmlspecialchars($studentData['dob'] ?? ''); ?>" required>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="gender">Gender</label>
                                                 <select class="form-control" id="gender" name="gender" required>
+                                                    <option value="">Select Gender</option>
                                                     <option value="Male" <?php echo ($studentData && $studentData['gender'] == 'Male') ? 'selected' : ''; ?>>Male
                                                     </option>
                                                     <option value="Female" <?php echo ($studentData && $studentData['gender'] == 'Female') ? 'selected' : ''; ?>>Female
@@ -103,10 +104,10 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="mobileNumber">Mobile Number</label>
-                                                <input type="tel" class="form-control" id="mobileNumber" maxlength="10"
+                                                <input type="text" class="form-control" id="mobileNumber" maxlength="10" minlength="10"
                                                     name="mobileNumber" placeholder="Mobile Number"
                                                     value="<?php echo htmlspecialchars($inquiryData['mobile_number'] ?? $studentData['mobile_number'] ?? ''); ?>"
-                                                    onkeypress="return onlyNumbers(event)">
+                                                    onkeypress="return onlyNumbers(event)" required>
                                             </div>
                                         </div>
                                     </div>
@@ -114,7 +115,8 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="reference">References</label>
-                                                <select class="form-control" id="reference" name="reference">
+                                                <select class="form-control" id="reference" name="reference" required>
+                                                    <option value="">Select Reference</option>
                                                     <option value="Neighbors" <?php echo ($studentData && $studentData['reference'] == 'Neighbors') ? 'selected' : ''; ?>>
                                                         Neighbors</option>
                                                     <option value="Friends" <?php echo ($studentData && $studentData['reference'] == 'Friends') ? 'selected' : ''; ?>>
@@ -138,6 +140,7 @@
                                                 <label for="professionSelect">What Are You?</label>
                                                 <select class="form-control" id="professionSelect" name="profession"
                                                     required>
+                                                    <option value="">Select Profession</option>
                                                     <option value="Student" <?php echo ($inquiryData && $inquiryData['profession'] == 'Student') || ($studentData && $studentData['profession'] == 'Student') ? 'selected' : ''; ?>>
                                                         Student
                                                     </option>
@@ -158,7 +161,7 @@
                                                 <label for="otherProfession">Other Profession</label>
                                                 <input type="text" class="form-control" id="otherProfession"
                                                     name="otherProfession" placeholder="Enter profession"
-                                                    value="<?php echo htmlspecialchars($studentData['profession'] ?? ''); ?>">
+                                                    value="<?php echo htmlspecialchars($studentData['profession'] ?? ''); ?>" required>
                                             </div>
                                         </div>
                                     </div>
@@ -168,7 +171,7 @@
                                                 <label for="totalFees">Total Fees</label>
                                                 <input type="number" class="form-control" id="totalFees"
                                                     name="totalFees" placeholder="Enter Total Fees"
-                                                    value="<?php echo htmlspecialchars($studentData['total_fees'] ?? ''); ?>">
+                                                    value="<?php echo htmlspecialchars($studentData['total_fees'] ?? ''); ?>" required>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
@@ -182,7 +185,7 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="selectPicker">Batch</label>
-                                                <select class="form-control select2" id="batch" name="batch">
+                                                <select class="form-control select2" id="batch" name="batch" required>
                                                     <?php foreach ($batches as $batch): ?>
                                                         <option value="<?php echo htmlspecialchars($batch['id']); ?>" <?php echo (isset($studentData['batch']) && $studentData['batch'] == $batch['id']) ? 'selected' : ''; ?>>
                                                             <?php echo htmlspecialchars($batch['name']); ?>
@@ -198,9 +201,9 @@
                                                 <label for="aadharcardNumber">Aadharcard Number</label>
                                                 <input type="text" class="form-control" id="aadharcardNumber"
                                                     name="aadharcardNumber" placeholder="Enter Aadhar Number"
-                                                    maxlength="12"
+                                                    maxlength="12" minlength="12"
                                                     value="<?php echo htmlspecialchars($studentData['aadharcard_number'] ?? ''); ?>"
-                                                    onkeypress="return onlyNumbers(event)">
+                                                    onkeypress="return onlyNumbers(event)" required>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
@@ -208,7 +211,7 @@
                                                 <label for="joiningPurpose">Joining Purpose</label>
                                                 <input type="text" class="form-control" id="joiningPurpose"
                                                     name="joiningPurpose" placeholder="Enter Joining Purpose"
-                                                    value="<?php echo htmlspecialchars($studentData['joining_purpose'] ?? ''); ?>">
+                                                    value="<?php echo htmlspecialchars($studentData['joining_purpose'] ?? ''); ?>" required>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
@@ -216,7 +219,7 @@
                                                 <label for="extraTimeDaily">Extra time you can give daily</label>
                                                 <input type="text" class="form-control" id="extraTimeDaily"
                                                     name="extraTimeDaily" placeholder="Enter Minimum half an hour"
-                                                    value="<?php echo htmlspecialchars($studentData['extratime_daily'] ?? ''); ?>">
+                                                    value="<?php echo htmlspecialchars($studentData['extratime_daily'] ?? ''); ?>" required>
                                             </div>
                                         </div>
                                     </div>
@@ -226,7 +229,7 @@
                                                 <label for="address">Address</label>
                                                 <input type="text" class="form-control" id="address" name="address"
                                                     placeholder="Enter Address"
-                                                    value="<?php echo htmlspecialchars($inquiryData['address'] ?? $studentData['address'] ?? ''); ?>">
+                                                    value="<?php echo htmlspecialchars($inquiryData['address'] ?? $studentData['address'] ?? ''); ?>" required>
                                             </div>
                                         </div>
                                         <div class="col-md-5">
@@ -234,7 +237,7 @@
                                                 <label for="gmailId">Gmail ID</label>
                                                 <input type="text" class="form-control" id="gmailId" name="gmailId"
                                                     placeholder="Enter Gmail ID"
-                                                    value="<?php echo htmlspecialchars($studentData['gmail_id'] ?? ''); ?>">
+                                                    value="<?php echo htmlspecialchars($studentData['gmail_id'] ?? ''); ?>" required>
                                             </div>
                                         </div>
                                         <div class="col-md-2">
@@ -242,7 +245,7 @@
                                                 <label for="dueDate">Due Date of Fees</label>
                                                 <input type="date" class="form-control" id="dueDate" name="dueDate"
                                                     placeholder="Enter Due Date of Fees"
-                                                    value="<?php echo htmlspecialchars($studentData['due_date'] ?? ''); ?>">
+                                                    value="<?php echo htmlspecialchars($studentData['due_date'] ?? ''); ?>" required>
                                             </div>
                                         </div>
                                     </div>
@@ -253,7 +256,7 @@
                                                 <label for="fatherName">Father Name</label>
                                                 <input type="text" class="form-control" id="fatherName"
                                                     name="fatherName" placeholder="Father Name"
-                                                    value="<?php echo htmlspecialchars($studentData['father_name'] ?? ''); ?>">
+                                                    value="<?php echo htmlspecialchars($studentData['father_name'] ?? ''); ?>" required>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
@@ -261,7 +264,7 @@
                                                 <label for="motherName">Mother Name</label>
                                                 <input type="text" class="form-control" id="motherName"
                                                     name="motherName" placeholder="Mother Name"
-                                                    value="<?php echo htmlspecialchars($studentData['mother_name'] ?? ''); ?>">
+                                                    value="<?php echo htmlspecialchars($studentData['mother_name'] ?? ''); ?>" required>
                                             </div>
                                         </div>
                                     </div>
@@ -269,10 +272,10 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="fatherNumber">Father Mobile Number</label>
-                                                <input type="text" class="form-control" id="fatherNumber" maxlength="10"
+                                                <input type="text" class="form-control" id="fatherNumber" maxlength="10" minlength="10"
                                                     name="fatherNumber" placeholder="Enter Father Mobile Number"
                                                     value="<?php echo htmlspecialchars($studentData['father_number'] ?? ''); ?>"
-                                                    onkeypress="return onlyNumbers(event)">
+                                                    onkeypress="return onlyNumbers(event)" required>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
@@ -280,9 +283,9 @@
                                                 <label for="homeNumber">Home Mobile Number</label>
                                                 <input type="text" class="form-control" id="homeNumber"
                                                     name="homeNumber" placeholder="Enter Home Mobile Number"
-                                                    maxlength="10"
+                                                    maxlength="10" minlength="10"
                                                     value="<?php echo htmlspecialchars($studentData['home_number'] ?? ''); ?>"
-                                                    onkeypress="return onlyNumbers(event)">
+                                                    onkeypress="return onlyNumbers(event)" required>
                                             </div>
                                         </div>
                                     </div>
@@ -291,7 +294,8 @@
                                             <div class="form-group">
                                                 <label for="fatherProfession">Father Profession</label>
                                                 <select class="form-control" id="fatherProfession"
-                                                    name="fatherProfession">
+                                                    name="fatherProfession" required>
+                                                    <option value="">Select Profession</option>
                                                     <option value="Work" <?php echo ($studentData && $studentData['father_profession'] == 'Work') ? 'selected' : ''; ?>>Work</option>
                                                     <option value="Job" <?php echo ($studentData && $studentData['father_profession'] == 'Job') ? 'selected' : ''; ?>>
                                                         Job</option>
@@ -305,7 +309,7 @@
                                                 <label for="workPlaceAddress">Name & Address of Work Place</label>
                                                 <input type="text" class="form-control" id="workPlaceAddress"
                                                     name="workPlaceAddress" placeholder="Work Place Address"
-                                                    value="<?php echo htmlspecialchars($studentData['workplace_address'] ?? ''); ?>">
+                                                    value="<?php echo htmlspecialchars($studentData['workplace_address'] ?? ''); ?>" required>
                                             </div>
                                         </div>
                                     </div>
@@ -371,12 +375,12 @@
                         if (response.success) {
                             window.location.href = 'studentsdetails.php';
                         } else {
-                            alert("Error submitting details: " + response.message);
+                            // alert("Error submitting details: " + response.message);
                         }
                     },
                     error: function (xhr, status, error) {
-                        alert("An error occurred: ");
-                        console.log("An error occurred: " + xhr.responseText);
+                        // alert("Please Fill Up the Form Completely!");
+                        // console.log("An error occurred: " + xhr.responseText);
                     }
                 });
             });
@@ -384,14 +388,12 @@
     </script>
 
     <script>
-        function onlyNumbers(evt) {
-            var charCode = (evt.which) ? evt.which : evt.keyCode;
-            if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-                evt.preventDefault();
-                return false;
-            }
-            return true;
-        }
+        // Set the maximum date of birth to prevent future dates and limit to 5 years ago
+        $(document).ready(function() {
+            var today = new Date();
+            var maxDate = new Date(today.getFullYear() - 5, today.getMonth(), today.getDate()).toISOString().split('T')[0];
+            $('#dob').attr('max', maxDate);
+        });
     </script>
 
-    <?php include ('./footer.php'); ?>
+<?php include ('./footer.php'); ?>

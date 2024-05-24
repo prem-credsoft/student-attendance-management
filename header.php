@@ -35,6 +35,9 @@ $isAdmin = isset($_SESSION['user_status']) && $_SESSION['user_status'] === 'admi
   <!-- iCheck -->
   <link rel="stylesheet" href="./plugins/icheck-bootstrap/icheck-bootstrap.min.css">
   <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
+<!-- Data table  -->
+  <!-- <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.1/css/buttons.dataTables.min.css"> -->
   <link rel="stylesheet" href="./asset/css/adminlte.min.css">
   <link rel="stylesheet" href="./asset/css/style.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
