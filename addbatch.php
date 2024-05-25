@@ -78,11 +78,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <form id="addBatchForm" method="POST">
                             <div class="card-body">
                                 <div class="form-group">
-                                    <label for="batchName">Batch Name</label>
+                                    <label for="batchName">Batch Name *</label>
                                     <input type="text" class="form-control" id="batchName" name="batchName" placeholder="Enter Batch Name" required>
                                 </div>
                                 <div class="form-group">
-                                    <label for="facultyName">Faculty Name</label>
+                                    <label for="facultyName">Faculty Name *</label>
                                     <input type="text" class="form-control" id="facultyName" pattern="[A-Za-z ]+" title="Only alphabets are allowed" name="facultyName" placeholder="Enter Faculty Name" required>
                                 </div>
                             </div>
