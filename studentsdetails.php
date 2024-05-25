@@ -120,6 +120,41 @@ $isSuperAdmin = isset($_SESSION['user_status']) && $_SESSION['user_status'] === 
     }
   }
 </script>
+<style>
+  .dataTables_wrapper .dataTables_paginate .paginate_button {
+    box-sizing: border-box;
+    display: inline-block;
+    min-width: 1.5em;
+    padding: 0.5em 1em;
+    margin-left: 2px;
+    text-align: center;
+    text-decoration: none !important;
+    cursor: pointer;
+    border-color: lightgray !important;
+    border: 1px solid transparent;
+    border-radius: 0.25rem;
+  }
+
+  .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+    color: #fff !important;
+    background-color: #007bff !important;
+    border: 1px solid gray;
+  }
+
+  .dataTables_wrapper .dataTables_paginate .paginate_button.current {
+    color: #fff !important;
+    background-color: #007bff !important;
+    border: 1px solid #007bff;
+  }
+
+  .dataTables_wrapper .dataTables_paginate .paginate_button.disabled {
+    cursor: default;
+    color: #0069d9 !important;
+    background-color: #fff !important;
+    border: 1px solid transparent;
+  }
+
+</style>
 <script>
   $(document).ready(function () {
     $('#example2').DataTable({
