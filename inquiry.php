@@ -51,9 +51,9 @@ if (strtotime($startDate) > strtotime($endDate)) {
                             <!-- Date filter form -->
                             <form method="GET" class="card-tools">
                                 <label>Filter:</label>
-                                <input type="date" id="start_date" name="start_date" value="<?= htmlspecialchars($startDate) ?>">
+                                <input type="date" id="start_date" name="start_date" value="<?= htmlspecialchars($startDate) ?>" max="<?= date('Y-m-d') ?>">
                                 <b>TO</b>
-                                <input class="mb-2" type="date" id="end_date" name="end_date" value="<?= htmlspecialchars($endDate) ?>">
+                                <input class="mb-2" type="date" id="end_date" name="end_date" value="<?= htmlspecialchars($endDate) ?>" max="<?= date('Y-m-d') ?>">
                                 <a href="./inquiryform.php" class="btn btn-primary mb-2 ml-5">Add New Inquiry</a>
                             </form>
                         </div>
@@ -132,6 +132,10 @@ $(document).ready(function() {
             return date >= startDate && date <= endDate;
         }).show();
     }
+
+    // Set max attribute to current date to prevent future date selection
+    var today = new Date().toISOString().split('T')[0];
+    $('#start_date, #end_date').attr('max', today);
 
     $('#start_date, #end_date').change(filterRows);
     filterRows(); // Initial filter on page load

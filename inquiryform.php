@@ -44,22 +44,22 @@
                         <form id="inquiryForm">
                             <div class="card-body">
                                 <div class="form-group">
-                                    <label for="name">Name</label>
+                                    <label for="name">Name *</label>
                                     <input type="text" class="form-control" id="name" name="name"
                                         placeholder="Enter Name" value="" required onkeypress="return onlyAlphabets(event)">
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="mobile_number">Mobile Number</label>
+                                            <label for="mobile_number">Mobile Number *</label>
                                             <input type="text" class="form-control" id="mobile_number"
                                                 name="mobile_number" placeholder="Enter Mobile Number" value=""
-                                                maxlength="10" required onkeypress="return onlyNumbers(event)">
+                                                maxlength="10" required onkeypress="return onlyNumbers(event)" oninput="validateMobileNumber()">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="profession">Profession</label>
+                                            <label for="profession">Profession *</label>
                                             <select class="form-control" id="profession" name="profession" required>
                                                 <option value="Student">Student</option>
                                                 <option value="Housewife">Housewife</option>
@@ -71,17 +71,17 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="reference">Reference</label>
+                                    <label for="reference">Reference *</label>
                                     <input type="text" class="form-control" id="reference" name="reference"
                                         placeholder="Enter Reference" value="" required>
                                 </div>
                                 <div class="form-group">
-                                    <label for="address">Address</label>
+                                    <label for="address">Address *</label>
                                     <input type="text" class="form-control" id="address" name="address"
                                         placeholder="Enter Address" value="" required>
                                 </div>
                                 <div class="form-group">
-                                    <label for="time_of_classes">Preference Time of Classes</label>
+                                    <label for="time_of_classes">Preference Time of Classes *</label>
                                     <select class="form-control" id="time_of_classes" name="time_of_classes" required>
                                         <option value="7:30 AM To 8:30 AM">7:30 AM To 8:30 AM</option>
                                         <option value="8:30 AM To 9:30 AM">8:30 AM To 9:30 AM</option>
@@ -123,7 +123,7 @@
                         alert("Inquiry submitted successfully.")
                         window.location.href = 'inquiry.php';
                     } else {
-                        alert("error");
+                        alert("Please Fill Up All Required Fields");
                     }
                 },
             });
@@ -148,6 +148,15 @@
             return false;
         }
         return true;
+    }
+
+    function validateMobileNumber() {
+        var mobileNumber = document.getElementById('mobile_number').value;
+        var firstDigit = mobileNumber.charAt(0);
+        if (mobileNumber.length > 0 && !['6', '7', '8', '9'].includes(firstDigit)) {
+            // alert('Mobile number must start with 6, 7, 8, or 9.');
+            document.getElementById('mobile_number').value = '';
+        }
     }
 </script>
 
