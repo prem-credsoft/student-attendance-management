@@ -66,7 +66,7 @@ $isSuperAdmin = isset($_SESSION['user_status']) && $_SESSION['user_status'] === 
                     foreach ($rows as $row) {
                       echo "<tr>";
                       echo "<td> RIE - " . $row['id'] . "</td>";
-                      echo "<td>" . $row['name'] . "</td>";
+                      echo "<td style='word-break: break-all;'>" . $row['name'] . "</td>";
                       echo "<td>" . $row['batch_name'] . "</td>";
                       // echo "<td>" . $row['pending_fees'] . ".00</td>";
                       echo "<td>" . $row['mobile_number'] . "</td>";

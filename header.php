@@ -36,8 +36,8 @@ $isAdmin = isset($_SESSION['user_status']) && $_SESSION['user_status'] === 'admi
   <link rel="stylesheet" href="./plugins/icheck-bootstrap/icheck-bootstrap.min.css">
   <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
 <!-- Data table  -->
-  <!-- <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
-<link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.1/css/buttons.dataTables.min.css"> -->
+  <!-- <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css"> -->
+<!-- <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.1/css/buttons.dataTables.min.css"> -->
   <link rel="stylesheet" href="./asset/css/adminlte.min.css">
   <link rel="stylesheet" href="./asset/css/style.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -76,16 +76,7 @@ $isAdmin = isset($_SESSION['user_status']) && $_SESSION['user_status'] === 'admi
         <li class="nav-item">
           <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
-        <li class="nav-item d-none d-sm-inline-block">
-          <?php if ($_SESSION['user_status'] === 'faculty'): ?>
-            <a href="./batch.php" class="nav-link">Batch</a>
-          <?php else: ?>
-            <a href="./dashboard.php" class="nav-link">Home</a>
-          <?php endif; ?>
-        </li>
-        <li class="nav-item d-none d-sm-inline-block">
-          <a href="#" class="nav-link">Contact</a>
-        </li>
+        
       </ul>
 
       <!-- Right navbar links -->

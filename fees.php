@@ -76,7 +76,7 @@ $students = $db->query($query)->fetchAll(PDO::FETCH_ASSOC);
                     <?php foreach ($students as $student): ?>
                     <tr>
                       <td>RIE - <?php echo $student['id']; ?></td>
-                      <td><?php echo $student['name']; ?></td>
+                      <td style='word-break: break-all;'><?php echo $student['name']; ?></td>
                       <td><?php echo $student['mobile_number']; ?></td>
                       <td><?php echo $student['due_date']; ?></td>
                       <td><?php echo $student['total_fees']; ?>.00</td>

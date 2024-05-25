@@ -83,10 +83,10 @@ if (strtotime($startDate) > strtotime($endDate)) {
                                     foreach ($rows as $row) {
                                         echo "<tr data-date='{$row['date']}'>";
                                         echo "<td>{$row['id']}</td>";
-                                        echo "<td>" . htmlspecialchars($row['name']) . "</td>";
+                                        echo "<td style='word-break: break-all;'>" . htmlspecialchars($row['name']) . "</td>";
                                         echo "<td>" . htmlspecialchars($row['reference']) . "</td>";
                                         echo "<td>" . htmlspecialchars($row['mobile_number']) . "</td>";
-                                        echo "<td>" . htmlspecialchars($row['address']) . "</td>";
+                                        echo "<td style='word-break: break-all;'>" . htmlspecialchars($row['address']) . "</td>";
                                         echo "<td>" . htmlspecialchars($row['time_of_classes']) . "</td>";
                                         echo "<td>" . htmlspecialchars($row['profession']) . "</td>";
                                         echo "<td>" . htmlspecialchars($row['date']) . "</td>";
