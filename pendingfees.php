@@ -81,7 +81,7 @@ $students = $db->query($query)->fetchAll(PDO::FETCH_ASSOC);
                           <td><?php echo $student['mobile_number']; ?></td>
                           <td><?php echo $student['due_date']; ?></td>
                           <td><?php echo $student['total_fees']; ?>.00</td>
-                          <td><?php echo $student['pending_fees']; ?></td>
+                          <td><?php echo $student['pending_fees']; ?>.00</td>
                           <td><?php echo $student['total_paid']; ?></td>
                           <td><a href='javascript:void(0);' onclick='confirmAllReceipts("<?php echo $student['id']; ?>")'
                               class='btn btn-info'>All Receipts</a></td>

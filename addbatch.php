@@ -83,13 +83,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 </div>
                                 <div class="form-group">
                                     <label for="facultyName">Faculty Name</label>
-                                    <input type="text" class="form-control" id="facultyName" name="facultyName" placeholder="Enter Faculty Name" required>
+                                    <input type="text" class="form-control" id="facultyName" pattern="[A-Za-z ]+" title="Only alphabets are allowed" name="facultyName" placeholder="Enter Faculty Name" required>
                                 </div>
                             </div>
                             <!-- /.card-body -->
 
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-primary" onclick="return confirm('Are you sure you want to add this batch?')">Submit</button>
+                                <button type="submit" class="btn btn-primary">Submit</button>
                             </div>
                         </form>
                     </div>
@@ -102,13 +102,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </div>
 <!-- /.content-wrapper -->
 
-<?php include('./footer.php'); ?>
-</html>
+<script>
+    document.getElementById('addBatchForm').addEventListener('submit', function(event) {
+        if (!confirm('Are you sure you want to add this batch?')) {
+            event.preventDefault(); // Prevent form submission if cancel is clicked
+        }
+    });
+</script>
 
-<!-- <script>
-document.getElementById('addBatchForm').addEventListener('submit', function(event) {
-    if (!confirm('Are you sure you want to add this batch?')) {
-        event.preventDefault(); // Prevent form submission if cancel is clicked
-    }
-});
-</script> -->
+<?php include('./footer.php'); ?>

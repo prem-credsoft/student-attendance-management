@@ -79,12 +79,12 @@ include('./header.php');
                                 </div>
                                 <div class="form-group">
                                     <label for="facultyName">Faculty Name:</label>
-                                    <input type="text" class="form-control" name="facultyName" value="<?php echo htmlspecialchars($batch['FacultyName']); ?>" required>
+                                    <input type="text" class="form-control" pattern="[A-Za-z ]+" title="Only alphabets are allowed" name="facultyName" value="<?php echo htmlspecialchars($batch['FacultyName']); ?>" required>
                                 </div>
                                 <input type="hidden" name="id" value="<?php echo $batch['id']; ?>">
                             </div>
                             <div class="card-footer">   
-                                <button type="submit" class="btn btn-primary" onclick="return confirm('Are you sure you want to update this batch?')">Update Batch</button>
+                                <button type="submit" class="btn btn-primary">Update Batch</button>
                             </div>
                         </form>
                     </div>
@@ -100,14 +100,13 @@ include('./header.php');
 $(document).ready(function() {
     $('#updateBatchForm').submit(function(e) {
         e.preventDefault(); // Prevent the default form submission
-        var confirmUpdate = confirm("Are you sure you want to update this batch?"); // Confirmation dialog
-        if (confirmUpdate) { // Check if the user confirmed the update
+        var confirmUpdate = confirm("Are you sure you want to update this batch?");
+        if (confirmUpdate) { 
             $.ajax({
                 type: 'POST',
                 url: 'editbatch.php?id=<?php echo $batch['id']; ?>',
                 data: $(this).serialize(),
                 success: function(response) {
-                    alert(response); // Display response message
                     window.location.href = 'batch.php'; // Redirect to batch list
                 },
                 error: function() {
