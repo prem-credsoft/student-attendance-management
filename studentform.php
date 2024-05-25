@@ -183,7 +183,7 @@
                                                 <label for="discount">Scholarship *</label>
                                                 <input type="number" class="form-control" id="discount" name="discount"
                                                     placeholder="Enter Scholarship"
-                                                    value="<?php echo htmlspecialchars($studentData['discount'] ?? ''); ?>" required>
+                                                    value="<?php echo htmlspecialchars($studentData['discount'] ?? ''); ?>" oninput="validateDiscount()" required>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
@@ -434,6 +434,16 @@
                 return false;
             }
             return true;
+        }
+
+        function validateDiscount() {
+            var totalFees = document.getElementById('totalFees').value;
+            var discount = document.getElementById('discount').value;
+
+            if (parseInt(discount) > parseInt(totalFees)) {
+                // alert('Scholarship cannot be greater than Total Fees.');
+                document.getElementById('discount').value = totalFees; // Set discount to totalFees or clear it
+            }
         }
     </script>
 
