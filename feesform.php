@@ -112,12 +112,12 @@ $isFullyPaid = $selectedStudent && $selectedStudent['pending_fees'] == 0;
                                                        placeholder="Enter Amount" required
                                                        value="<?php echo htmlspecialchars($amount); ?>"
                                                        max="<?php echo htmlspecialchars($selectedStudent['pending_fees'] ?? '0'); ?>"
-                                                       oninput="validateAmount()">
+                                                       oninput="validateAmount()" required>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label for="message">Message *</label>
+                                                <label for="message">Message</label>
                                                 <input type="text" class="form-control" id="message" name="message"
                                                        placeholder="Enter Message"
                                                        value="<?php echo htmlspecialchars($message); ?>">
@@ -127,7 +127,7 @@ $isFullyPaid = $selectedStudent && $selectedStudent['pending_fees'] == 0;
                                     <div class="row">
                                         <div class="col-md-4">
                                             <div class="form-group">
-                                                <label for="due_date">Next Due Date *</label>
+                                                <label for="due_date">Next Due Date</label>
                                                 <input type="date" class="form-control" id="due_date" name="due_date"
                                                        value="<?php echo htmlspecialchars($dueDate ?? ''); ?>">
                                             </div>
