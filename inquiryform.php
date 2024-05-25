@@ -46,7 +46,7 @@
                                 <div class="form-group">
                                     <label for="name">Name</label>
                                     <input type="text" class="form-control" id="name" name="name"
-                                        placeholder="Enter Name" value="" required>
+                                        placeholder="Enter Name" value="" required onkeypress="return onlyAlphabets(event)">
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6">
@@ -136,6 +136,15 @@
         var charCode = (evt.which) ? evt.which : evt.keyCode;
         if (charCode > 31 && (charCode < 48 || charCode > 57)) {
             evt.preventDefault();
+            return false;
+        }
+        return true;
+    }
+    function onlyAlphabets(evt) {
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if (!((charCode >= 65 && charCode <= 90) || (charCode >= 97 && charCode <= 122) || charCode == 32)) {
+            evt.preventDefault();
+            // alert('Please enter only alphabets.');
             return false;
         }
         return true;
