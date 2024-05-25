@@ -76,22 +76,24 @@
                                 <div class="card-body">
                                     <div class="mb-4 h4">Personal Details:</div>
                                     <div class="form-group">
-                                        <label for="studentName">Student Name</label>
+                                        <label for="studentName">Student Name *</label>
                                         <input type="text" class="form-control" id="studentName" name="studentName"
                                             placeholder="Enter Student Name"
-                                            value="<?php echo htmlspecialchars($inquiryData['name'] ?? $studentData['name'] ?? ''); ?>" required>
+                                            value="<?php echo htmlspecialchars($inquiryData['name'] ?? $studentData['name'] ?? ''); ?>" onkeypress="return onlyAlphabets(event)"
+                                            required>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-4">
                                             <div class="form-group">
-                                                <label for="dob">Date of birth</label>
+                                                <label for="dob">Date of birth *</label>
                                                 <input type="date" class="form-control" id="dob" name="dob"
-                                                    value="<?php echo htmlspecialchars($studentData['dob'] ?? ''); ?>" required>
+                                                    value="<?php echo htmlspecialchars($studentData['dob'] ?? ''); ?>"
+                                                    required>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
-                                                <label for="gender">Gender</label>
+                                                <label for="gender">Gender *</label>
                                                 <select class="form-control" id="gender" name="gender" required>
                                                     <option value="">Select Gender</option>
                                                     <option value="Male" <?php echo ($studentData && $studentData['gender'] == 'Male') ? 'selected' : ''; ?>>Male
@@ -103,9 +105,9 @@
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
-                                                <label for="mobileNumber">Mobile Number</label>
-                                                <input type="text" class="form-control" id="mobileNumber" maxlength="10" minlength="10"
-                                                    name="mobileNumber" placeholder="Mobile Number"
+                                                <label for="mobileNumber">Mobile Number *</label>
+                                                <input type="text" class="form-control" id="mobileNumber" maxlength="10"
+                                                    minlength="10" name="mobileNumber" placeholder="Mobile Number"
                                                     value="<?php echo htmlspecialchars($inquiryData['mobile_number'] ?? $studentData['mobile_number'] ?? ''); ?>"
                                                     onkeypress="return onlyNumbers(event)" required>
                                             </div>
@@ -114,7 +116,7 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label for="reference">References</label>
+                                                <label for="reference">References *</label>
                                                 <select class="form-control" id="reference" name="reference" required>
                                                     <option value="">Select Reference</option>
                                                     <option value="Neighbors" <?php echo ($studentData && $studentData['reference'] == 'Neighbors') ? 'selected' : ''; ?>>
@@ -137,7 +139,7 @@
                                         </div>
                                         <div class="col-md-6" id="professionContainer">
                                             <div class="form-group">
-                                                <label for="professionSelect">What Are You?</label>
+                                                <label for="professionSelect">What Are You? *</label>
                                                 <select class="form-control" id="professionSelect" name="profession"
                                                     required>
                                                     <option value="">Select Profession</option>
@@ -158,33 +160,35 @@
                                         </div>
                                         <div class="col-md-3" id="otherProfessionInput" style="display: none;">
                                             <div class="form-group">
-                                                <label for="otherProfession">Other Profession</label>
+                                                <label for="otherProfession">Other Profession *</label>
                                                 <input type="text" class="form-control" id="otherProfession"
                                                     name="otherProfession" placeholder="Enter profession"
-                                                    value="<?php echo htmlspecialchars($studentData['profession'] ?? ''); ?>" required>
+                                                    value="<?php echo htmlspecialchars($studentData['profession'] ?? ''); ?>"
+                                                    required>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-4">
                                             <div class="form-group">
-                                                <label for="totalFees">Total Fees</label>
+                                                <label for="totalFees">Total Fees *</label>
                                                 <input type="number" class="form-control" id="totalFees"
                                                     name="totalFees" placeholder="Enter Total Fees"
-                                                    value="<?php echo htmlspecialchars($studentData['total_fees'] ?? ''); ?>" required>
+                                                    value="<?php echo htmlspecialchars($studentData['total_fees'] ?? ''); ?>"
+                                                    required>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
-                                                <label for="discount">Scholarship</label>
+                                                <label for="discount">Scholarship *</label>
                                                 <input type="number" class="form-control" id="discount" name="discount"
                                                     placeholder="Enter Scholarship"
-                                                    value="<?php echo htmlspecialchars($studentData['discount'] ?? ''); ?>">
+                                                    value="<?php echo htmlspecialchars($studentData['discount'] ?? ''); ?>" required>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
-                                                <label for="selectPicker">Batch</label>
+                                                <label for="selectPicker">Batch *</label>
                                                 <select class="form-control select2" id="batch" name="batch" required>
                                                     <?php foreach ($batches as $batch): ?>
                                                         <option value="<?php echo htmlspecialchars($batch['id']); ?>" <?php echo (isset($studentData['batch']) && $studentData['batch'] == $batch['id']) ? 'selected' : ''; ?>>
@@ -198,7 +202,7 @@
                                     <div class="row">
                                         <div class="col-md-4">
                                             <div class="form-group">
-                                                <label for="aadharcardNumber">Aadharcard Number</label>
+                                                <label for="aadharcardNumber">Aadharcard Number *</label>
                                                 <input type="text" class="form-control" id="aadharcardNumber"
                                                     name="aadharcardNumber" placeholder="Enter Aadhar Number"
                                                     maxlength="12" minlength="12"
@@ -208,44 +212,50 @@
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
-                                                <label for="joiningPurpose">Joining Purpose</label>
+                                                <label for="joiningPurpose">Joining Purpose *</label>
                                                 <input type="text" class="form-control" id="joiningPurpose"
                                                     name="joiningPurpose" placeholder="Enter Joining Purpose"
-                                                    value="<?php echo htmlspecialchars($studentData['joining_purpose'] ?? ''); ?>" required>
+                                                    value="<?php echo htmlspecialchars($studentData['joining_purpose'] ?? ''); ?>"
+                                                    onkeypress="return onlyAlphabets(event)"
+                                                    required>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
-                                                <label for="extraTimeDaily">Extra time you can give daily</label>
+                                                <label for="extraTimeDaily">Extra time you can give daily *</label>
                                                 <input type="text" class="form-control" id="extraTimeDaily"
                                                     name="extraTimeDaily" placeholder="Enter Minimum half an hour"
-                                                    value="<?php echo htmlspecialchars($studentData['extratime_daily'] ?? ''); ?>" required>
+                                                    value="<?php echo htmlspecialchars($studentData['extratime_daily'] ?? ''); ?>"
+                                                    required>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-5">
                                             <div class="form-group">
-                                                <label for="address">Address</label>
+                                                <label for="address">Address *</label>
                                                 <input type="text" class="form-control" id="address" name="address"
                                                     placeholder="Enter Address"
-                                                    value="<?php echo htmlspecialchars($inquiryData['address'] ?? $studentData['address'] ?? ''); ?>" required>
+                                                    value="<?php echo htmlspecialchars($inquiryData['address'] ?? $studentData['address'] ?? ''); ?>"
+                                                    required>
                                             </div>
                                         </div>
                                         <div class="col-md-5">
                                             <div class="form-group">
-                                                <label for="gmailId">Gmail ID</label>
+                                                <label for="gmailId">Gmail ID *</label>
                                                 <input type="text" class="form-control" id="gmailId" name="gmailId"
                                                     placeholder="Enter Gmail ID"
-                                                    value="<?php echo htmlspecialchars($studentData['gmail_id'] ?? ''); ?>" required>
+                                                    value="<?php echo htmlspecialchars($studentData['gmail_id'] ?? ''); ?>"
+                                                    required>
                                             </div>
                                         </div>
                                         <div class="col-md-2">
                                             <div class="form-group">
-                                                <label for="dueDate">Due Date of Fees</label>
+                                                <label for="dueDate">Due Date of Fees *</label>
                                                 <input type="date" class="form-control" id="dueDate" name="dueDate"
                                                     placeholder="Enter Due Date of Fees"
-                                                    value="<?php echo htmlspecialchars($studentData['due_date'] ?? ''); ?>" required>
+                                                    value="<?php echo htmlspecialchars($studentData['due_date'] ?? ''); ?>"
+                                                    required>
                                             </div>
                                         </div>
                                     </div>
@@ -253,34 +263,39 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label for="fatherName">Father Name</label>
+                                                <label for="fatherName">Father Name *</label>
                                                 <input type="text" class="form-control" id="fatherName"
                                                     name="fatherName" placeholder="Father Name"
-                                                    value="<?php echo htmlspecialchars($studentData['father_name'] ?? ''); ?>" required>
+                                                    value="<?php echo htmlspecialchars($studentData['father_name'] ?? ''); ?>"
+                                                    onkeypress="return onlyAlphabets(event)"
+                                                    required>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label for="motherName">Mother Name</label>
+                                                <label for="motherName">Mother Name *</label>
                                                 <input type="text" class="form-control" id="motherName"
                                                     name="motherName" placeholder="Mother Name"
-                                                    value="<?php echo htmlspecialchars($studentData['mother_name'] ?? ''); ?>" required>
+                                                    value="<?php echo htmlspecialchars($studentData['mother_name'] ?? ''); ?>"
+                                                    onkeypress="return onlyAlphabets(event)"
+                                                    required>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label for="fatherNumber">Father Mobile Number</label>
-                                                <input type="text" class="form-control" id="fatherNumber" maxlength="10" minlength="10"
-                                                    name="fatherNumber" placeholder="Enter Father Mobile Number"
+                                                <label for="fatherNumber">Father Mobile Number *</label>
+                                                <input type="text" class="form-control" id="fatherNumber" maxlength="10"
+                                                    minlength="10" name="fatherNumber"
+                                                    placeholder="Enter Father Mobile Number"
                                                     value="<?php echo htmlspecialchars($studentData['father_number'] ?? ''); ?>"
                                                     onkeypress="return onlyNumbers(event)" required>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label for="homeNumber">Home Mobile Number</label>
+                                                <label for="homeNumber">Home Mobile Number *</label>
                                                 <input type="text" class="form-control" id="homeNumber"
                                                     name="homeNumber" placeholder="Enter Home Mobile Number"
                                                     maxlength="10" minlength="10"
@@ -292,7 +307,7 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label for="fatherProfession">Father Profession</label>
+                                                <label for="fatherProfession">Father Profession *</label>
                                                 <select class="form-control" id="fatherProfession"
                                                     name="fatherProfession" required>
                                                     <option value="">Select Profession</option>
@@ -306,10 +321,11 @@
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label for="workPlaceAddress">Name & Address of Work Place</label>
+                                                <label for="workPlaceAddress">Name & Address of Work Place *</label>
                                                 <input type="text" class="form-control" id="workPlaceAddress"
                                                     name="workPlaceAddress" placeholder="Work Place Address"
-                                                    value="<?php echo htmlspecialchars($studentData['workplace_address'] ?? ''); ?>" required>
+                                                    value="<?php echo htmlspecialchars($studentData['workplace_address'] ?? ''); ?>"
+                                                    required>
                                             </div>
                                         </div>
                                     </div>
@@ -389,11 +405,36 @@
 
     <script>
         // Set the maximum date of birth to prevent future dates and limit to 5 years ago
-        $(document).ready(function() {
+        $(document).ready(function () {
             var today = new Date();
             var maxDate = new Date(today.getFullYear() - 5, today.getMonth(), today.getDate()).toISOString().split('T')[0];
             $('#dob').attr('max', maxDate);
+
+            // Set the min and max attributes for the due date
+            var minDueDate = today.toISOString().split('T')[0];
+            var maxDueDate = new Date(today.setMonth(today.getMonth() + 2)).toISOString().split('T')[0];
+            $('#dueDate').attr('min', minDueDate);
+            $('#dueDate').attr('max', maxDueDate);
         });
+
+        function onlyNumbers(evt) {
+            var charCode = (evt.which) ? evt.which : evt.keyCode;
+            if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+                evt.preventDefault();
+                return false;
+            }
+            return true;
+        }
+
+        function onlyAlphabets(evt) {
+            var charCode = (evt.which) ? evt.which : evt.keyCode;
+            if (!((charCode >= 65 && charCode <= 90) || (charCode >= 97 && charCode <= 122) || charCode == 32)) {
+                evt.preventDefault();
+                // alert('Please enter only alphabets.');
+                return false;
+            }
+            return true;
+        }
     </script>
 
-<?php include ('./footer.php'); ?>
+    <?php include ('./footer.php'); ?>

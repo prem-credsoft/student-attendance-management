@@ -7,7 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $requiredFields = [
         'studentName', 'dob', 'gender', 'mobileNumber', 'address', 'totalFees', 'joiningPurpose', 
         'extraTimeDaily', 'gmailId', 'fatherName', 'motherName', 'fatherNumber', 'homeNumber', 
-        'fatherProfession', 'workPlaceAddress', 'aadharcardNumber', 'batch', 'dueDate', 'reference'
+        'fatherProfession', 'workPlaceAddress', 'aadharcardNumber', 'batch', 'dueDate', 'reference', 'discount', 'profession'
     ];
 
     $missingFields = [];
@@ -38,15 +38,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $phoneFields = ['mobileNumber', 'fatherNumber', 'homeNumber'];
     foreach ($phoneFields as $phoneField) {
         if (!preg_match('/^[6-9]\d{9}$/', $_POST[$phoneField])) {
-            $errors[] = ucfirst($phoneField) . ' must be a 10-digit number starting with 6, 7, 8, or 9.';
+            $errors[] = ucfirst($phoneField) . ' is Invaild';
         }
     }
+
+    // Validate Aadhar card number
+    if (!preg_match('/^\d{12}$/', $_POST['aadharcardNumber'])) {
+        $errors[] = 'Aadhar number is Invaild.';
+    }
+
+    // Validate profession
+    // $validProfessions = ['Student', 'Housewife', 'Working Professional', 'Kids', 'Other'];
+    // if (!in_array($_POST['profession'], $validProfessions)) {
+    //     $errors[] = 'Invalid profession selected.';
+    // }
 
     if (!empty($errors)) {
         header('Content-Type: application/json');
         echo json_encode([
             'success' => false,
-            'message' => implode(' ', $errors)
+            'message' => implode("\n", $errors)
         ]);
         exit;
     }
