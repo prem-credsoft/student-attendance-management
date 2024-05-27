@@ -5,7 +5,6 @@
     display: inline-block;
     float: right;
 }
-
 .dataTables_wrapper .dataTables_paginate .paginate_button {
     box-sizing: border-box;
     display: inline-block;
@@ -18,23 +17,24 @@
     border-color: lightgray !important;
     border: 1px solid transparent;
     border-radius: 0.25rem;
-  }
+}
 
-  .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
     color: #fff !important;
     background-color: #007bff !important;
     border: 1px solid gray;
-  }
+}
 
-  .dataTables_wrapper .dataTables_paginate .paginate_button.current {
+.dataTables_wrapper .dataTables_paginate .paginate_button.current {
     color: #fff !important;
     background-color: #007bff !important;
     border: 1px solid #007bff;
-  }
+}
 
-  .dataTables_wrapper .dataTables_paginate .paginate_button.disabled {
+.dataTables_wrapper .dataTables_paginate .paginate_button.disabled {
     cursor: default;
     color: #0069d9 !important;
     background-color: #fff !important;
     border: 1px solid transparent;
-  }
+}
+
