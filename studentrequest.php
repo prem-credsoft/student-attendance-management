@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $errors = [];
 
     // Validate Gmail ID
-    if (!filter_var($_POST['gmailId'], FILTER_VALIDATE_EMAIL) || strpos($_POST['gmailId'], '@') === false) {
+    if (!filter_var($_POST['gmailId'], FILTER_VALIDATE_EMAIL) || strpos($_POST['gmailId'], '@') === false || strpos($_POST['gmailId'], '.') === false) {
         $errors[] = 'Invalid Gmail ID. It must be a valid Gmail address.';
     }
 

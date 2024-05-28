@@ -18,6 +18,9 @@ if (isset($_GET['id'])) {
 
         // Delete associated fee records
         deleteFromTable('receipt', ['student_id' => $id]);
+
+        // Delete associated OTP records
+        deleteFromTable('otp', ['student_id' => $id]);
         
         // Then delete the student record
         deleteFromTable('studentinfo', ['id' => $id]);
