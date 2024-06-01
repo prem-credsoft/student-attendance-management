@@ -164,7 +164,10 @@ $(document).ready(function() {
                         columns: ':not(:last-child)'
                     }
                 }
-            ]
+            ],
+            "columnDefs": [
+        { "orderable": false, "targets": [8, 9] }
+      ]
         });
 });
 </script>

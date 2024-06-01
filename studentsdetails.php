@@ -140,8 +140,11 @@ $isSuperAdmin = isset($_SESSION['user_status']) && $_SESSION['user_status'] === 
           extend: 'pdfHtml5',
           title: 'Inquiry Data',
         }
+      ],
+      "columnDefs": [
+        { "orderable": false, "targets": [0, 4, 5, 6] }
       ]
     });
   });
-  </script>
+</script>
 <?php include ('./footer.php'); ?>

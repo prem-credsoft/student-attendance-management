@@ -117,11 +117,11 @@
                         if (response.success) {
                             window.location.href = 'user_management.php'; // Redirect to a generic page on success
                         } else {
-                            alert("invaild details!");
+                            // alert("invaild details!");
                         }
                     },
                     error: function (xhr, status, error) {
-                        alert("invaild details!, Correct the Email ID");
+                        alert("invaild details!");
                     }
                 });
             });

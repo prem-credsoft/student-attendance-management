@@ -15,11 +15,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Update existing student
         $id = $_POST['id'];
         $result = updateTable('users', $data, ['id' => $id]);
-        $actionResult = $result ? "User Details updated successfully." : "Failed to update Student Details.";
+        $actionResult = $result ? "User Details updated successfully." : "Failed to update Details.";
     } else {
         // Insert new student
         $result = insertIntoTable('users', $data);
-        $actionResult = $result ? "User Details submitted successfully." : "Failed to submit Student Details.";
+        $actionResult = $result ? "User Details submitted successfully." : "Failed to submit Details.";
         
     }
 

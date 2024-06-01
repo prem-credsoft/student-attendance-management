@@ -122,7 +122,10 @@ $(document).ready(function () {
         extend: 'pdfHtml5',
         title: 'Inquiry Data',
       }
-    ]
+    ],
+    "columnDefs": [
+        { "orderable": false, "targets": [0, 7] }
+      ]
   });
   });
 
