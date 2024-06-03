@@ -93,17 +93,17 @@
                   <div><span class="text-bold">Date:</span> <?php echo date("d-m-Y"); ?></div>
                 </div>
               </div>
-              <div class="card-body">
+              <div class="card-body p-3">
                 <form id="attendanceForm" method="post">
                   <input type="hidden" name="batch_id" value="<?php echo isset($_GET['id']) ? $_GET['id'] : 0; ?>">
                   <input type="hidden" name="current_date" value="<?php echo date("Y-m-d"); ?>">
                   <div class="table-responsive">
-                    <table id="combinedTable" class="table table-bordered table-striped">
+                    <table id="combinedTable" class="table table-bordered table-striped" style="margin-top:0px !important;">
                       <thead>
                         <tr>
-                          <th>GR No.</th>
-                          <th>Student Name</th>
-                          <th><?php echo date('D-d', strtotime(date('Y-m-d'))); ?></th>
+                          <th class="p-1">GR No.</th>
+                          <th class="p-1">Student Name</th>
+                          <th class="p-1"><?php echo date('D-d', strtotime(date('Y-m-d'))); ?></th>
                         </tr>
                       </thead>
                       <tbody>
@@ -115,9 +115,9 @@
                           $status = $attendance ? $attendance[0]['status'] : -1; // Default to -1 if no entry
                           $reason = $attendance && $status == 2 ? htmlspecialchars($attendance[0]['reason']) : ''; // Fetch reason if status is 'Leave'
                           echo "<tr>";
-                          echo "<td>RIE - {$student['id']}</td>";
-                          echo "<td>{$student['name']}</td>";
-                          echo "<td class='pr-5'>";
+                          echo "<td class='p-1'>{$student['id']}</td>";
+                          echo "<td class='p-1' style='width:100px'>{$student['name']}</td>";
+                          echo "<td class='p-1'>";
                           echo "<div style='display: flex;'>";
                           echo "<div><input type='radio' class='attendance-checkbox' data-student-id='{$student['id']}' name='status[{$student['id']}][$currentDate]' value='0' " . ($status == 0 ? "checked" : "") . "><Label class='pl-1 pr-2'>PR</Label></div>";
                           echo "<div><input type='radio' class='attendance-checkbox' data-student-id='{$student['id']}' name='status[{$student['id']}][$currentDate]' value='1' " . ($status == 1 ? "checked" : "") . "><Label class='pl-1 pr-2'>AB</Label></div>";
