@@ -146,7 +146,7 @@ $isFaculty = isset($_SESSION['user_status']) && $_SESSION['user_status'] === 'fa
       "dom": 'Bfrtip',
       "buttons": buttonsConfig,
       "columnDefs": [
-        { "orderable": false, "targets": [0, 3, 4, 5, 6] }
+        { "orderable": false, "targets": [3, 4, 5, 6] }
       ]
     });
   });

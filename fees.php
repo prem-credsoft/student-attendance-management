@@ -124,7 +124,7 @@ $(document).ready(function () {
       }
     ],
     "columnDefs": [
-        { "orderable": false, "targets": [0, 7] }
+        { "orderable": false, "targets": [7] }
       ]
   });
   });

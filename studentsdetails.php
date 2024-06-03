@@ -142,7 +142,7 @@ $isSuperAdmin = isset($_SESSION['user_status']) && $_SESSION['user_status'] === 
         }
       ],
       "columnDefs": [
-        { "orderable": false, "targets": [0, 4, 5, 6] }
+        { "orderable": false, "targets": [4, 5, 6] }
       ]
     });
   });
