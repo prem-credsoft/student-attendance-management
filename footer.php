@@ -1,6 +1,6 @@
 </div>
   <!-- /.content-wrapper -->
-<footer class="main-footer">
+<footer class="main-footer d-none">
     <strong>Copyright &copy; 2024 <a href="https://ravalenglishinstitute.com/" target="_blank">Raval English Institute</a></strong>
     All rights reserved.
     <div class="float-right d-none d-sm-inline-block">
