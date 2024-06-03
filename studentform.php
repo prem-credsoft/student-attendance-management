@@ -6,6 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Admin | Admission Form</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+    <style>
+        /* Hide increment and decrement buttons for number input except for #extraTimeDaily */
+        input[type=number]:not(#extraTimeDaily)::-webkit-outer-spin-button,
+        input[type=number]:not(#extraTimeDaily)::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        input[type=number]:not(#extraTimeDaily) {
+            -moz-appearance: textfield;
+        }
+    </style>
 </head>
 
 <body>
@@ -223,10 +235,10 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="extraTimeDaily">Extra time you can give daily *</label>
-                                                <input type="text" class="form-control" id="extraTimeDaily"
+                                                <input type="number" class="form-control" id="extraTimeDaily"
                                                     name="extraTimeDaily" placeholder="Enter Minimum half an hour"
                                                     value="<?php echo htmlspecialchars($studentData['extratime_daily'] ?? ''); ?>"
-                                                    required>
+                                                    step="0.5" min="0.5" max="3.5" required>
                                             </div>
                                         </div>
                                     </div>
