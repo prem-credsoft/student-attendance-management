@@ -49,6 +49,12 @@
     .table1 tr, .table2 tr{
       height: 90px;
     }
+    @media screen and (max-width: 580px) {
+      .a_list_head{
+        flex-direction: column;
+        align-items: flex-start !important;
+      }
+    }
 
   </style>
 </head>
@@ -80,7 +86,7 @@
         <div class="row">
           <div class="col-12">
             <div class="card">
-              <div class="card-header d-flex justify-content-between align-items-center">
+              <div class="card-header d-flex justify-content-between align-items-center a_list_head">
                 <h3 class="card-title">
                   <?php
                   $batchId = isset($_GET['id']) ? $_GET['id'] : 0;
