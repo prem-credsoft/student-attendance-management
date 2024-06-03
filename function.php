@@ -8,13 +8,23 @@ function selectFromTable($tableName, $columns, $whereConditions) {
     try {
         $sql = "SELECT " . implode(', ', $columns) . " FROM $tableName";
         if (!empty($whereConditions)) {
-            $sql .= " WHERE " . implode(' AND ', array_map(function ($col) {
-                return "$col = :$col";
-            }, array_keys($whereConditions)));
+            $sql .= " WHERE " . implode(' AND ', array_map(function ($col, $val) {
+                if (is_array($val)) {
+                    return "$col IN (:" . implode(", :", array_keys($val)) . ")";
+                } else {
+                    return "$col = :$col";
+                }
+            }, array_keys($whereConditions), $whereConditions));
         }
         $stmt = $db->prepare($sql);
         foreach ($whereConditions as $col => $value) {
-            $stmt->bindValue(":$col", $value);
+            if (is_array($value)) {
+                foreach ($value as $key => $val) {
+                    $stmt->bindValue(":$key", $val);
+                }
+            } else {
+                $stmt->bindValue(":$col", $value);
+            }
         }
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -96,5 +106,20 @@ function ordinal($number) {
 function ajaxResponse($success, $data = [], $message = '') {
     echo json_encode(['success' => $success, 'data' => $data, 'message' => $message]);
     exit;
+}
+
+// Add this function to handle complex queries
+function executeQuery($sql, $params = []) {
+    global $db;
+    try {
+        $stmt = $db->prepare($sql);
+        foreach ($params as $key => $value) {
+            $stmt->bindValue(":$key", $value);
+        }
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    } catch (PDOException $e) {
+        return false;
+    }
 }
 ?>
