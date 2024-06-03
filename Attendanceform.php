@@ -80,54 +80,56 @@
         <div class="row">
           <div class="col-12">
             <div class="card">
-              <div class="card-header">
+              <div class="card-header d-flex justify-content-between align-items-center">
                 <h3 class="card-title">
                   <?php
                   $batchId = isset($_GET['id']) ? $_GET['id'] : 0;
                   $batchDetails = selectFromTable('batch_table', ['name'], ['id' => $batchId]);
                   $batchName = $batchDetails ? $batchDetails[0]['name'] : 'Unknown Batch';
-                  echo "Batch Name: " . $batchName;
+                  echo "<strong>Batch Name:</strong> " . $batchName . "";
                   ?>
                 </h3>
                 <div class="card-tools">
-                  <div>Date: <?php echo date("d-m-Y"); ?></div>
+                  <div><span class="text-bold">Date:</span> <?php echo date("d-m-Y"); ?></div>
                 </div>
               </div>
               <div class="card-body">
                 <form id="attendanceForm" method="post">
                   <input type="hidden" name="batch_id" value="<?php echo isset($_GET['id']) ? $_GET['id'] : 0; ?>">
                   <input type="hidden" name="current_date" value="<?php echo date("Y-m-d"); ?>">
-                  <table id="combinedTable" class="table table-bordered table-striped">
-                    <thead>
-                      <tr>
-                        <th class="pl-5">GR No.</th>
-                        <th class="pl-5">Student Name</th>
-                        <th><?php echo date('D-d', strtotime(date('Y-m-d'))); ?></th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <?php
-                      $currentDate = date('Y-m-d');
-                      $students = selectFromTable('studentinfo', ['id', 'name'], ['batch' => $batchId]);
-                      foreach ($students as $student):
-                        $attendance = selectFromTable('attendance', ['status', 'reason'], ['student_id' => $student['id'], 'date' => $currentDate]);
-                        $status = $attendance ? $attendance[0]['status'] : -1; // Default to -1 if no entry
-                        $reason = $attendance && $status == 2 ? htmlspecialchars($attendance[0]['reason']) : ''; // Fetch reason if status is 'Leave'
-                        echo "<tr>";
-                        echo "<td>RIE - {$student['id']}</td>";
-                        echo "<td>{$student['name']}</td>";
-                        echo "<td class='pr-5'>";
-                        echo "<div style='display: flex;'>";
-                        echo "<div><input type='radio' class='attendance-checkbox' data-student-id='{$student['id']}' name='status[{$student['id']}][$currentDate]' value='0' " . ($status == 0 ? "checked" : "") . "><Label class='pr-3'>PR</Label></div>";
-                        echo "<div><input type='radio' class='attendance-checkbox' data-student-id='{$student['id']}' name='status[{$student['id']}][$currentDate]' value='1' " . ($status == 1 ? "checked" : "") . "><Label class='pr-3'>AB</Label></div>";
-                        echo "<div><input type='radio' class='attendance-checkbox' data-student-id='{$student['id']}' name='status[{$student['id']}][$currentDate]' value='2' " . ($status == 2 ? "checked" : "") . "><Label class='pr-3'>LE</Label></div>";
-                        echo "</div>";
-                        echo "</td>";
-                        echo "</tr>";
-                      endforeach;
-                      ?>
-                    </tbody>
-                  </table>
+                  <div class="table-responsive">
+                    <table id="combinedTable" class="table table-bordered table-striped">
+                      <thead>
+                        <tr>
+                          <th class="pl-5">GR No.</th>
+                          <th class="pl-5">Student Name</th>
+                          <th><?php echo date('D-d', strtotime(date('Y-m-d'))); ?></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <?php
+                        $currentDate = date('Y-m-d');
+                        $students = selectFromTable('studentinfo', ['id', 'name'], ['batch' => $batchId]);
+                        foreach ($students as $student) :
+                          $attendance = selectFromTable('attendance', ['status', 'reason'], ['student_id' => $student['id'], 'date' => $currentDate]);
+                          $status = $attendance ? $attendance[0]['status'] : -1; // Default to -1 if no entry
+                          $reason = $attendance && $status == 2 ? htmlspecialchars($attendance[0]['reason']) : ''; // Fetch reason if status is 'Leave'
+                          echo "<tr>";
+                          echo "<td>RIE - {$student['id']}</td>";
+                          echo "<td>{$student['name']}</td>";
+                          echo "<td class='pr-5'>";
+                          echo "<div style='display: flex;'>";
+                          echo "<div><input type='radio' class='attendance-checkbox' data-student-id='{$student['id']}' name='status[{$student['id']}][$currentDate]' value='0' " . ($status == 0 ? "checked" : "") . "><Label class='pr-3'>PR</Label></div>";
+                          echo "<div><input type='radio' class='attendance-checkbox' data-student-id='{$student['id']}' name='status[{$student['id']}][$currentDate]' value='1' " . ($status == 1 ? "checked" : "") . "><Label class='pr-3'>AB</Label></div>";
+                          echo "<div><input type='radio' class='attendance-checkbox' data-student-id='{$student['id']}' name='status[{$student['id']}][$currentDate]' value='2' " . ($status == 2 ? "checked" : "") . "><Label class='pr-3'>LE</Label></div>";
+                          echo "</div>";
+                          echo "</td>";
+                          echo "</tr>";
+                        endforeach;
+                        ?>
+                      </tbody>
+                    </table>
+                  </div>
                   <button type="button" id="submitAttendance" class="btn btn-primary mt-3">Submit Attendance</button>
                 </form>
 
