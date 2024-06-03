@@ -101,8 +101,8 @@
                     <table id="combinedTable" class="table table-bordered table-striped">
                       <thead>
                         <tr>
-                          <th class="pl-5">GR No.</th>
-                          <th class="pl-5">Student Name</th>
+                          <th>GR No.</th>
+                          <th>Student Name</th>
                           <th><?php echo date('D-d', strtotime(date('Y-m-d'))); ?></th>
                         </tr>
                       </thead>
@@ -119,9 +119,9 @@
                           echo "<td>{$student['name']}</td>";
                           echo "<td class='pr-5'>";
                           echo "<div style='display: flex;'>";
-                          echo "<div><input type='radio' class='attendance-checkbox' data-student-id='{$student['id']}' name='status[{$student['id']}][$currentDate]' value='0' " . ($status == 0 ? "checked" : "") . "><Label class='pr-3'>PR</Label></div>";
-                          echo "<div><input type='radio' class='attendance-checkbox' data-student-id='{$student['id']}' name='status[{$student['id']}][$currentDate]' value='1' " . ($status == 1 ? "checked" : "") . "><Label class='pr-3'>AB</Label></div>";
-                          echo "<div><input type='radio' class='attendance-checkbox' data-student-id='{$student['id']}' name='status[{$student['id']}][$currentDate]' value='2' " . ($status == 2 ? "checked" : "") . "><Label class='pr-3'>LE</Label></div>";
+                          echo "<div><input type='radio' class='attendance-checkbox' data-student-id='{$student['id']}' name='status[{$student['id']}][$currentDate]' value='0' " . ($status == 0 ? "checked" : "") . "><Label class='pl-1 pr-2'>PR</Label></div>";
+                          echo "<div><input type='radio' class='attendance-checkbox' data-student-id='{$student['id']}' name='status[{$student['id']}][$currentDate]' value='1' " . ($status == 1 ? "checked" : "") . "><Label class='pl-1 pr-2'>AB</Label></div>";
+                          echo "<div><input type='radio' class='attendance-checkbox' data-student-id='{$student['id']}' name='status[{$student['id']}][$currentDate]' value='2' " . ($status == 2 ? "checked" : "") . "><Label class='pl-1 pr-2'>LE</Label></div>";
                           echo "</div>";
                           echo "</td>";
                           echo "</tr>";
