@@ -54,6 +54,9 @@
         flex-direction: column;
         align-items: flex-start !important;
       }
+      .a_column_100{
+        width:100px;
+      }
     }
 
   </style>
@@ -121,8 +124,8 @@
                           $status = $attendance ? $attendance[0]['status'] : -1; // Default to -1 if no entry
                           $reason = $attendance && $status == 2 ? htmlspecialchars($attendance[0]['reason']) : ''; // Fetch reason if status is 'Leave'
                           echo "<tr>";
-                          echo "<td class='p-1'>{$student['id']}</td>";
-                          echo "<td class='p-1' style='width:100px'>{$student['name']}</td>";
+                          echo "<td class='p-1 a_column_100'>{$student['id']}</td>";
+                          echo "<td class='p-1 a_column_100'>{$student['name']}</td>";
                           echo "<td class='p-1'>";
                           echo "<div style='display: flex;'>";
                           echo "<div><input type='radio' class='attendance-checkbox' data-student-id='{$student['id']}' name='status[{$student['id']}][$currentDate]' value='0' " . ($status == 0 ? "checked" : "") . "><Label class='pl-1 pr-2'>PR</Label></div>";
