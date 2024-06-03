@@ -7,7 +7,17 @@
     <title>Admin | Fees Form</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
 </head>
-
+<style>
+    /* Hide HTML5 Up and Down arrows on number inputs */
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+    input[type=number] {
+        -moz-appearance: textfield; /* Firefox */
+    }
+</style>
 <?php
 include ('./header.php');
 require_once ('function.php');
@@ -105,16 +115,16 @@ $isFullyPaid = $selectedStudent && $selectedStudent['pending_fees'] == 0;
                                 <?php else: ?>
                                     <!-- Display form fields -->
                                     <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="amount">Amount *</label>
-                                                <input type="number" class="form-control" id="amount" name="amount"
-                                                       placeholder="Enter Amount" required
-                                                       value="<?php echo htmlspecialchars($amount); ?>"
-                                                       max="<?php echo htmlspecialchars($selectedStudent['pending_fees'] ?? '0'); ?>"
-                                                       oninput="validateAmount()" required>
-                                            </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="amount">Amount *</label>
+                                            <input type="number" class="form-control" id="amount" name="amount"
+                                                placeholder="Enter Amount" required
+                                                value="<?php echo htmlspecialchars($amount); ?>"
+                                                max="<?php echo htmlspecialchars($selectedStudent['pending_fees'] ?? '0'); ?>"
+                                                oninput="validateAmount()" required>
                                         </div>
+                                    </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="message">Message</label>
