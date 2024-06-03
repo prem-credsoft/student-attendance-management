@@ -67,13 +67,32 @@
         <!-- Inquiry List -->
         <div class="card">
           <div class="card-header">
-            <h3>Students List</h3>
+            <div class="row align-items-center">
+              <div class="col-12 col-md-6">
+                <h3>Students List</h3>
+              </div>
+              <div class="col-12 col-md-1">
+                <label for="batchFilter" class="mb-0">Select Batch</label>
+              </div>
+              <div class="col-12 col-md-4">
+                <select class="form-control" id="batchFilter">
+                  <option value="">All Batches</option>
+                  <?php
+                  $batches = selectFromTable('batch_table', ['id', 'name'], []);
+                  foreach ($batches as $batch) {
+                    echo "<option value='" . $batch['id'] . "'>" . htmlspecialchars($batch['name']) . "</option>";
+                  }
+                  ?>
+                </select>
+              </div>
+            </div>
           </div>
           <div class="card-body card-list-custom">
             <table class="table table-bordered" id="inquiryTable">
               <thead>
                 <tr>
                   <th><input type='checkbox' id='selectAll'></th>
+                  <!-- <th>GR No.</th> -->
                   <th>Name</th>
                   <th>Mobile Number</th>
                 </tr>
@@ -81,10 +100,11 @@
               <tbody class="overflow-auto">
                 <?php
                 require_once 'function.php';
-                $rows = selectFromTable('studentinfo', ['id', 'name', 'mobile_number', 'admission_time'], []);
+                $rows = selectFromTable('studentinfo', ['id', 'name', 'mobile_number'], []);
                 foreach ($rows as $row) {
                   echo "<tr>";
                   echo "<td><input type='checkbox' name='selectedInquiries[]' value='" . $row['id'] . "'></td>";
+                  // echo "<td>RIE - " . htmlspecialchars($row['id']) . "</td>";
                   echo "<td>" . htmlspecialchars($row['name']) . "</td>";
                   echo "<td>" . htmlspecialchars($row['mobile_number']) . "</td>";
                   echo "</tr>";
@@ -168,13 +188,13 @@
       logSelectedInquiries();
     });
 
-    // Existing AJAX call to update inquiry list
-    function updateInquiryList() {
-      var dateFilter = $('#dateFilter').val();
+    // Function to update the student list based on the selected batch
+    function updateStudentList() {
+      var batchId = $('#batchFilter').val();
       $.ajax({
-        url: 'inquiries_fetch.php',
+        url: 'students_fetch.php',
         type: 'GET',
-        data: { dateFilter: dateFilter },
+        data: { batchId: batchId },
         success: function (data) {
           $('#inquiryTable tbody').html(data);
           // Reattach event listeners to new checkboxes
@@ -188,8 +208,8 @@
       });
     }
 
-    // Attach the updateInquiryList to the select element
-    $('#dateFilter').change(updateInquiryList);
+    // Attach the updateStudentList to the batch filter select element
+    $('#batchFilter').change(updateStudentList);
 
     // Other functions and event listeners
   });
