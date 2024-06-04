@@ -5,6 +5,11 @@ require_once 'function.php';
 $isSuperAdmin = isset($_SESSION['user_status']) && $_SESSION['user_status'] === 'super_admin';
 ?>
 
+<style>
+.hide-column {
+    display: none; /* Hide the column initially */
+}
+</style>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
@@ -50,8 +55,29 @@ $isSuperAdmin = isset($_SESSION['user_status']) && $_SESSION['user_status'] === 
                       <th>GR No.</th>
                       <th>Student Name</th>
                       <th>Batch</th>
-                      <!-- <th>Pending Fees</th> -->
                       <th>Mobile Number</th>
+
+                      <th class="hide-column">DOB</th>
+                      <th class="hide-column">Gender</th>
+                      <th class="hide-column">Aadharcard Number</th>
+                      <th class="hide-column">Profession</th>
+                      <th class="hide-column">Address</th>
+                      <th class="hide-column">Reference</th>
+                      <th class="hide-column">Joining Purpose</th>
+                      <th class="hide-column">Extratime Daily</th>
+                      <th class="hide-column">Gmail Id</th>
+                      <th class="hide-column">Father Name</th>
+                      <th class="hide-column">Father Number</th>
+                      <th class="hide-column">Father Profession</th>
+                      <th class="hide-column">Workplace Address</th>
+                      <th class="hide-column">Mother Name</th>
+                      <th class="hide-column">Home Number</th>
+                      <th class="hide-column">Admission Time</th>
+                      <th class="hide-column">Total Fees</th>
+                      <th class="hide-column">Paid Fees</th>
+                      <th class="hide-column">Pending Fees</th>
+                      <th class="hide-column">Scholarship</th>
+
                       <th>Profiles</th>
                       <th>Edit</th>
                       <?php if ($isSuperAdmin): ?>
@@ -61,15 +87,35 @@ $isSuperAdmin = isset($_SESSION['user_status']) && $_SESSION['user_status'] === 
                   </thead>
                   <tbody>
                     <?php
-                    // require_once 'function.php';
-                    $rows = selectFromTable('studentinfo', ['id', 'name', 'batch', 'batch_name', 'pending_fees', 'mobile_number'], []);
+                    $rows = selectFromTable('studentinfo', ['id', 'name', 'batch', 'batch_name', 'pending_fees', 'mobile_number', 'dob', 'gender', 'aadharcard_number', 'profession', 'address', 'reference', 'joining_purpose', 'extratime_daily', 'gmail_id', 'father_name', 'father_number', 'father_profession', 'workplace_address', 'mother_name', 'home_number', 'admission_time', 'total_fees', 'paid_fees', 'pending_fees', 'discount'], []);
                     foreach ($rows as $row) {
                       echo "<tr>";
                       echo "<td> RIE - " . $row['id'] . "</td>";
                       echo "<td style='word-break: break-all;'>" . $row['name'] . "</td>";
                       echo "<td>" . $row['batch_name'] . "</td>";
-                      // echo "<td>" . $row['pending_fees'] . ".00</td>";
                       echo "<td>" . $row['mobile_number'] . "</td>";
+
+                      echo "<td class='hide-column'>" . $row['dob'] . "</td>";
+                      echo "<td class='hide-column'>" . $row['gender'] . "</td>";
+                      echo "<td class='hide-column'>" . $row['aadharcard_number'] . "</td>";
+                      echo "<td class='hide-column'>" . $row['profession'] . "</td>";
+                      echo "<td class='hide-column'>" . $row['address'] . "</td>";
+                      echo "<td class='hide-column'>" . $row['reference'] . "</td>";
+                      echo "<td class='hide-column'>" . $row['joining_purpose'] . "</td>";
+                      echo "<td class='hide-column'>" . $row['extratime_daily'] . "</td>";
+                      echo "<td class='hide-column'>" . $row['gmail_id'] . "</td>";
+                      echo "<td class='hide-column'>" . $row['father_name'] . "</td>";
+                      echo "<td class='hide-column'>" . $row['father_number'] . "</td>";
+                      echo "<td class='hide-column'>" . $row['father_profession'] . "</td>";
+                      echo "<td class='hide-column'>" . $row['workplace_address'] . "</td>";
+                      echo "<td class='hide-column'>" . $row['mother_name'] . "</td>";
+                      echo "<td class='hide-column'>" . $row['home_number'] . "</td>";
+                      echo "<td class='hide-column'>" . $row['admission_time'] . "</td>";
+                      echo "<td class='hide-column'>" . $row['total_fees'] . "</td>";
+                      echo "<td class='hide-column'>" . $row['paid_fees'] . "</td>";
+                      echo "<td class='hide-column'>" . $row['pending_fees'] . "</td>";
+                      echo "<td class='hide-column'>" . $row['discount'] . "</td>";
+
                       echo "<td><a href='javascript:void(0);' onclick='confirmProfile(" . $row['id'] . ")' class='btn btn-info'>Profile</a></td>";
                       echo "<td><a href='javascript:void(0);' onclick='confirmEdit(" . $row['id'] . ")' class='btn btn-primary'><i class='fas fa-edit'></i></a></td>";
                       if ($isSuperAdmin) {
@@ -122,6 +168,11 @@ $isSuperAdmin = isset($_SESSION['user_status']) && $_SESSION['user_status'] === 
 </script>
 <script>
   $(document).ready(function () {
+    var columnSelector = ':not(:last-child)';
+  <?php if ($isSuperAdmin): ?>
+  columnSelector = ':lt(-3)';
+  <?php endif; ?>
+
     $('#example2').DataTable({
       "paging": true,
       "lengthChange": true,
@@ -134,11 +185,17 @@ $isSuperAdmin = isset($_SESSION['user_status']) && $_SESSION['user_status'] === 
       "buttons": [
         {
           extend: 'excelHtml5',
-          title: 'Inquiry Data',
+          title: 'Students Data',
+          exportOptions: {
+            columns: columnSelector
+          }
         },
         {
           extend: 'pdfHtml5',
-          title: 'Inquiry Data',
+          title: 'Students Data',
+          exportOptions: {
+            columns: columnSelector
+          }
         }
       ],
       "columnDefs": [
