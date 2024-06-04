@@ -6,7 +6,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $action = $_POST['action'] ?? null; // '1' for accept, '2' for reject
 
     if ($attendanceId && $action) {
-        $updateSuccess = updateTable('attendance', ['leave_status' => $action], ['id' => $attendanceId]);
+        // Prepare data for updating
+        $updateData = ['leave_status' => $action];
+        
+        // If action is '2' (reject), set status to 4 (blank)
+        if ($action == '2') {
+            $updateData['status'] = '4';
+        }
+
+        $updateSuccess = updateTable('attendance', $updateData, ['id' => $attendanceId]);
 
         if ($updateSuccess) {
             ajaxResponse(true, [], 'Leave status updated successfully.');

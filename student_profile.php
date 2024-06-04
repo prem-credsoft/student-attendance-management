@@ -47,7 +47,7 @@
       // $totalPaidFees = $totalPaidFees[0]['total_paid'] ?? 0;
       
       // Fetch attendance records
-      $attendanceRecords = selectFromTable('attendance', ['date', 'status', 'Reason'], ['student_id' => $studentId]);
+      $attendanceRecords = selectFromTable('attendance', ['date', 'status', 'Reason', 'leave_status'], ['student_id' => $studentId]);
 
       // Initialize counters
       $presentCount = 0;
@@ -60,7 +60,7 @@
           $presentCount++;
         } elseif ($record['status'] == 1) {
           $absentCount++;
-        } elseif ($record['status'] == 2) {
+        } elseif ($record['leave_status'] == 1) {
           $leaveCount++;
         }
       }
@@ -158,7 +158,7 @@
                     </thead>
                     <tbody>
                       <?php foreach ($attendanceRecords as $record): ?>
-                        <?php if ($record['status'] == 2): // Only show leave records ?>
+                        <?php if ($record['leave_status'] == 1): ?>
                           <tr>
                             <td><?php echo htmlspecialchars($record['date']); ?></td>
                             <td><?php echo htmlspecialchars($record['Reason']); ?></td>
