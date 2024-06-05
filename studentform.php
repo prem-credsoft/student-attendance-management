@@ -186,8 +186,7 @@
                                                 <label for="totalFees">Total Fees *</label>
                                                 <input type="number" class="form-control" id="totalFees"
                                                     name="totalFees" placeholder="Enter Total Fees"
-                                                    value="<?php echo htmlspecialchars($studentData['total_fees'] ?? ''); ?>"
-                                                    required>
+                                                    value="<?php echo htmlspecialchars($studentData['total_fees'] ?? ''); ?>">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
@@ -195,7 +194,7 @@
                                                 <label for="discount">Scholarship *</label>
                                                 <input type="number" class="form-control" id="discount" name="discount"
                                                     placeholder="Enter Scholarship"
-                                                    value="<?php echo htmlspecialchars($studentData['discount'] ?? ''); ?>" oninput="validateDiscount()" required>
+                                                    value="<?php echo htmlspecialchars($studentData['discount'] ?? ''); ?>" oninput="validateDiscount()">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
@@ -266,8 +265,7 @@
                                                 <label for="dueDate">Due Date of Fees *</label>
                                                 <input type="date" class="form-control" id="dueDate" name="dueDate"
                                                     placeholder="Enter Due Date of Fees"
-                                                    value="<?php echo htmlspecialchars($studentData['due_date'] ?? ''); ?>"
-                                                    required>
+                                                    value="<?php echo htmlspecialchars($studentData['due_date'] ?? ''); ?>">
                                             </div>
                                         </div>
                                     </div>

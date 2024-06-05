@@ -5,9 +5,9 @@ require_once 'db.php';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Required fields list
     $requiredFields = [
-        'studentName', 'dob', 'gender', 'mobileNumber', 'address', 'totalFees', 'joiningPurpose', 
+        'studentName', 'dob', 'gender', 'mobileNumber', 'address', 'joiningPurpose', 
         'extraTimeDaily', 'gmailId', 'fatherName', 'motherName', 'fatherNumber', 'homeNumber', 
-        'fatherProfession', 'workPlaceAddress', 'aadharcardNumber', 'batch', 'dueDate', 'reference', 'discount', 'profession'
+        'fatherProfession', 'workPlaceAddress', 'aadharcardNumber', 'batch', 'reference', 'profession'
     ];
 
     $missingFields = [];
@@ -115,7 +115,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Calculate and update pending fees
     if ($result) {
         $totalPayments = selectFromTable('receipt', ['SUM(amount) as total_payments'], ['student_id' => $studentId])[0]['total_payments'] ?? 0;
-        $pendingFees = $data['total_fees'] - $totalPayments - $data['discount'];
+        $pendingFees = (int)$data['total_fees'] - (int)$totalPayments - (int)$data['discount'];
         $updatePendingFees = updateTable('studentinfo', ['pending_fees' => $pendingFees], ['id' => $studentId]);
         if (!$updatePendingFees) {
             $actionResult .= " Failed to update pending fees.";
