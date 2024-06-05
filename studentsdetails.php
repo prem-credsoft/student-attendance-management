@@ -90,7 +90,7 @@ $isSuperAdmin = isset($_SESSION['user_status']) && $_SESSION['user_status'] === 
                     $rows = selectFromTable('studentinfo', ['id', 'name', 'batch', 'batch_name', 'pending_fees', 'mobile_number', 'dob', 'gender', 'aadharcard_number', 'profession', 'address', 'reference', 'joining_purpose', 'extratime_daily', 'gmail_id', 'father_name', 'father_number', 'father_profession', 'workplace_address', 'mother_name', 'home_number', 'admission_time', 'total_fees', 'paid_fees', 'pending_fees', 'discount'], []);
                     foreach ($rows as $row) {
                       echo "<tr>";
-                      echo "<td> RIE - " . $row['id'] . "</td>";
+                      echo "<td>" . $row['id'] . "</td>";
                       echo "<td style='word-break: break-all;'>" . $row['name'] . "</td>";
                       echo "<td>" . $row['batch_name'] . "</td>";
                       echo "<td>" . $row['mobile_number'] . "</td>";

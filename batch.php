@@ -85,7 +85,7 @@ $isFaculty = isset($_SESSION['user_status']) && $_SESSION['user_status'] === 'fa
                     $batches = selectFromTable('batch_table', ['id', 'name', 'FacultyName'], []);
                     foreach ($batches as $row) {
                       echo "<tr>";
-                      echo "<td>Batch - " . $row['id'] . "</td>";
+                      echo "<td>" . $row['id'] . "</td>";
                       echo "<td>" . $row['name'] . "</td>";
                       echo "<td>" . $row['FacultyName'] . "</td>";
                       echo "<td><a href='javascript:void(0);' onclick='confirmAttendance(" . $row['id'] . ")' class='btn btn-success col-md-12'>Attendance</a></td>";
