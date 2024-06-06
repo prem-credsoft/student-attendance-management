@@ -199,6 +199,7 @@
           },
           success: function (response) {
             alert('Attendance submitted successfully');
+            window.location.href = 'batch.php';
             // console.log(response);
           },
           error: function () {
