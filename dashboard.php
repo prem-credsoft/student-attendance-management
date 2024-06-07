@@ -108,7 +108,15 @@
           <!-- small box -->
           <div class="small-box bg-success">
             <div class="inner">
-              <h3>8</h3>
+              <?php
+              require_once 'function.php';
+              $result = selectFromTable('attendance', ['COUNT(id) AS total_attendance'], []);
+              $total_attendance = $result[0]['total_attendance'];
+              if ($total_attendance > 1000) {
+                  $total_attendance = floor($total_attendance / 1000) * 1000 . '+';
+              }
+              ?>
+              <h3><?php echo $total_attendance; ?></h3>
               <p>Attendance</p>
             </div>
             <div class="icon">
