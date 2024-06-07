@@ -93,7 +93,7 @@ $isSuperAdmin = isset($_SESSION['user_status']) && $_SESSION['user_status'] === 
                       echo "<td>" . $row['id'] . "</td>";
                       echo "<td style='word-break: break-all;'>" . $row['name'] . "</td>";
                       echo "<td>" . $row['batch_name'] . "</td>";
-                      echo "<td>" . $row['mobile_number'] . "</td>";
+                      echo "<td>" . $row['mobile_number'] . " <a href='tel:" . $row['mobile_number'] . "' class='btn btn-success ml-2'><i class='fas fa-phone'></i></a></td>";
 
                       echo "<td class='hide-column'>" . $row['dob'] . "</td>";
                       echo "<td class='hide-column'>" . $row['gender'] . "</td>";
