@@ -110,8 +110,13 @@
             <div class="inner">
               <?php
               require_once 'function.php';
-              $result = selectFromTable('attendance', ['COUNT(id) AS total_attendance'], []);
-              $total_attendance = $result[0]['total_attendance'];
+              $datesResult = selectFromTable('attendance', ['date'], []);
+              $dates = array_unique(array_column($datesResult, 'date'));
+              $total_attendance = 0;
+              foreach ($dates as $date) {
+                  $batchResult = selectFromTable('attendance', ['COUNT(DISTINCT batch_id) AS batch_count'], ['date' => $date]);
+                  $total_attendance += $batchResult[0]['batch_count'];
+              }
               if ($total_attendance > 1000) {
                   $total_attendance = floor($total_attendance / 1000) * 1000 . '+';
               }
