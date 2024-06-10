@@ -110,18 +110,14 @@
             <div class="inner">
               <?php
               require_once 'function.php';
-              $datesResult = selectFromTable('attendance', ['date'], []);
-              $dates = array_unique(array_column($datesResult, 'date'));
-              $total_attendance = 0;
-              foreach ($dates as $date) {
-                  $batchResult = selectFromTable('attendance', ['COUNT(DISTINCT batch_id) AS batch_count'], ['date' => $date]);
-                  $total_attendance += $batchResult[0]['batch_count'];
-              }
-              if ($total_attendance > 1000) {
-                  $total_attendance = floor($total_attendance / 1000) * 1000 . '+';
-              }
+              $dateToday = date('Y-m-d');
+              $resultToday = selectFromTable('attendance', ['COUNT(DISTINCT student_id) AS total_attendance_today'], ['date' => $dateToday]);
+              $totalAttendanceToday = $resultToday[0]['total_attendance_today'];
+
+              $resultTotal = selectFromTable('studentinfo', ['COUNT(*) AS total_students'], []);
+              $totalStudents = $resultTotal[0]['total_students'];
               ?>
-              <h3><?php echo $total_attendance; ?></h3>
+              <h3><?php echo $totalAttendanceToday . '/' . $totalStudents; ?></h3>
               <p>Attendance</p>
             </div>
             <div class="icon">
