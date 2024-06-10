@@ -136,7 +136,7 @@ $isFaculty = isset($_SESSION['user_status']) && $_SESSION['user_status'] === 'fa
     <?php endif; ?>
 
     $('#example1').DataTable({
-      "paging": true,
+      "paging": false,
       "lengthChange": false,
       "searching": false,
       "ordering": true,
