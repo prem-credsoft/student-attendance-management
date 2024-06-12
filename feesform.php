@@ -14,8 +14,9 @@
         -webkit-appearance: none;
         margin: 0;
     }
+
     input[type=number] {
-        -moz-appearance: textfield; /* Firefox */
+        -moz-appearance: textfield;
     }
 </style>
 <?php
@@ -115,48 +116,56 @@ $isFullyPaid = $selectedStudent && $selectedStudent['pending_fees'] == 0;
                                 <?php else: ?>
                                     <!-- Display form fields -->
                                     <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="amount">Amount *</label>
-                                            <input type="number" class="form-control" id="amount" name="amount"
-                                                placeholder="Enter Amount" required
-                                                value="<?php echo htmlspecialchars($amount); ?>"
-                                                max="<?php echo htmlspecialchars($selectedStudent['pending_fees'] ?? '0'); ?>"
-                                                oninput="validateAmount()" required>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="amount">Amount *</label>
+                                                <input type="number" class="form-control" id="amount" name="amount"
+                                                    placeholder="Enter Amount" required
+                                                    value="<?php echo htmlspecialchars($amount); ?>"
+                                                    max="<?php echo htmlspecialchars($selectedStudent['pending_fees'] ?? '0'); ?>"
+                                                    oninput="validateAmount()" required>
+                                            </div>
                                         </div>
-                                    </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="message">Message</label>
                                                 <input type="text" class="form-control" id="message" name="message"
-                                                       placeholder="Enter Message"
-                                                       value="<?php echo htmlspecialchars($message); ?>">
+                                                    placeholder="Enter Message"
+                                                    value="<?php echo htmlspecialchars($message); ?>">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-md-4">
+                                        <div class="col-md-3">
                                             <div class="form-group">
                                                 <label for="due_date">Next Due Date</label>
                                                 <input type="date" class="form-control" id="due_date" name="due_date"
-                                                       value="<?php echo htmlspecialchars($dueDate ?? ''); ?>">
+                                                    value="<?php echo htmlspecialchars($dueDate ?? ''); ?>">
                                             </div>
                                         </div>
-                                        <div class="col-md-4">
+                                        <div class="col-md-3">
                                             <div class="form-group">
                                                 <label for="pending_fees">Pending Fees</label>
                                                 <input type="text" class="form-control" id="pending_fees"
-                                                       name="pending_fees"
-                                                       value="<?php echo htmlspecialchars($selectedStudent['pending_fees'] ?? '0'); ?>"
-                                                       readonly>
+                                                    name="pending_fees"
+                                                    value="<?php echo htmlspecialchars($selectedStudent['pending_fees'] ?? '0'); ?>"
+                                                    readonly>
                                             </div>
                                         </div>
-                                        <div class="col-md-4">
+                                        <div class="col-md-3">
                                             <div class="form-group">
                                                 <label for="total_paid">Student Total Paid</label>
                                                 <input type="text" class="form-control" id="total_paid" name="total_paid"
-                                                       value="<?php echo htmlspecialchars($selectedStudent['paid_fees'] ?? '0'); ?>"
-                                                       readonly>
+                                                    value="<?php echo htmlspecialchars($selectedStudent['paid_fees'] ?? '0'); ?>"
+                                                    readonly>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label for="payment_date">Payment Date *</label>
+                                                <input type="date" class="form-control" id="payment_date"
+                                                    name="payment_date"
+                                                    value="<?php echo htmlspecialchars($paymentDate ?? ''); ?>" required>
                                             </div>
                                         </div>
                                     </div>
@@ -166,7 +175,7 @@ $isFullyPaid = $selectedStudent && $selectedStudent['pending_fees'] == 0;
                                     <input type="hidden" name="id" value="<?php echo $_GET['id']; ?>">
                                 <?php endif; ?>
                                 <button type="submit"
-                                        class="btn btn-primary"><?php echo $editMode ? 'Update' : 'Submit'; ?></button>
+                                    class="btn btn-primary"><?php echo $editMode ? 'Update' : 'Submit'; ?></button>
                             </div>
                         </form>
                     </div>

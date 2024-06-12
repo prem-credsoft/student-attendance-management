@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'address' => $_POST['address'] ?? '',
         'time_of_classes' => $_POST['time_of_classes'] ?? '',
         'profession' => $_POST['profession'] ?? 'Other',
-        'date' => date('Y-m-d')
+        'date' => $_POST['inquire_date'] ?? ''
     ];
 
     // Check for empty required fields

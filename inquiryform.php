@@ -46,7 +46,8 @@
                                 <div class="form-group">
                                     <label for="name">Name *</label>
                                     <input type="text" class="form-control" id="name" name="name"
-                                        placeholder="Enter Name" value="" required onkeypress="return onlyAlphabets(event)">
+                                        placeholder="Enter Name" value="" required
+                                        onkeypress="return onlyAlphabets(event)">
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6">
@@ -54,7 +55,8 @@
                                             <label for="mobile_number">Mobile Number *</label>
                                             <input type="text" class="form-control" id="mobile_number"
                                                 name="mobile_number" placeholder="Enter Mobile Number" value=""
-                                                maxlength="10" required onkeypress="return onlyNumbers(event)" oninput="validateMobileNumber()">
+                                                maxlength="10" required onkeypress="return onlyNumbers(event)"
+                                                oninput="validateMobileNumber()">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -73,26 +75,39 @@
                                 <div class="form-group">
                                     <label for="reference">Reference *</label>
                                     <input type="text" class="form-control" id="reference" name="reference"
-                                        placeholder="Enter Reference" value="" onkeypress="return onlyAlphabets(event)" required>
+                                        placeholder="Enter Reference" value="" onkeypress="return onlyAlphabets(event)"
+                                        required>
                                 </div>
                                 <div class="form-group">
                                     <label for="address">Address *</label>
                                     <input type="text" class="form-control" id="address" name="address"
                                         placeholder="Enter Address" value="" required>
                                 </div>
-                                <div class="form-group">
-                                    <label for="time_of_classes">Preference Time of Classes *</label>
-                                    <select class="form-control" id="time_of_classes" name="time_of_classes" required>
-                                        <option value="7:30 AM To 8:30 AM">7:30 AM To 8:30 AM</option>
-                                        <option value="8:30 AM To 9:30 AM">8:30 AM To 9:30 AM</option>
-                                        <option value="3:00 PM To 4:00 PM">3:00 PM To 4:00 PM</option>
-                                        <option value="4:00 PM To 5:00 PM">4:00 PM To 5:00 PM</option>
-                                        <option value="5:00 PM To 6:00 PM">5:00 PM To 6:00 PM</option>
-                                        <option value="6:00 PM To 7:00 PM">6:00 PM To 7:00 PM</option>
-                                        <option value="7:00 PM To 8:00 PM">7:00 PM To 8:00 PM</option>
-                                        <option value="8:00 PM To 9:00 PM">8:00 PM To 9:00 PM</option>
-                                        <option value="9:00 PM To 10:00 PM">9:00 PM To 10:00 PM</option>
-                                    </select>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="time_of_classes">Preference Time of Classes *</label>
+                                            <select class="form-control" id="time_of_classes" name="time_of_classes"
+                                                required>
+                                                <option value="7:30 AM To 8:30 AM">7:30 AM To 8:30 AM</option>
+                                                <option value="8:30 AM To 9:30 AM">8:30 AM To 9:30 AM</option>
+                                                <option value="3:00 PM To 4:00 PM">3:00 PM To 4:00 PM</option>
+                                                <option value="4:00 PM To 5:00 PM">4:00 PM To 5:00 PM</option>
+                                                <option value="5:00 PM To 6:00 PM">5:00 PM To 6:00 PM</option>
+                                                <option value="6:00 PM To 7:00 PM">6:00 PM To 7:00 PM</option>
+                                                <option value="7:00 PM To 8:00 PM">7:00 PM To 8:00 PM</option>
+                                                <option value="8:00 PM To 9:00 PM">8:00 PM To 9:00 PM</option>
+                                                <option value="9:00 PM To 10:00 PM">9:00 PM To 10:00 PM</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="inquire_date">Inquire Date *</label>
+                                            <input type="date" class="form-control" id="inquire_date"
+                                                name="inquire_date" required>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </form>
