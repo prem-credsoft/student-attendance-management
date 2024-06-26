@@ -169,6 +169,21 @@ $isFullyPaid = $selectedStudent && $selectedStudent['pending_fees'] == 0;
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="form-group">
+                                        <label>Payment Method</label>
+                                        <div>
+                                            <input type="radio" id="cash" name="payment_method" value="cash" checked onclick="toggleOnlineField(false)">
+                                            <label for="cash">Cash</label>
+                                            <input type="radio" id="online" name="payment_method" value="online" onclick="toggleOnlineField(true)">
+                                            <label for="online">Online</label>
+                                        </div>
+                                        <input type="text" class="form-control" id="online_info" name="online_info" placeholder="Enter Online info" style="display:none;">
+                                    </div>
+                                    <script>
+                                        function toggleOnlineField(show) {
+                                            document.getElementById('online_info').style.display = show ? 'block' : 'none';
+                                        }
+                                    </script>
                                 <?php endif; ?>
                                 <!-- Add a hidden input to handle the ID when updating -->
                                 <?php if ($editMode): ?>

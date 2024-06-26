@@ -18,7 +18,7 @@ $receipts = [];
 if ($studentId) {
   $studentInfo = selectFromTable('studentinfo', ['name'], ['id' => $studentId]);
   $studentName = $studentInfo[0]['name'] ?? "Unknown Student";
-  $receipts = selectFromTable('receipt', ['id', 'student_id', 'amount', 'payment_date', 'message', 'due_date'], ['student_id' => $studentId]);
+  $receipts = selectFromTable('receipt', ['id', 'student_id', 'amount', 'payment_date', 'message', 'payment_method', 'due_date'], ['student_id' => $studentId]);
 }
 
 // Check user status from session
@@ -73,6 +73,7 @@ $isFaculty = isset($_SESSION['user_status']) && $_SESSION['user_status'] === 'fa
                       <th>Payment Date</th>
                       <th>Next Due Date</th>
                       <th>Message</th>
+                      <th>Payment Method</th>
                       <th>Print</th>
                       <?php if ($isSuperAdmin || $isAdmin): ?>
                         <th>Edit</th>
@@ -92,6 +93,7 @@ $isFaculty = isset($_SESSION['user_status']) && $_SESSION['user_status'] === 'fa
                         <td><?php echo htmlspecialchars($receipt['payment_date']); ?></td>
                         <td><?php echo htmlspecialchars($receipt['due_date']); ?></td>
                         <td><?php echo htmlspecialchars($receipt['message']); ?></td>
+                        <td><?php echo htmlspecialchars($receipt['payment_method']); ?></td>
                         <?php if ($isSuperAdmin || $isAdmin): ?>
                           <td><button class="btn btn-info" onclick="printPDF('<?php echo $receipt['id']; ?>')"><i
                                 class="fas fa-print"></i></button></td>
@@ -127,6 +129,11 @@ $isFaculty = isset($_SESSION['user_status']) && $_SESSION['user_status'] === 'fa
 <script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.html5.min.js"></script>
 <script>
   $(document).ready(function () {
+    var columnSelector = ':not(:last-child)';
+  <?php if ($isSuperAdmin): ?>
+  columnSelector = ':lt(-3)';
+  <?php endif; ?>
+
     $('#example1').DataTable({
       "paging": true,
       "lengthChange": true,
@@ -140,11 +147,20 @@ $isFaculty = isset($_SESSION['user_status']) && $_SESSION['user_status'] === 'fa
         {
           extend: 'excelHtml5',
           title: 'Inquiry Data',
+          exportOptions: {
+            columns: columnSelector
+          }
         },
         {
           extend: 'pdfHtml5',
           title: 'Inquiry Data',
+          exportOptions: {
+            columns: columnSelector
+          }
         }
+      ],
+      "columnDefs": [
+        { "orderable": false, "targets": [8, 9, 10] }
       ]
     });
   });

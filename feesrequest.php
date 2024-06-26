@@ -6,8 +6,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $studentId = $_POST['student_id'] ?? null;
     $amount = $_POST['amount'] ?? null;
     $message = $_POST['message'] ?? '';
-    $paymentDate = $_POST['payment_date'];  // Use the provided payment date
+    $paymentDate = $_POST['payment_date'];
     $dueDate = $_POST['due_date'] ?? null;
+    $paymentMethod = $_POST['payment_method'] ?? 'cash';
+    $onlineInfo = '';
+    if ($paymentMethod === 'online') {
+        $onlineInfo = $_POST['online_info'] ?? '';
+    }
 
     if (!$studentId || !$amount) {
         echo json_encode(['success' => false, 'message' => 'Required fields are missing.']);
@@ -19,7 +24,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         'amount' => $amount,
         'payment_date' => $paymentDate,
         'message' => $message,
-        'due_date' => $dueDate
+        'due_date' => $dueDate,
+        'payment_method' => $paymentMethod . ($onlineInfo ? (': ' . $onlineInfo) : '')
     ];
 
     if ($id) {
