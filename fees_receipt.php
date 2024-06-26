@@ -87,7 +87,7 @@ $isFaculty = isset($_SESSION['user_status']) && $_SESSION['user_status'] === 'fa
                     <?php foreach ($receipts as $receipt): ?>
                       <tr>
                         <td><?php echo htmlspecialchars($receipt['id']); ?></td>
-                        <td>RIE - <?php echo htmlspecialchars($receipt['student_id']); ?></td>
+                        <td><?php echo htmlspecialchars($receipt['student_id']); ?></td>
                         <td><?php echo htmlspecialchars($studentName); ?></td>
                         <td><?php echo htmlspecialchars($receipt['amount']); ?></td>
                         <td><?php echo htmlspecialchars($receipt['payment_date']); ?></td>

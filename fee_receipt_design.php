@@ -206,14 +206,19 @@ $paymentDate = date('d/m/Y', strtotime($receiptDetails[0]['payment_date'])) ?? d
                         <td><?php echo $receiptCount; ?></td>
                         <td>
                             <?php
-                            // Determine the installment description based on receiptCount
-                            switch ($receiptCount) {
-                                case 1:
-                                    echo "Course Fees - 1st Installment";
-                                    break;
-                                default:
-                                    echo "Course Fees - " . ordinal($receiptCount) . " Installment";
-                                    break;
+                            // Check if fully paid
+                            if ($pendingFees == 0) {
+                                echo "Course Fees - Fully Paid";
+                            } else {
+                                // Determine the installment description based on receiptCount
+                                switch ($receiptCount) {
+                                    case 1:
+                                        echo "Course Fees - 1st Installment";
+                                        break;
+                                    default:
+                                        echo "Course Fees - " . ordinal($receiptCount) . " Installment";
+                                        break;
+                                }
                             }
                             ?>
                         </td>
