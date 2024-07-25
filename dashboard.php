@@ -50,7 +50,7 @@
             <div class="inner">
               <?php
               require_once 'function.php';
-              $result = selectFromTable('studentinfo', ['COUNT(*) AS total_students'], []);
+              $result = selectFromTable('studentinfo', ['COUNT(*) AS total_students'], ['alumnistudent' => 0]);
               $total_students = $result[0]['total_students'];
               ?>
               <h3><?php echo $total_students; ?></h3>
@@ -71,7 +71,7 @@
             <div class="inner">
               <?php
               require_once 'function.php';
-              $result = selectFromTable('studentinfo', ['COUNT(*) AS total_receipt'], ['fee_status' => 0]);
+              $result = selectFromTable('studentinfo', ['COUNT(*) AS total_receipt'], ['fee_status' => 0, 'alumnistudent' => 0]);
               $total_receipt = $result[0]['total_receipt'];
               ?>
               <h3><?php echo $total_receipt; ?></h3>
@@ -114,7 +114,7 @@
               $resultToday = selectFromTable('attendance', ['COUNT(DISTINCT student_id) AS total_attendance_today'], ['date' => $dateToday]);
               $totalAttendanceToday = $resultToday[0]['total_attendance_today'];
 
-              $resultTotal = selectFromTable('studentinfo', ['COUNT(*) AS total_students'], []);
+              $resultTotal = selectFromTable('studentinfo', ['COUNT(*) AS total_students'], ['alumnistudent' => 0]);
               $totalStudents = $resultTotal[0]['total_students'];
               ?>
               <h3><?php echo $totalAttendanceToday . '/' . $totalStudents; ?></h3>
@@ -128,6 +128,26 @@
           </div>
         </div>
         <!-- ./col -->
+        <div class="col-lg-3 col-6">
+          <!-- small box -->
+          <div class="small-box bg-primary">
+            <div class="inner">
+              <?php
+              require_once 'function.php';
+              $result = selectFromTable('studentinfo', ['COUNT(*) AS total_alumni'], ['alumnistudent' => 1]);
+              $total_alumni = $result[0]['total_alumni'];
+              ?>
+              <h3><?php echo $total_alumni; ?></h3>
+
+              <p>Alumni Students</p>
+            </div>
+            <div class="icon">
+              <i class="ion ion-android-contacts"></i>
+            </div>
+            <a href="./alumni_students_details.php" class="small-box-footer">More info <i
+                class="fas fa-arrow-circle-right"></i></a>
+          </div>
+        </div>
       </div>
       <!-- /.row -->
       <div class="row">

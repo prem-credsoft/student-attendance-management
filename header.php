@@ -35,9 +35,9 @@ $isAdmin = isset($_SESSION['user_status']) && $_SESSION['user_status'] === 'admi
   <!-- iCheck -->
   <link rel="stylesheet" href="./plugins/icheck-bootstrap/icheck-bootstrap.min.css">
   <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
-<!-- Data table  -->
+  <!-- Data table  -->
   <!-- <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css"> -->
-<!-- <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.1/css/buttons.dataTables.min.css"> -->
+  <!-- <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.1/css/buttons.dataTables.min.css"> -->
   <link rel="stylesheet" href="./asset/css/adminlte.min.css">
   <link rel="stylesheet" href="./asset/css/style.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -76,7 +76,7 @@ $isAdmin = isset($_SESSION['user_status']) && $_SESSION['user_status'] === 'admi
         <li class="nav-item">
           <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
-        
+
       </ul>
 
       <!-- Right navbar links -->
@@ -176,6 +176,17 @@ $isAdmin = isset($_SESSION['user_status']) && $_SESSION['user_status'] === 'admi
                     <i class="nav-icon fas fa-user"></i>
                     <p>
                       User Management
+                    </p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="./alumni_students_details.php" class="nav-link
+            <?php if (strpos($_SERVER['REQUEST_URI'], 'alumni_students_details.php') !== false) {
+              echo "active";
+            } ?>">
+                    <i class="nav-icon fas fa-user"></i>
+                    <p>
+                      Alumni Students
                     </p>
                   </a>
                 </li>
