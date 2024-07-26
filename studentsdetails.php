@@ -80,9 +80,7 @@ $isSuperAdmin = isset($_SESSION['user_status']) && $_SESSION['user_status'] === 
 
                       <th>Profiles</th>
                       <th>Edit</th>
-                      <?php if ($isSuperAdmin): ?>
-                        <th>Move To Alumni</th>
-                      <?php endif; ?>
+                      <th>Move To Alumni</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -118,9 +116,7 @@ $isSuperAdmin = isset($_SESSION['user_status']) && $_SESSION['user_status'] === 
 
                       echo "<td><a href='javascript:void(0);' onclick='confirmProfile(" . $row['id'] . ")' class='btn btn-info'>Profile</a></td>";
                       echo "<td><a href='javascript:void(0);' onclick='confirmEdit(" . $row['id'] . ")' class='btn btn-primary'><i class='fas fa-edit'></i></a></td>";
-                      if ($isSuperAdmin) {
-                        echo "<td><a href='javascript:void(0);' onclick='confirmMoveToAlumni(" . $row['id'] . ")' class='btn btn-secondary'>Move</a></td>";
-                      }
+                      echo "<td><a href='javascript:void(0);' onclick='confirmMoveToAlumni(" . $row['id'] . ")' class='btn btn-secondary'>Move</a></td>";
                       echo "</tr>";
                     }
                     ?>

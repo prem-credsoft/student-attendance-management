@@ -83,8 +83,8 @@ $isSuperAdmin = isset($_SESSION['user_status']) && $_SESSION['user_status'] === 
                       <th class="hide-column">Scholarship</th>
 
                       <th>Profiles</th>
+                      <th>Move To Student</th>
                       <?php if ($isSuperAdmin): ?>
-                        <th>Move To Student</th>
                         <th>Delete</th>
                       <?php endif; ?>
                     </tr>
@@ -123,8 +123,8 @@ $isSuperAdmin = isset($_SESSION['user_status']) && $_SESSION['user_status'] === 
                       echo "<td class='hide-column'>" . $row['discount'] . "</td>";
 
                       echo "<td><a href='javascript:void(0);' onclick='confirmProfile(" . $row['id'] . ")' class='btn btn-info'>Profile</a></td>";
+                      echo "<td><a href='javascript:void(0);' onclick='confirmMoveToStudent(" . $row['id'] . ")' class='btn btn-secondary'>Move</a></td>";
                       if ($isSuperAdmin) {
-                        echo "<td><a href='javascript:void(0);' onclick='confirmMoveToStudent(" . $row['id'] . ")' class='btn btn-secondary'>Move</a></td>";
                         echo "<td><a href='javascript:void(0);' onclick='confirmDelete(" . $row['id'] . ")' class='btn btn-danger'><i class='fas fa-trash'></a></td>";
                       }
                       echo "</tr>";

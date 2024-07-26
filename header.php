@@ -179,6 +179,9 @@ $isAdmin = isset($_SESSION['user_status']) && $_SESSION['user_status'] === 'admi
                     </p>
                   </a>
                 </li>
+              </li>
+              <?php endif; ?>
+              <?php if (!$isFaculty): ?>
                 <li class="nav-item">
                   <a href="./alumni_students_details.php" class="nav-link
             <?php if (strpos($_SERVER['REQUEST_URI'], 'alumni_students_details.php') !== false) {
@@ -189,9 +192,6 @@ $isAdmin = isset($_SESSION['user_status']) && $_SESSION['user_status'] === 'admi
                       Alumni Students
                     </p>
                   </a>
-                </li>
-              <?php endif; ?>
-              <?php if (!$isFaculty): ?>
                 <li class="nav-item">
                   <a href="./inquirysms.php" class="nav-link
             <?php if (strpos($_SERVER['REQUEST_URI'], 'inquirysms.php') !== false) {
