@@ -84,6 +84,7 @@ $isSuperAdmin = isset($_SESSION['user_status']) && $_SESSION['user_status'] === 
 
                       <th>Profiles</th>
                       <?php if ($isSuperAdmin): ?>
+                        <th>Move To Student</th>
                         <th>Delete</th>
                       <?php endif; ?>
                     </tr>
@@ -92,7 +93,7 @@ $isSuperAdmin = isset($_SESSION['user_status']) && $_SESSION['user_status'] === 
                     <?php
                     $rows = selectFromTable('studentinfo', 
                         ['id', 'name', 'batch', 'batch_name', 'pending_fees', 'mobile_number', 'dob', 'gender', 'aadharcard_number', 'profession', 'address', 'reference', 'joining_purpose', 'extratime_daily', 'gmail_id', 'father_name', 'father_number', 'father_profession', 'workplace_address', 'mother_name', 'home_number', 'admission_time', 'total_fees', 'paid_fees', 'pending_fees', 'discount'], 
-                        ['alumnistudent' => 1]); // Only select rows where alumnistudent is 1
+                        ['alumnistudent' => 1]);
                     foreach ($rows as $row) {
                       echo "<tr>";
                       echo "<td>" . $row['id'] . "</td>";
@@ -123,6 +124,7 @@ $isSuperAdmin = isset($_SESSION['user_status']) && $_SESSION['user_status'] === 
 
                       echo "<td><a href='javascript:void(0);' onclick='confirmProfile(" . $row['id'] . ")' class='btn btn-info'>Profile</a></td>";
                       if ($isSuperAdmin) {
+                        echo "<td><a href='javascript:void(0);' onclick='confirmMoveToStudent(" . $row['id'] . ")' class='btn btn-secondary'>Move</a></td>";
                         echo "<td><a href='javascript:void(0);' onclick='confirmDelete(" . $row['id'] . ")' class='btn btn-danger'><i class='fas fa-trash'></a></td>";
                       }
                       echo "</tr>";
@@ -169,6 +171,16 @@ $isSuperAdmin = isset($_SESSION['user_status']) && $_SESSION['user_status'] === 
       window.location.href = 'student_function.php?id=' + id;
     }
   }
+
+  function confirmMoveToStudent(id) {
+  var confirmAction = confirm("Are you sure you want to move this alumni to student?");
+  if (confirmAction) {
+    $.post('move_to_student.php', { student_id: id }, function(response) {
+      alert(response.message);
+      location.reload();
+    }, 'json');
+  }
+}
 </script>
 <script>
   $(document).ready(function () {
