@@ -177,9 +177,14 @@
                     $studentNames = [];
                     if ($attendanceRecords) {
                       $studentIds = array_column($attendanceRecords, 'student_id');
-                      $studentNames = selectFromTable('studentinfo', ['id', 'name'], ['id' => $studentIds]);
+                      $studentNames = selectFromTable('studentinfo', ['id', 'name'], ['id' => $studentIds, 'alumnistudent' => 0]);
                       $studentNames = array_column($studentNames, 'name', 'id');
                     }
+
+                    // Filter out records for alumni students
+                    $attendanceRecords = array_filter($attendanceRecords, function($record) use ($studentNames) {
+                      return isset($studentNames[$record['student_id']]);
+                    });
 
                     foreach ($attendanceRecords as $record) {
                       ?>
