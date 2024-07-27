@@ -61,7 +61,7 @@
                                         <tbody>
                                             <?php
                                             $batchId = isset($_GET['id']) ? intval($_GET['id']) : 0;
-                                            $students = selectFromTable('studentinfo', ['id', 'name', 'gender', 'mobile_number'], ['batch' => $batchId]);
+                                            $students = selectFromTable('studentinfo', ['id', 'name', 'gender', 'mobile_number'], ['batch' => $batchId , 'alumnistudent' => 0]);
                                             foreach ($students as $student) {
                                                 echo "<tr>";
                                                 echo "<td>RIE - " . htmlspecialchars($student['id']) . "</td>";

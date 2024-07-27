@@ -118,7 +118,7 @@
                       <tbody>
                         <?php
                         $currentDate = date('Y-m-d');
-                        $students = selectFromTable('studentinfo', ['id', 'name'], ['batch' => $batchId]);
+                        $students = selectFromTable('studentinfo', ['id', 'name'], ['batch' => $batchId , 'alumnistudent' => 0]);
                         foreach ($students as $student) :
                           $attendance = selectFromTable('attendance', ['status', 'reason'], ['student_id' => $student['id'], 'date' => $currentDate]);
                           $status = $attendance ? $attendance[0]['status'] : -1; // Default to -1 if no entry
